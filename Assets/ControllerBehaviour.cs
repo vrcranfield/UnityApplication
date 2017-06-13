@@ -4,6 +4,7 @@ using VRTK;
 public class ControllerBehaviour : MonoBehaviour
 {
     private GameObject menu;
+    private GameObject headset;
 
     private void Start()
     {
@@ -16,6 +17,8 @@ public class ControllerBehaviour : MonoBehaviour
         if (GlobalVariables.menu != null)
             menu = GlobalVariables.menu;
 
+        headset = GameObject.FindGameObjectWithTag("Headset");
+
         //Setup controller event listeners for Menu button
         GetComponent<VRTK_ControllerEvents>().ButtonTwoReleased += new ControllerInteractionEventHandler(DoButtonTwoReleased);
     }
@@ -25,7 +28,20 @@ public class ControllerBehaviour : MonoBehaviour
         if (menu == null)
             menu = GlobalVariables.menu;
 
-        menu.SetActive(!menu.activeSelf);
+        if(menu.activeSelf)
+        {
+            Debug.Log("Hiding Menu");
+            menu.SetActive(false);
+        } else
+        {
+            Debug.Log("Showing Menu");
+
+            Vector3 headsetFrontPosition = headset.transform.position + 2.5f * headset.transform.forward.normalized;
+
+            menu.transform.position = new Vector3(headsetFrontPosition.x, menu.transform.position.y, headsetFrontPosition.z);
+            menu.transform.rotation = Quaternion.LookRotation(menu.transform.position - headset.transform.position);
+            menu.SetActive(true);
+        }
     }
 
 }

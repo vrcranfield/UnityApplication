@@ -16,6 +16,7 @@ TagManager:
   - FxTemporaire
   - projectile
   - Menu
+  - Headset
   layers:
   - Default
   - TransparentFX
