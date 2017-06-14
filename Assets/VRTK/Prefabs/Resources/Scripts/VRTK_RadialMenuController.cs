@@ -110,8 +110,13 @@ namespace VRTK
         {
             if(e.touchpadAxis.normalized.magnitude < 0.5f)
             {
-                DoClickButton();
+                Debug.Log("Button inside");
+            } else
+            {
+                Debug.Log("Button outside");
             }
+
+            DoClickButton();
         }
 
         protected virtual void DoTouchpadUnclicked(object sender, ControllerInteractionEventArgs e)
