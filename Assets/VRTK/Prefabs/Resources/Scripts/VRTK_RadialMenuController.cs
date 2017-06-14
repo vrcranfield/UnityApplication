@@ -108,7 +108,8 @@ namespace VRTK
 
         protected virtual void DoTouchpadClicked(object sender, ControllerInteractionEventArgs e)
         {
-            if(e.touchpadAxis.normalized.magnitude < 0.5f)
+            Debug.Log("TouchpadAxisMagnitude: " + e.touchpadAxis.magnitude);
+            if(e.touchpadAxis.magnitude < 0.5f)
             {
                 Debug.Log("Button inside");
             } else
