@@ -14,8 +14,8 @@ public class RadialMenuBehaviour : MonoBehaviour {
 		
 	}
 
-    public void OnButtonClick()
+    public void OnButtonClick(int buttonId)
     {
-        Debug.Log("Button Clicked!");
+        Debug.Log("Button " + buttonId + " Clicked!");
     }
 }
