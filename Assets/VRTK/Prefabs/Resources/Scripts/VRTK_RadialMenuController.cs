@@ -26,6 +26,7 @@ namespace VRTK
         protected bool menuShown;
 
         private const float INTERNAL_TOUCHPAD_RADIUS = 0.5f;
+        private const float THRESHOLD_DELTA = 0.1f;
 
         protected virtual void Awake()
         {
@@ -148,18 +149,19 @@ namespace VRTK
         {
             if (touchpadTouched)
             {
-                // Only handle event if outside of the central button region
-                if (e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS)
+                // Todo refactor these conditionals
+                if(menuShown)
                 {
-                    if(!menuShown)
+                    if(e.touchpadAxis.magnitude <= INTERNAL_TOUCHPAD_RADIUS - THRESHOLD_DELTA)
                     {
-                        DoShowMenu(CalculateAngle(e));
+                        DoHideMenu(true);
+                    } else
+                    {
+                        DoChangeAngle(CalculateAngle(e));
                     }
-
-                    DoChangeAngle(CalculateAngle(e));
-                } else if(menuShown)
+                } else if(e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS + THRESHOLD_DELTA)
                 {
-                    DoHideMenu(true);
+                    DoShowMenu(CalculateAngle(e));
                 }
             }
         }
