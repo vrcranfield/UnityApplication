@@ -108,7 +108,10 @@ namespace VRTK
 
         protected virtual void DoTouchpadClicked(object sender, ControllerInteractionEventArgs e)
         {
-            DoClickButton();
+            if(e.touchpadAxis.normalized.magnitude < 0.5f)
+            {
+                DoClickButton();
+            }
         }
 
         protected virtual void DoTouchpadUnclicked(object sender, ControllerInteractionEventArgs e)
