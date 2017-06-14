@@ -338,20 +338,34 @@ namespace VRTK
             currentHover = buttonID; //Set current hover ID, need this to un-hover if selected button changes
         }
 
-        //Simple tweening for menu, scales linearly from 0 to 1 and 1 to 0
+        //Simple tweening for menu, scales and fades linearly from 0 to 1 and 1 to 0
         protected virtual IEnumerator TweenMenuScale(bool show)
         {
+            int duration = 125; //in ms
+
+            CanvasGroup cg = GetComponent<CanvasGroup>();
+
+            float alphaDirection = -1;
+            float targetAlpha = 0;
             float targetScale = 0;
             Vector3 Dir = -1 * Vector3.one;
+
             if (show)
             {
                 targetScale = 1;
+                targetAlpha = 1;
+                alphaDirection = 1;
                 Dir = Vector3.one;
             }
+
+            float deltaAlpha = Mathf.Abs(targetAlpha - cg.alpha);
+            deltaAlpha *= alphaDirection;
+
             int i = 0; //Sanity check for infinite loops
-            while (i < 250 && ((show && transform.localScale.x < targetScale) || (!show && transform.localScale.x > targetScale)))
+            while (i < duration && ((show && transform.localScale.x < targetScale) || (!show && transform.localScale.x > targetScale)))
             {
-                transform.localScale += Dir * Time.deltaTime * 4f; //Tweening function - currently 0.25 second linear
+                cg.alpha += deltaAlpha * Time.deltaTime * (1000f / duration);
+                transform.localScale += Dir * Time.deltaTime * (1000f / duration); //Tweening function - currently 0.125 second linear
                 yield return true;
                 i++;
             }
