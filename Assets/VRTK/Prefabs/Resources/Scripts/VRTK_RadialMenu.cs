@@ -370,6 +370,7 @@ namespace VRTK
                 i++;
             }
             transform.localScale = Dir * targetScale;
+            cg.alpha = targetAlpha;
             StopCoroutine("TweenMenuScale");
         }
 
