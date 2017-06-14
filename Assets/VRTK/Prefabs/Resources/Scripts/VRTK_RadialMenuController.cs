@@ -23,6 +23,9 @@ namespace VRTK
         protected VRTK_RadialMenu menu;
         protected float currentAngle; //Keep track of angle for when we click
         protected bool touchpadTouched;
+        protected bool menuShown;
+
+        private const float INTERNAL_TOUCHPAD_RADIUS = 0.5f;
 
         protected virtual void Awake()
         {
@@ -81,12 +84,14 @@ namespace VRTK
 
         protected virtual void DoShowMenu(float initialAngle, object sender = null)
         {
+            menuShown = true;
             menu.ShowMenu();
             DoChangeAngle(initialAngle); // Needed to register initial touch position before the touchpad axis actually changes
         }
 
         protected virtual void DoHideMenu(bool force, object sender = null)
         {
+            menuShown = false;
             menu.StopTouching();
             menu.HideMenu(force);
         }
@@ -108,16 +113,12 @@ namespace VRTK
 
         protected virtual void DoTouchpadClicked(object sender, ControllerInteractionEventArgs e)
         {
-            Debug.Log("TouchpadAxisMagnitude: " + e.touchpadAxis.magnitude);
-            if(e.touchpadAxis.magnitude < 0.5f)
+            // Only handle event if outside of the central button region
+            if (e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS)
             {
-                Debug.Log("Button inside");
-            } else
-            {
-                Debug.Log("Button outside");
+                DoClickButton();
             }
 
-            DoClickButton();
         }
 
         protected virtual void DoTouchpadUnclicked(object sender, ControllerInteractionEventArgs e)
@@ -128,7 +129,12 @@ namespace VRTK
         protected virtual void DoTouchpadTouched(object sender, ControllerInteractionEventArgs e)
         {
             touchpadTouched = true;
-            DoShowMenu(CalculateAngle(e));
+
+            // Only handle event if outside of the central button region
+            if (e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS)
+            {
+                DoShowMenu(CalculateAngle(e));
+            }
         }
 
         protected virtual void DoTouchpadUntouched(object sender, ControllerInteractionEventArgs e)
@@ -142,7 +148,19 @@ namespace VRTK
         {
             if (touchpadTouched)
             {
-                DoChangeAngle(CalculateAngle(e));
+                // Only handle event if outside of the central button region
+                if (e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS)
+                {
+                    if(!menuShown)
+                    {
+                        DoShowMenu(CalculateAngle(e));
+                    }
+
+                    DoChangeAngle(CalculateAngle(e));
+                } else if(menuShown)
+                {
+                    DoHideMenu(true);
+                }
             }
         }
 
