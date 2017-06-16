@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CanvasBehaviour : MonoBehaviour {
+public class StaticMenuBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
