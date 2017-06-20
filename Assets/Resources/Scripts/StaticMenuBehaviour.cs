@@ -39,4 +39,9 @@ public class StaticMenuBehaviour : MonoBehaviour {
         RenderSettings.ambientLight = new Color(value, value, value, 1);
     }
 
+    public void OnInvertHandsToggled(bool value)
+    {
+        Debug.Log("Invert hands changed to " + value);
+    }
+
 }
