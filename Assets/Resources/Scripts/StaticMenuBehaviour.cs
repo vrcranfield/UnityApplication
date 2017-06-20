@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class StaticMenuBehaviour : MonoBehaviour {
 
@@ -30,6 +31,12 @@ public class StaticMenuBehaviour : MonoBehaviour {
         Debug.Log("Close");
         gameObject.SetActive(false);
 
+    }
+
+    public void OnLightIntensityChanged(Slider slider)
+    {
+        float value = slider.value;
+        RenderSettings.ambientLight = new Color(value, value, value, 1);
     }
 
 }
