@@ -53,4 +53,9 @@ public class ControllerBehaviour : MonoBehaviour
         }
     }
 
+    public void updateReferences()
+    {
+        gameObject.GetComponent<VRTK_Pointer>().pointerRenderer = gameObject.GetComponent<VRTK_StraightPointerRenderer>();
+    }
+
 }
