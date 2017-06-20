@@ -7,15 +7,17 @@ public class UIPointerBehaviour : VRTK_UIPointer {
 
     protected VRTK_RadialMenu radialMenu;
 
-    protected override void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e) 
+    public override bool PointerActive()
     {
         if (radialMenu == null)
             radialMenu = GlobalVariables.radialMenu;
 
-        if (radialMenu != null && !radialMenu.isShown)
+        if (radialMenu != null && radialMenu.isShown)
         {
-            base.DoActivationButtonPressed(sender, e);
+            return false;
         }
+
+        return base.PointerActive();
     }
 
     protected override void Awake()
