@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571409, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -6490,7 +6490,7 @@ Prefab:
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 703
+      value: 1970
       objectReference: {fileID: 0}
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
@@ -8885,7 +8885,7 @@ MonoBehaviour:
   activationButton: 10
   activationMode: 0
   selectionButton: 3
-  clickMethod: 1
+  clickMethod: 0
   attemptClickOnDeactivate: 0
   clickAfterHoverDuration: 0
   controller: {fileID: 0}
@@ -9502,7 +9502,7 @@ MonoBehaviour:
   activationButton: 10
   activationMode: 0
   selectionButton: 3
-  clickMethod: 1
+  clickMethod: 0
   attemptClickOnDeactivate: 0
   clickAfterHoverDuration: 0
   controller: {fileID: 0}
