@@ -14,8 +14,8 @@ public class ControllerBehaviour : MonoBehaviour
             return;
         }
 
-        if (GlobalVariables.menu != null)
-            menu = GlobalVariables.menu;
+        if (GlobalVariables.staticMenu != null)
+            menu = GlobalVariables.staticMenu;
 
         headset = GameObject.FindGameObjectWithTag("Headset");
 
@@ -26,7 +26,7 @@ public class ControllerBehaviour : MonoBehaviour
     private void DoButtonTwoReleased(object sender, ControllerInteractionEventArgs e)
     {
         if (menu == null)
-            menu = GlobalVariables.menu;
+            menu = GlobalVariables.staticMenu;
 
         if(menu.activeSelf)
         {

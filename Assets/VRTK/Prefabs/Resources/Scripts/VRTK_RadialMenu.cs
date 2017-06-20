@@ -264,6 +264,8 @@ namespace VRTK
 
         protected virtual void Awake()
         {
+            GlobalVariables.radialMenu = this;
+
             if (Application.isPlaying)
             {
                 if (!isShown)

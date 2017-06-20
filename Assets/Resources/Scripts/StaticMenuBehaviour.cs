@@ -5,7 +5,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         // Register
-        GlobalVariables.menu = gameObject;
+        GlobalVariables.staticMenu = gameObject;
         gameObject.SetActive(false);
 	}
 	
