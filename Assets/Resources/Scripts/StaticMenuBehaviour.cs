@@ -3,10 +3,13 @@ using UnityEngine.UI;
 
 public class StaticMenuBehaviour : MonoBehaviour {
 
+    private VRManagerBehaviour vrManager;
+
 	// Use this for initialization
 	void Start () {
         // Register
         GlobalVariables.staticMenu = gameObject;
+        vrManager = GlobalVariables.vrManager;
         gameObject.SetActive(false);
 	}
 	
@@ -15,7 +18,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 		
 	}
 
-    public void OnQuitClicked()
+    public void OnQuitButtonClicked()
     {
     #if UNITY_EDITOR
         // Application.Quit() does not work in the editor so
@@ -26,22 +29,27 @@ public class StaticMenuBehaviour : MonoBehaviour {
     #endif
     }
 
-    public void OnCloseClicked()
+    public void OnCloseButtonClicked()
     {
         Debug.Log("Close");
         gameObject.SetActive(false);
 
     }
 
-    public void OnLightIntensityChanged(Slider slider)
+    public void OnLightIntensitySliderChanged(Slider slider)
     {
         float value = slider.value;
         RenderSettings.ambientLight = new Color(value, value, value, 1);
     }
 
-    public void OnInvertHandsToggled(bool value)
+    public void OnInvertHandsToggleChanged(bool value)
     {
-        Debug.Log("Invert hands changed to " + value);
+        if(vrManager == null)
+        {
+            vrManager = GlobalVariables.vrManager;
+        }
+
+        vrManager.SetControllersSwap(value);
     }
 
 }
