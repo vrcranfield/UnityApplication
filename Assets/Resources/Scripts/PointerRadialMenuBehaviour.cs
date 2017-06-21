@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-public class UIPointerBehaviour : VRTK_UIPointer {
+public class PointerRadialMenuBehaviour : VRTK_Pointer {
 
-    protected VRTK_RadialMenu radialMenu;
+    protected VRTK_RadialMenu radialMenu = null;
 
-    public override bool PointerActive()
+    protected override void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e)
     {
         if (radialMenu == null)
             radialMenu = GlobalVariables.radialMenu;
 
-        if (radialMenu != null && radialMenu.isShown)
+        if (radialMenu != null && !radialMenu.isShown)
         {
-            return false;
+            base.DoActivationButtonPressed(sender, e);
         }
-
-        return base.PointerActive();
     }
 
     protected override void Awake()

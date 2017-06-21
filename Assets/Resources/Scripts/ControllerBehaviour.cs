@@ -5,6 +5,7 @@ public class ControllerBehaviour : MonoBehaviour
 {
     private GameObject menu;
     private GameObject headset;
+    private GameObject radialMenu;
 
     private void Start()
     {
@@ -21,6 +22,12 @@ public class ControllerBehaviour : MonoBehaviour
 
         //Setup controller event listeners for Menu button
         GetComponent<VRTK_ControllerEvents>().ButtonTwoReleased += new ControllerInteractionEventHandler(DoButtonTwoReleased);
+
+        radialMenu = transform.Find("RadialMenu").gameObject;
+
+        bool isLeftController = gameObject.name.Equals("LeftController", System.StringComparison.OrdinalIgnoreCase);
+
+        SetControllerMode(isLeftController);
     }
 
     private void DoButtonTwoReleased(object sender, ControllerInteractionEventArgs e)
@@ -53,9 +60,14 @@ public class ControllerBehaviour : MonoBehaviour
         }
     }
 
-    public void updateReferences()
+    public void SetControllerMode(bool isRadialMenu)
     {
-        gameObject.GetComponent<VRTK_Pointer>().pointerRenderer = gameObject.GetComponent<VRTK_StraightPointerRenderer>();
+        GetComponent<VRTK_Pointer>().enabled = !isRadialMenu;
+        GetComponent<VRTK_UIPointer>().enabled = !isRadialMenu;
+        GetComponent<PointerRadialMenuBehaviour>().enabled = isRadialMenu;
+        GetComponent<UIPointerRadialMenuBehaviour>().enabled = isRadialMenu;
+
+        radialMenu.SetActive(isRadialMenu);
     }
 
 }

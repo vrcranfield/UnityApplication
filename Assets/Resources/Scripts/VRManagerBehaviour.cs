@@ -24,22 +24,26 @@ public class VRManagerBehaviour : MonoBehaviour {
     public void SetControllersSwap(bool swapped)
     {
         Debug.Log("Swap called with value: " + swapped);
-        if(swapped)
-        {
-            manager.scriptAliasLeftController = rightController;
-            manager.scriptAliasRightController = leftController;
 
-            GlobalVariables.radialMenu.transform.parent = rightController.transform;
+        leftBehaviour.SetControllerMode(!swapped);
+        rightBehaviour.SetControllerMode(swapped);
+        
+        //if(swapped)
+        //{
+        //    manager.scriptAliasLeftController = rightController;
+        //    manager.scriptAliasRightController = leftController;
 
-        } else
-        {
-            manager.scriptAliasLeftController = leftController;
-            manager.scriptAliasRightController = rightController;
+        //    GlobalVariables.radialMenu.transform.parent = rightController.transform;
 
-            GlobalVariables.radialMenu.transform.parent = leftController.transform;
-        }
+        //} else
+        //{
+        //    manager.scriptAliasLeftController = leftController;
+        //    manager.scriptAliasRightController = rightController;
 
-        leftBehaviour.updateReferences();
-        rightBehaviour.updateReferences();
+        //    GlobalVariables.radialMenu.transform.parent = leftController.transform;
+        //}
+
+        //leftBehaviour.updateReferences();
+        //rightBehaviour.updateReferences();
     }
 }
