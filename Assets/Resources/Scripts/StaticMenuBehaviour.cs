@@ -6,21 +6,22 @@ public class StaticMenuBehaviour : MonoBehaviour {
     private VRManagerBehaviour vrManager;
     private GameObject room;
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
         // Register
         GlobalVariables.staticMenu = gameObject;
-        vrManager = GlobalVariables.vrManager;
-        room = GameObject.FindGameObjectWithTag("Room");
-        gameObject.SetActive(false);
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+        // Save references
+        room = GameObject.FindGameObjectWithTag("Room");
+
+        // Hide
+        gameObject.SetActive(false);
+    }
+
+    void Start () {
+        vrManager = GlobalVariables.vrManager;
+    }
+	
     public void OnQuitButtonClicked()
     {
     #if UNITY_EDITOR
@@ -47,11 +48,6 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     public void OnInvertHandsToggleChanged(bool value)
     {
-        if(vrManager == null)
-        {
-            vrManager = GlobalVariables.vrManager;
-        }
-
         vrManager.SetControllersSwap(value);
     }
 
