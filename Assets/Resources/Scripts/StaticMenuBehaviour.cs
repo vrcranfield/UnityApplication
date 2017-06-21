@@ -4,13 +4,16 @@ using UnityEngine.UI;
 public class StaticMenuBehaviour : MonoBehaviour {
 
     private VRManagerBehaviour vrManager;
+    private GameObject room;
 
 	// Use this for initialization
 	void Start () {
         // Register
         GlobalVariables.staticMenu = gameObject;
         vrManager = GlobalVariables.vrManager;
+        room = GameObject.FindGameObjectWithTag("Room");
         gameObject.SetActive(false);
+        
 	}
 	
 	// Update is called once per frame
@@ -52,4 +55,8 @@ public class StaticMenuBehaviour : MonoBehaviour {
         vrManager.SetControllersSwap(value);
     }
 
+    public void OnShowEnvironmentToggleChanged(bool value)
+    {
+        room.SetActive(value);
+    }
 }
