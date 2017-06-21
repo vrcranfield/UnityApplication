@@ -355,7 +355,7 @@ namespace VRTK
             if (show)
             {
                 targetScale = 1;
-                targetAlpha = 1;
+                targetAlpha = 0.9f;
                 alphaDirection = 1;
                 Dir = Vector3.one;
             }
