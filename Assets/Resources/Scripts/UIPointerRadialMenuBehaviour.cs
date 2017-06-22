@@ -21,7 +21,7 @@ public class UIPointerRadialMenuBehaviour : VRTK_UIPointer {
 
     public override bool PointerActive()
     {
-        if (!behaviour.isRadialMenuController || radialMenu.isShown)
+        if (behaviour.isRadialMenuController && radialMenu.isShown)
         {
             return false;
         }
