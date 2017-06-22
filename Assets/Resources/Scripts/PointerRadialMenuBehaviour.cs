@@ -21,6 +21,8 @@ public class PointerRadialMenuBehaviour : VRTK_Pointer {
 
     protected override void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e)
     {
+        Debug.Log("Is Radial Controller: " + behaviour.isRadialMenuController);
+
         if (!behaviour.isRadialMenuController || !radialMenu.isShown)
         {
             base.DoActivationButtonPressed(sender, e);
