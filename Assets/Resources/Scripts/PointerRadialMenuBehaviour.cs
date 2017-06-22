@@ -12,12 +12,11 @@ public class PointerRadialMenuBehaviour : VRTK_Pointer {
     {
         base.Awake();
         behaviour = GetComponent<ControllerBehaviour>();
-        radialMenu = gameObject.transform.Find("RadialMenu").GetComponent<VRTK_RadialMenu>();
+        radialMenu = transform.FindDeepChild("RadialMenuUI/Panel").GetComponent<VRTK_RadialMenu>();
     }
 
     void Start()
     {
-        StartCoroutine(Coroutine());
     }
 
     protected override void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e)
@@ -26,11 +25,5 @@ public class PointerRadialMenuBehaviour : VRTK_Pointer {
         {
             base.DoActivationButtonPressed(sender, e);
         }
-    }
-
-    private IEnumerator Coroutine()
-    {
-        yield return new WaitForSeconds(5.0f);
-        Debug.Log(radialMenu);
     }
 }

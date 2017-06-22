@@ -12,13 +12,11 @@ public class UIPointerRadialMenuBehaviour : VRTK_UIPointer {
     {
         base.Awake();
         behaviour = GetComponent<ControllerBehaviour>();
+        radialMenu = transform.FindDeepChild("RadialMenuUI/Panel").GetComponent<VRTK_RadialMenu>();
     }
 
     void Start()
     {
-        foreach (Transform child in transform)
-            if (child.CompareTag("RadialMenu"))
-                radialMenu = child.GetComponent<VRTK_RadialMenu>();
     }
 
     public override bool PointerActive()
