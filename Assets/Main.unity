@@ -9489,9 +9489,7 @@ GameObject:
   - component: {fileID: 1722514140}
   - component: {fileID: 1722514147}
   - component: {fileID: 1722514145}
-  - component: {fileID: 1722514149}
   - component: {fileID: 1722514144}
-  - component: {fileID: 1722514148}
   - component: {fileID: 1722514146}
   - component: {fileID: 1722514143}
   - component: {fileID: 1722514142}
@@ -9575,6 +9573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fcf6373bc7961468b95f570af71c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRadialMenuController: 0
 --- !u!114 &1722514143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9683,57 +9682,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customColliderContainer: {fileID: 0}
---- !u!114 &1722514148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1722514139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b26f999cbdac8478b6c2a046256169, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activationButton: 10
-  activationMode: 0
-  selectionButton: 3
-  clickMethod: 0
-  attemptClickOnDeactivate: 0
-  clickAfterHoverDuration: 0
-  controller: {fileID: 0}
-  pointerOriginTransform: {fileID: 0}
-  hoveringElement: {fileID: 0}
-  controllerRenderModel: {fileID: 0}
-  hoverDurationTimer: 0
-  canClickOnHover: 0
-  autoActivatingCanvas: {fileID: 0}
-  collisionClick: 0
---- !u!114 &1722514149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1722514139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableTeleport: 0
-  pointerRenderer: {fileID: 1722514143}
-  activationButton: 10
-  holdButtonToActivate: 1
-  activateOnEnable: 0
-  activationDelay: 0
-  selectionButton: 10
-  selectOnPress: 0
-  selectionDelay: 0
-  selectAfterHoverDuration: 0
-  interactWithObjects: 0
-  grabToPointerTip: 0
-  controller: {fileID: 0}
-  customOrigin: {fileID: 0}
-  directionIndicator: {fileID: 0}
 --- !u!1 &1729677636
 GameObject:
   m_ObjectHideFlags: 0
@@ -10480,6 +10428,10 @@ Prefab:
       propertyPath: m_TagString
       value: RadialMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 128202, guid: d5fe2f7f9d3e98a478d151422643620c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d5fe2f7f9d3e98a478d151422643620c, type: 2}
   m_IsPrefabParent: 0
@@ -10533,9 +10485,7 @@ GameObject:
   - component: {fileID: 1853717968}
   - component: {fileID: 1853717967}
   - component: {fileID: 1853717965}
-  - component: {fileID: 1853717964}
   - component: {fileID: 1853717972}
-  - component: {fileID: 1853717966}
   - component: {fileID: 1853717971}
   - component: {fileID: 1853717963}
   - component: {fileID: 1853717970}
@@ -10579,32 +10529,6 @@ MonoBehaviour:
   maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
   customTracer: {fileID: 0}
   customCursor: {fileID: 0}
---- !u!114 &1853717964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1853717962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableTeleport: 0
-  pointerRenderer: {fileID: 1853717963}
-  activationButton: 10
-  holdButtonToActivate: 1
-  activateOnEnable: 0
-  activationDelay: 0
-  selectionButton: 10
-  selectOnPress: 0
-  selectionDelay: 0
-  selectAfterHoverDuration: 0
-  interactWithObjects: 0
-  grabToPointerTip: 0
-  controller: {fileID: 0}
-  customOrigin: {fileID: 0}
-  directionIndicator: {fileID: 0}
 --- !u!114 &1853717965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10617,31 +10541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   togglePointerOnHit: 0
---- !u!114 &1853717966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1853717962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b26f999cbdac8478b6c2a046256169, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activationButton: 10
-  activationMode: 0
-  selectionButton: 3
-  clickMethod: 0
-  attemptClickOnDeactivate: 0
-  clickAfterHoverDuration: 0
-  controller: {fileID: 0}
-  pointerOriginTransform: {fileID: 0}
-  hoveringElement: {fileID: 0}
-  controllerRenderModel: {fileID: 0}
-  hoverDurationTimer: 0
-  canClickOnHover: 0
-  autoActivatingCanvas: {fileID: 0}
-  collisionClick: 0
 --- !u!114 &1853717967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10727,6 +10626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fcf6373bc7961468b95f570af71c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRadialMenuController: 0
 --- !u!114 &1853717971
 MonoBehaviour:
   m_ObjectHideFlags: 0

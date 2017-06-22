@@ -6,20 +6,24 @@ using VRTK;
 public class UIPointerRadialMenuBehaviour : VRTK_UIPointer {
 
     protected VRTK_RadialMenu radialMenu;
+    protected ControllerBehaviour behaviour;
 
     protected override void Awake()
     {
         base.Awake();
+        behaviour = GetComponent<ControllerBehaviour>();
     }
 
     void Start()
     {
-        radialMenu = GlobalVariables.radialMenu;
+        foreach (Transform child in transform)
+            if (child.CompareTag("RadialMenu"))
+                radialMenu = child.GetComponent<VRTK_RadialMenu>();
     }
 
     public override bool PointerActive()
     {
-        if (radialMenu != null && radialMenu.isShown)
+        if (!behaviour.isRadialMenuController || radialMenu.isShown)
         {
             return false;
         }

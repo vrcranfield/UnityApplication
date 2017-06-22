@@ -7,6 +7,8 @@ public class ControllerBehaviour : MonoBehaviour
     private GameObject headset;
     private GameObject radialMenu;
 
+    public bool isRadialMenuController;
+
     private void Awake()
     {
         headset = GameObject.FindGameObjectWithTag("Headset");
@@ -50,12 +52,7 @@ public class ControllerBehaviour : MonoBehaviour
 
     public void SetControllerMode(bool isRadialMenu)
     {
-        GetComponent<VRTK_Pointer>().enabled = !isRadialMenu;
-        GetComponent<VRTK_UIPointer>().enabled = !isRadialMenu;
-        GetComponent<PointerRadialMenuBehaviour>().enabled = isRadialMenu;
-        GetComponent<UIPointerRadialMenuBehaviour>().enabled = isRadialMenu;
-
         radialMenu.SetActive(isRadialMenu);
+        isRadialMenuController = isRadialMenu;
     }
-
 }

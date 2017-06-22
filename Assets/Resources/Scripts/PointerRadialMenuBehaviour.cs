@@ -6,20 +6,22 @@ using VRTK;
 public class PointerRadialMenuBehaviour : VRTK_Pointer {
 
     protected VRTK_RadialMenu radialMenu;
+    protected ControllerBehaviour behaviour;
 
     protected override void Awake()
     {
         base.Awake();
+        behaviour = GetComponent<ControllerBehaviour>();
+        radialMenu = gameObject.transform.Find("RadialMenu").GetComponent<VRTK_RadialMenu>();
     }
 
     void Start()
     {
-        radialMenu = GlobalVariables.radialMenu;
     }
 
     protected override void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e)
     {
-        if (radialMenu != null && !radialMenu.isShown)
+        if (!behaviour.isRadialMenuController || !radialMenu.isShown)
         {
             base.DoActivationButtonPressed(sender, e);
         }
