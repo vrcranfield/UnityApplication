@@ -17,6 +17,7 @@ public class PointerRadialMenuBehaviour : VRTK_Pointer {
 
     void Start()
     {
+        StartCoroutine(Coroutine());
     }
 
     protected override void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e)
@@ -25,5 +26,11 @@ public class PointerRadialMenuBehaviour : VRTK_Pointer {
         {
             base.DoActivationButtonPressed(sender, e);
         }
+    }
+
+    private IEnumerator Coroutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Debug.Log(radialMenu);
     }
 }
