@@ -4,15 +4,17 @@ using UnityEngine.UI;
 public class StaticMenuBehaviour : MonoBehaviour {
 
     private VRManagerBehaviour vrManager;
+    private GameObject headset;
     private GameObject room;
 
     void Awake()
     {
         // Register
-        GlobalVariables.staticMenu = gameObject;
+        GlobalVariables.staticMenu = this;
 
         // Save references
         room = GameObject.FindGameObjectWithTag("Room");
+        headset = GameObject.FindGameObjectWithTag("Headset");
 
         // Hide
         gameObject.SetActive(false);
@@ -54,5 +56,33 @@ public class StaticMenuBehaviour : MonoBehaviour {
     public void OnShowEnvironmentToggleChanged(bool value)
     {
         room.SetActive(value);
+    }
+
+    public void Show()
+    {
+        // Get the XZ projection of the forward position of the headset camera
+        Vector3 lookForwardPositionXZ = new Vector3(headset.transform.forward.x, 0, headset.transform.forward.z);
+
+        // Gets the position at exactly 2.5 meters in front of the headset, along the XZ plane.
+        Vector3 headsetFrontPosition = headset.transform.position + 2.5f * lookForwardPositionXZ.normalized;
+
+        // Sets the menu position to headsetFrontPosition, but at the same height as before.
+        transform.position = new Vector3(headsetFrontPosition.x, transform.position.y, headsetFrontPosition.z);
+
+        // Set the rotation so that the menu faces the camera
+        transform.rotation = Quaternion.LookRotation(transform.position - headset.transform.position);
+
+        // Show menu
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public bool isShown()
+    {
+        return gameObject.activeSelf;
     }
 }
