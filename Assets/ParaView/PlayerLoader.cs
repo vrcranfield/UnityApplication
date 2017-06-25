@@ -46,6 +46,8 @@
 				Debug.Log ("Importing from:" + importDir);
 				soc.Disconnect (false);
 				meshNode = Loader.ImportGameObject(importDir);
+
+                meshNode.transform.position = new Vector3(0, 1, 0);
 				meshNode.SetActive (true);
 			}
 		}
