@@ -24,42 +24,45 @@
 			this.CenterOfRotation = centerOfRotation;
 		}
 
-		override public void Convert (GameObject parent) {
-			GameObject camContainerObj = new GameObject (this.GetType().Name);
-			camContainerObj.transform.parent = parent.transform;
+        // ld314 This used to break the VR camera. Apparently commenting it out fixed the issue
+        // without creating new ones.
 
-			//Cannot use Movement Script AND camera component on the same 
-			//game object when VR is attached.
-			GameObject camObj = new GameObject ("Camera");
-			camObj.transform.parent = camContainerObj.transform;
-			Camera cam = camObj.AddComponent<Camera> ();
+		//override public void Convert (GameObject parent) {
+		//	GameObject camContainerObj = new GameObject (this.GetType().Name);
+		//	camContainerObj.transform.parent = parent.transform;
 
-			cam.clearFlags = CameraClearFlags.Color;
-			if (this.FieldOfView != null) {
-				cam.fieldOfView = this.FieldOfView.Value * Mathf.Rad2Deg;
-			}
-			if( this.Position != null) {
-				camContainerObj.transform.position = this.Position.Value;
-			}
+		//	//Cannot use Movement Script AND camera component on the same 
+		//	//game object when VR is attached.
+		//	GameObject camObj = new GameObject ("Camera");
+		//	camObj.transform.parent = camContainerObj.transform;
+		//	Camera cam = camObj.AddComponent<Camera> ();
+
+		//	cam.clearFlags = CameraClearFlags.Color;
+		//	if (this.FieldOfView != null) {
+		//		cam.fieldOfView = this.FieldOfView.Value * Mathf.Rad2Deg;
+		//	}
+		//	if( this.Position != null) {
+		//		camContainerObj.transform.position = this.Position.Value;
+		//	}
 				
-			//TODO: Not sure if this is the best way to adjust the camera focus
-			camContainerObj.transform.LookAt(this.CenterOfRotation.Value);
-			/*if (this.Orientation != null) {
-				if (this.CenterOfRotation != null) {
-					camObj.transform.RotateAround(this.CenterOfRotation.Value, 
-						this.Orientation.Axis, this.Orientation.Angle * Mathf.Rad2Deg);
-				} 
-				else  {
-					camObj.transform.Rotate (Orientation.Axis, Orientation.Angle * Mathf.Rad2Deg);
-				} 
-			}*/
+		//	//TODO: Not sure if this is the best way to adjust the camera focus
+		//	camContainerObj.transform.LookAt(this.CenterOfRotation.Value);
+		//	/*if (this.Orientation != null) {
+		//		if (this.CenterOfRotation != null) {
+		//			camObj.transform.RotateAround(this.CenterOfRotation.Value, 
+		//				this.Orientation.Axis, this.Orientation.Angle * Mathf.Rad2Deg);
+		//		} 
+		//		else  {
+		//			camObj.transform.Rotate (Orientation.Axis, Orientation.Angle * Mathf.Rad2Deg);
+		//		} 
+		//	}*/
 
-			CameraMovement m = camContainerObj.AddComponent<CameraMovement> ();
-			if (this.CenterOfRotation != null) {
-				m.Target = this.CenterOfRotation.Value;
-			}
+		//	CameraMovement m = camContainerObj.AddComponent<CameraMovement> ();
+		//	if (this.CenterOfRotation != null) {
+		//		m.Target = this.CenterOfRotation.Value;
+		//	}
 
-		}
+		//}
 	}
 
 	sealed class X3DViewpointHandler : X3DHandler
