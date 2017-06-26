@@ -5,7 +5,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     private VRManagerBehaviour vrManager;
     private GameObject headset;
-    private GameObject room;
+    private RoomBehaviour room;
 
     void Awake()
     {
@@ -13,7 +13,6 @@ public class StaticMenuBehaviour : MonoBehaviour {
         GlobalVariables.staticMenu = this;
 
         // Save references
-        room = GameObject.FindGameObjectWithTag("Room");
         headset = GameObject.FindGameObjectWithTag("Headset");
 
         // Hide
@@ -22,6 +21,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     void Start () {
         vrManager = GlobalVariables.vrManager;
+        room = GlobalVariables.room;
     }
 	
     public void OnQuitButtonClicked()
@@ -55,7 +55,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     public void OnShowEnvironmentToggleChanged(bool value)
     {
-        room.SetActive(value);
+        room.ToggleShow(value);
     }
 
     public void Show()
