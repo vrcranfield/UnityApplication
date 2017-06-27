@@ -14,7 +14,7 @@ public class AutoResize : MonoBehaviour
         {
             float targetSize = 1;
 
-            objectRadius = GetComponent<Renderer>().bounds.size.magnitude;
+            //objectRadius = GetComponent<Renderer>().bounds.size.magnitude;
             //transform.localScale = targetSize * transform.localScale / objectRadius;
         }
     }

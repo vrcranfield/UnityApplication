@@ -11,7 +11,8 @@
 	using System.Text;
 	using System.Text.RegularExpressions;
 
-	public class Loader
+
+    public class Loader
 	{
 
 		private static X3DLoader LOADER = new X3DLoader ();
@@ -19,12 +20,17 @@
 		public static string GetImportDir (Socket soc)
 		{
 			byte[] b = new byte[soc.Available];
-			int k = soc.Receive (b);
-			StringBuilder str = new StringBuilder ();
-			for (int i = 0; i < k; i++) {
-				str.Append (Convert.ToChar (b [i]));
-			}
-			return str.ToString ();
+            /*StringBuilder str = new StringBuilder();
+
+            int k = soc.Receive(b);
+            for (int i = 0; i < k; i++)
+            {
+                str.Append(Convert.ToChar(b[i]));
+            }*/
+            string str = Encoding.UTF8.GetString(b);
+            Debug.Log("Received message on socket: " + str);
+
+			return str;
 		}
 
 		public static GameObject ImportGameObject(string file)
