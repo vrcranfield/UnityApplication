@@ -22,11 +22,11 @@
 			byte[] b = new byte[soc.Available];
             /*StringBuilder str = new StringBuilder();
 
-            int k = soc.Receive(b);
             for (int i = 0; i < k; i++)
             {
                 str.Append(Convert.ToChar(b[i]));
             }*/
+            int k = soc.Receive(b);
             string str = Encoding.UTF8.GetString(b);
             Debug.Log("Received message on socket: " + str);
 
