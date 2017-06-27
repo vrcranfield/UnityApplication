@@ -52,9 +52,16 @@
                 // Register object in globals
                 GlobalVariables.RegisterParaviewObject(meshNode);
 
+                // Automaticall Resize object
+                
+
 				meshNode.SetActive (true);
 			}
 		}
+
+        private void AutoResize(GameObject obj)
+        {
+        }
 
 		void OnApplicationQuit ()
 		{
