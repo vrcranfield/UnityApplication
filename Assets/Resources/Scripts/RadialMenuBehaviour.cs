@@ -26,7 +26,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
     public void OnPlayPauseButtonClicked(int btnId)
     {
 
-        VRTK_RadialMenu.RadialMenuButton btn = GetComponent<VRTK.VRTK_RadialMenu>().GetButton(btnId);
+        VRTK_RadialMenu.RadialMenuButton btn = GetComponentInChildren<VRTK.VRTK_RadialMenu>().GetButton(btnId);
 
         if (frameManager != null)
         {

@@ -19,11 +19,11 @@
 			int port = ((IPEndPoint)listener.LocalEndpoint).Port;
 			Debug.Log ("Started listening on port: " + port);
 
-			string embeddedPlayerPath = Path.GetTempPath () + "/Unity3DPlugin/Embedded/"
+			string dir = Path.GetTempPath () + "/Unity3DPlugin/Embedded/"
 			                            + System.Diagnostics.Process.GetCurrentProcess().Id;
-			Directory.CreateDirectory (embeddedPlayerPath);
+			Directory.CreateDirectory (dir);
 
-			string portFile = embeddedPlayerPath + "/port" + port;
+			string portFile = dir + "/port" + port;
 			using (File.Create (portFile)) {
 			}
 			;
@@ -40,21 +40,26 @@
 				Destroy (meshNode);
 
 				string importDir = Loader.GetImportDir (soc);
-				Debug.Log ("Importing from:" + importDir);
-				soc.Disconnect (false);
 
-				meshNode = Loader.ImportGameObject(importDir);
-                meshNode.transform.position = new Vector3(0, 1, 0);
+                if (Directory.Exists(importDir) || File.Exists(importDir))
+                {
+                    Debug.Log("Importing from:" + importDir);
 
-                // Register object in globals
-                if(meshNode != null)
-                    GlobalVariables.RegisterParaviewObject(meshNode);
+                    meshNode = Loader.ImportGameObject(importDir);
+                    meshNode.transform.position = new Vector3(0, 1, 0);
 
-                // Automaticall Resize object
-                meshNode.AddComponent<AutoResize>();
+                    // Register object in globals
+                    if (meshNode != null)
+                        GlobalVariables.RegisterParaviewObject(meshNode);
 
-				meshNode.SetActive (true);
-			}
+                    // Automaticall Resize object
+                    meshNode.AddComponent<AutoResize>();
+
+                    meshNode.SetActive(true);
+                }
+
+                soc.Disconnect(false);
+            }
 		}
 
 		void OnApplicationQuit ()

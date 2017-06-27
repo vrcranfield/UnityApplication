@@ -19,15 +19,17 @@
 
 		public static string GetImportDir (Socket soc)
 		{
-			byte[] b = new byte[soc.Available];
-            /*StringBuilder str = new StringBuilder();
+			byte[] b = new byte[2048];
+            StringBuilder sb = new StringBuilder();
 
+            int k = soc.Receive(b);
             for (int i = 0; i < k; i++)
             {
-                str.Append(Convert.ToChar(b[i]));
-            }*/
-            int k = soc.Receive(b);
-            string str = Encoding.UTF8.GetString(b);
+                sb.Append(Convert.ToChar(b[i]));
+            }
+
+            string str = sb.ToString();
+
             Debug.Log("Received message on socket: " + str);
 
 			return str;

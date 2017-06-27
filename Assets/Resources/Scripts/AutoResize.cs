@@ -14,17 +14,10 @@ public class AutoResize : MonoBehaviour
         {
             float targetSize = 1;
 
+            //TODO fix
             //objectRadius = GetComponent<Renderer>().bounds.size.magnitude;
             //transform.localScale = targetSize * transform.localScale / objectRadius;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		if(GlobalVariables.overlayText != null)
-        {
-            GlobalVariables.overlayText.SetText(objectRadius + "");
-        }
-	}
 
 }

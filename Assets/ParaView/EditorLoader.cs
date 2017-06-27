@@ -12,26 +12,28 @@
         private TcpListener listener;
 
 		public void Start()
-		{
-			listener = new TcpListener (IPAddress.Loopback, 0);
-			listener.Start ();
-			int port = ((IPEndPoint)listener.LocalEndpoint).Port;
-			Debug.Log ("Started listening on port: " + port);
+        {
+            listener = new TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            Debug.Log("Started listening on port: " + port);
 
-			string editorWorkingDir = Path.GetTempPath () + "/Unity3DPlugin/Editor/" + port;
-			Directory.CreateDirectory (editorWorkingDir);
+            string dir = Path.GetTempPath () + "/Unity3DPlugin/Editor/" + port;
+
+			Directory.CreateDirectory(dir);
         }
 
-		public void Update ()
-		{
-			if (listener.Pending ()) {
-				Socket soc = listener.AcceptSocket ();
+        public void Update()
+        {
+            if (listener.Pending())
+            {
+                Socket soc = listener.AcceptSocket();
 
                 Destroy(meshNode);
 
-				string importDir = Loader.GetImportDir (soc);
+                string importDir = Loader.GetImportDir(soc);
 
-                if(!importDir.Equals("TEST"))
+                if (Directory.Exists(importDir) || File.Exists(importDir))
                 {
                     Debug.Log("Importing from:" + importDir);
 
@@ -46,6 +48,9 @@
                     meshNode.AddComponent<AutoResize>();
 
                     meshNode.SetActive(true);
+                } else
+                {
+                    Debug.Log("Message was not existing file/directory: " + importDir);
                 }
 
                 soc.Disconnect(false);
@@ -54,7 +59,8 @@
 
         void OnApplicationQuit()
         {
-            listener.Stop();
+            if (listener != null)
+                listener.Stop();
             listener = null;
         }
     }
