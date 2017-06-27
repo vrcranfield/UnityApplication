@@ -8,7 +8,7 @@ namespace ParaUnity
 {
 	public class FrameManager : MonoBehaviour
 	{
-        bool isPlaying = false;
+        public bool isPlaying = false;
 
         int currentFrame = 0;
 
