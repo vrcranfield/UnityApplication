@@ -6,10 +6,9 @@ using System.Collections;
 
 namespace ParaUnity
 {
-    // I have a feeling that this is what loops the animations.
 	public class FrameShow : MonoBehaviour
 	{
-        const bool IS_ANIMATION = false;
+        bool isPlaying = false;
 
         int currentFrame = 0;
 
@@ -24,7 +23,7 @@ namespace ParaUnity
 
         void Update()
         {
-            if (IS_ANIMATION)
+            if (isPlaying)
             {
                 if (delay >= DELAY_COUNT)
                 {
@@ -38,6 +37,16 @@ namespace ParaUnity
             }
         }
 
+        public void Play()
+        {
+            isPlaying = true;
+        }
+
+        public void Pause()
+        {
+            isPlaying = false;
+        }
+
         private void ShowNextFrame()
         {
             foreach (Transform child in transform)
@@ -47,6 +56,7 @@ namespace ParaUnity
             transform.GetChild(currentFrame).gameObject.SetActive(true);
             currentFrame = (currentFrame + 1) % transform.childCount;
         }
+
     }
 
 }

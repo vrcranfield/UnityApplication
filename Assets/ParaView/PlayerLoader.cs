@@ -48,6 +48,10 @@
 				meshNode = Loader.ImportGameObject(importDir);
 
                 meshNode.transform.position = new Vector3(0, 1, 0);
+
+                // Register object in globals
+                GlobalVariables.RegisterParaviewObject(meshNode);
+
 				meshNode.SetActive (true);
 			}
 		}
