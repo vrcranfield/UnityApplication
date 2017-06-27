@@ -1,17 +1,18 @@
 ﻿namespace ParaUnity
 {
-	using ParaUnity.X3D;
-	using UnityEngine;
-	using System;
-	using System.Linq;
-	using System.Collections.Generic;
-	using System.IO;
-	using System.Net;
-	using System.Net.Sockets;
-	using System.Text;
-	using System.Text.RegularExpressions;
+    using ParaUnity.X3D;
+    using UnityEngine;
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Collections;
 
-	public class PlayerLoader : MonoBehaviour
+    public class PlayerLoader : MonoBehaviour
 	{
 
 		private GameObject meshNode;
@@ -33,6 +34,9 @@
 			using (File.Create (portFile)) {
 			}
 			;
+
+            //Debug
+            //StartCoroutine(SimulateTrigger());
 		}
 
 		public void Update ()
@@ -50,7 +54,8 @@
                 meshNode.transform.position = new Vector3(0, 1, 0);
 
                 // Register object in globals
-                GlobalVariables.RegisterParaviewObject(meshNode);
+                if(meshNode != null)
+                    GlobalVariables.RegisterParaviewObject(meshNode);
 
                 // Automaticall Resize object
                 meshNode.AddComponent<AutoResize>();
@@ -68,5 +73,12 @@
 			listener.Stop ();
 			listener = null;
 		}
+
+        private IEnumerator SimulateTrigger()
+        {
+            yield return new WaitForSeconds(3f);
+            Debug.Log("Trigger load");
+            GlobalVariables.RegisterParaviewObject(new GameObject("DUMMY"));
+        }
 	}
 }
