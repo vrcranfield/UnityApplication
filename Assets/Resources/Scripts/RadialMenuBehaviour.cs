@@ -27,14 +27,21 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnPlayPauseButtonClicked()
     {
-        if(isAnimationPlaying)
+        if(frameManager != null)
         {
-            frameManager.Pause();
+            if (isAnimationPlaying)
+            {
+                frameManager.Pause();
+            }
+            else
+            {
+                frameManager.Play();
+            }
+
+            isAnimationPlaying = frameManager.isPlaying;
         } else
         {
-            frameManager.Play();
+            Debug.Log("CLICK");
         }
-
-        isAnimationPlaying = frameManager.isPlaying;
     }
 }
