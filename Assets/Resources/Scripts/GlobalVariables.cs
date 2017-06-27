@@ -8,15 +8,17 @@ public static class GlobalVariables
     public static VRManagerBehaviour vrManager;
     public static RoomBehaviour room;
     public static GameObject paraviewObj;
+    public static GameObject frameContainer;
 
     public delegate void CallbackEventHandler(GameObject paraviewObj);
-    public static event CallbackEventHandler Callback;
+    public static event CallbackEventHandler ParaviewObjectLoadedCallbacks;
 
     public static void RegisterParaviewObject(GameObject paraviewObj)
     {
         GlobalVariables.paraviewObj = paraviewObj;
-        if (Callback != null)
-            Callback(paraviewObj);
+
+        if (ParaviewObjectLoadedCallbacks != null)
+            ParaviewObjectLoadedCallbacks(paraviewObj);
     }
 
 }

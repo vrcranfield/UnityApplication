@@ -2,11 +2,11 @@
 
 public class RadialMenuBehaviour : MonoBehaviour {
 
-    ParaUnity.FrameShow paraviewObjFrameShow;
+    ParaUnity.FrameManager frameManager;
 
     void Awake()
     {
-        GlobalVariables.Callback += new GlobalVariables.CallbackEventHandler(OnParaviewObjectLoaded);
+        GlobalVariables.ParaviewObjectLoadedCallbacks += new GlobalVariables.CallbackEventHandler(OnParaviewObjectLoaded);
     }
 
     public void OnButtonClick(int buttonId)
@@ -16,7 +16,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
-        paraviewObjFrameShow = paraviewObj.GetComponent<ParaUnity.FrameShow>();
+        frameManager = GlobalVariables.frameContainer.GetComponent<ParaUnity.FrameManager>();
         Debug.Log("YAY: " + paraviewObjFrameShow);
     }
 }

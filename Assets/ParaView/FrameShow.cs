@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace ParaUnity
 {
-	public class FrameShow : MonoBehaviour
+	public class FrameManager : MonoBehaviour
 	{
         bool isPlaying = false;
 

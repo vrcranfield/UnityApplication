@@ -61,7 +61,8 @@
 					frames[i].transform.parent = frameContainer.transform;
 					frames [i].SetActive (false);
 				}
-				frameContainer.AddComponent<FrameShow> ();
+				frameContainer.AddComponent<FrameManager> ();
+                GlobalVariables.frameContainer = frameContainer;
 			} else {
 				for (int i = 0; i < frames [0].transform.childCount; i++) {
 					MergeFrames (frames.Select (obj => obj.transform.GetChild (i).gameObject).ToList ());
