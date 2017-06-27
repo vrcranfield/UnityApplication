@@ -18,5 +18,8 @@ public class RadialMenuBehaviour : MonoBehaviour {
     {
         frameManager = GlobalVariables.frameContainer.GetComponent<ParaUnity.FrameManager>();
         Debug.Log("YAY: " + paraviewObjFrameShow);
+
+        if (frameManager != null)
+            GlobalVariables.staticMenu.Show();
     }
 }
