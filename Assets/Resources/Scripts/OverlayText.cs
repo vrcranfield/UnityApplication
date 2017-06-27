@@ -34,6 +34,8 @@ public class OverlayText : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        GlobalVariables.overlayText = this;
+
         VRTK_SDKManager sdkManager = VRTK_SDKManager.instance;
         if (sdkManager != null)
         {
@@ -95,5 +97,10 @@ public class OverlayText : MonoBehaviour
         {
             canvas.worldCamera = sdkCamera.GetComponent<Camera>();
         }
+    }
+
+    public void SetText(string t)
+    {
+        text.text = t;
     }
 }

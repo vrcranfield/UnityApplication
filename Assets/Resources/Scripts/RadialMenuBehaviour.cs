@@ -19,10 +19,6 @@ public class RadialMenuBehaviour : MonoBehaviour {
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
         frameManager = GlobalVariables.frameContainer.GetComponent<ParaUnity.FrameManager>();
-        //Debug.Log("YAY: " + paraviewObjFrameShow);
-
-        if (frameManager != null)
-            GlobalVariables.staticMenu.Show();
     }
 
     public void OnPlayPauseButtonClicked()
@@ -41,6 +37,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
             isAnimationPlaying = frameManager.isPlaying;
         } else
         {
+            // TODO disable button if nothing is loaded?
             Debug.Log("CLICK");
         }
     }

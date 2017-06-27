@@ -12,7 +12,8 @@ public class LoadingOverlayBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void OnParaviewObjectLoaded(GameObject paraviewObject)
     {
-        gameObject.SetActive(false);
+        // TODO uncomment or similar
+        //gameObject.SetActive(false);
     }
 	
 	// Update is called once per frame

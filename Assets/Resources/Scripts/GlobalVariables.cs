@@ -10,6 +10,8 @@ public static class GlobalVariables
     public static GameObject paraviewObj;
     public static GameObject frameContainer;
 
+    public static OverlayText overlayText;
+
     public delegate void CallbackEventHandler(GameObject paraviewObj);
     public static event CallbackEventHandler ParaviewObjectLoadedCallbacks;
 
