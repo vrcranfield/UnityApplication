@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using VRTK;
 
 public class RadialMenuBehaviour : MonoBehaviour {
+
 
     ParaUnity.FrameManager frameManager;
 
@@ -21,9 +23,12 @@ public class RadialMenuBehaviour : MonoBehaviour {
         frameManager = GlobalVariables.frameContainer.GetComponent<ParaUnity.FrameManager>();
     }
 
-    public void OnPlayPauseButtonClicked()
+    public void OnPlayPauseButtonClicked(int btnId)
     {
-        if(frameManager != null)
+
+        VRTK_RadialMenu.RadialMenuButton btn = GetComponent<VRTK.VRTK_RadialMenu>().GetButton(btnId);
+
+        if (frameManager != null)
         {
             if (isAnimationPlaying)
             {
@@ -35,10 +40,19 @@ public class RadialMenuBehaviour : MonoBehaviour {
             }
 
             isAnimationPlaying = frameManager.isPlaying;
+            UpdatePlayPauseButtonIcon(btn);
+
         } else
         {
             // TODO disable button if nothing is loaded?
             Debug.Log("CLICK");
         }
+    }
+    
+    private void UpdatePlayPauseButtonIcon(VRTK_RadialMenu.RadialMenuButton btn)
+    {
+        string spriteName = (isAnimationPlaying) ? "PauseButton" : "PlayButton";
+        Sprite icon = Resources.Load<Sprite>("GUI/" + isAnimationPlaying);
+        btn.ButtonIcon = icon;
     }
 }
