@@ -17,6 +17,8 @@ public class RadialMenuBehaviour : MonoBehaviour {
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
         paraviewObjFrameShow = paraviewObj.GetComponent<ParaUnity.FrameShow>();
-        Debug.Log("YAY: " + paraviewObjFrameShow);
+        if (paraviewObjFrameShow != null)
+            GlobalVariables.staticMenu.Show();
+        //Debug.Log("YAY: " + paraviewObjFrameShow);
     }
 }
