@@ -10,7 +10,7 @@ namespace ParaUnity.X3D
 	{
 		public X3DScene (X3DNode[] nodes) : base (nodes)
 		{
-		}
+        }
 			
 		override public void Convert (GameObject parent) {
 			base.Convert (parent);

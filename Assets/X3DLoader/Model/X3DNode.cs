@@ -64,7 +64,7 @@
 			gameObject.transform.parent = parent.transform;
 
 			foreach (X3DNode child in this.Children) {
-				child.Convert (gameObject);
+                child.Convert (gameObject);
 			}
 		}
 	}

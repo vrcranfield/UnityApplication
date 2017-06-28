@@ -69,7 +69,7 @@
                         GlobalVariables.RegisterParaviewObject(meshNode);
 
                     // Automaticall Resize object
-                    //meshNode.AddComponent<AutoResize>();
+                    meshNode.AddComponent<AutoResize>();
 
                     meshNode.SetActive(true);
                 }

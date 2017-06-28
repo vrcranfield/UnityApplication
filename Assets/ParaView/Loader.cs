@@ -36,12 +36,20 @@
 		}
 
 		public static GameObject ImportGameObject(string file)
-		{
-			List<GameObject> frames = ImportFrames(file);
-			MergeFrames (frames);
-			for (int i = 1; i < frames.Count; i++) {
+        {
+            List<GameObject> frames = ImportFrames(file);
+
+            GlobalVariables.overlayText.SetText("ImportFrames done");
+
+            MergeFrames (frames);
+
+            GlobalVariables.overlayText.SetText("MergeFrames done");
+
+            for (int i = 1; i < frames.Count; i++) {
 				GameObject.Destroy (frames[i]);
 			}
+
+            GlobalVariables.overlayText.SetText("Destroy done");
 
             return frames [0];
 		}
@@ -51,11 +59,12 @@
 			FileAttributes attr = File.GetAttributes(file);
 
 			if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
-				DirectoryInfo d = new DirectoryInfo(file);
+                DirectoryInfo d = new DirectoryInfo(file);
 				return d.GetFiles("*.x3d").OrderBy(x => Int32.Parse(Regex.Match(x.Name, @"\d+").Value)).
 					Select(frameFile => (GameObject)LOADER.Load (file +"/" +frameFile.Name)).ToList();
-			} else {
-				GameObject ob = (GameObject)LOADER.Load (file);
+			} else
+            {
+                GameObject ob = (GameObject)LOADER.Load (file);
 				return new List<GameObject> () {ob};
 			}
 		}
