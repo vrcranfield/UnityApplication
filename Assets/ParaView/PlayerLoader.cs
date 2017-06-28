@@ -8,7 +8,6 @@
 
     public class PlayerLoader : MonoBehaviour
 	{
-
 		private GameObject meshNode;
 		private TcpListener listener;
 
@@ -28,8 +27,6 @@
 			}
 			;
 
-            //Debug
-            //StartCoroutine(SimulateTrigger());
 		}
 
 		public void Update ()
@@ -68,12 +65,5 @@
 			    listener.Stop ();
 			listener = null;
 		}
-
-        private IEnumerator SimulateTrigger()
-        {
-            yield return new WaitForSeconds(3f);
-            Debug.Log("Trigger load");
-            GlobalVariables.RegisterParaviewObject(new GameObject("DUMMY"));
-        }
 	}
 }

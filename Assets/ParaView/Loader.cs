@@ -43,12 +43,6 @@
 				GameObject.Destroy (frames[i]);
 			}
 
-            //Fix materials
-            foreach (var ren in frames[0].GetComponentsInChildren<MeshRenderer>())
-            {
-               // ren.material.shader = Shader.Find("Standard");
-            }
-
             return frames [0];
 		}
 
