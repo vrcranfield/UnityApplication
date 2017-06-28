@@ -5,12 +5,14 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
 
     ParaUnity.FrameManager frameManager;
+    VRTK_RadialMenu vrtkRadialMenu;
 
     bool isAnimationPlaying = false;
 
     void Awake()
     {
         GlobalVariables.ParaviewObjectLoadedCallbacks += new GlobalVariables.CallbackEventHandler(OnParaviewObjectLoaded);
+        vrtkRadialMenu = GetComponentInChildren<VRTK_RadialMenu>();
     }
 
     public void OnButtonClick(int buttonId)
@@ -52,7 +54,11 @@ public class RadialMenuBehaviour : MonoBehaviour {
     private void UpdatePlayPauseButtonIcon(VRTK_RadialMenu.RadialMenuButton btn)
     {
         string spriteName = (isAnimationPlaying) ? "PauseButton" : "PlayButton";
-        Sprite icon = Resources.Load<Sprite>("GUI/" + isAnimationPlaying);
+
+
+        Sprite icon = Resources.Load<Sprite>("GUI/" + spriteName);
+
         btn.ButtonIcon = icon;
+        vrtkRadialMenu.UpdateButtonSprites();
     }
 }
