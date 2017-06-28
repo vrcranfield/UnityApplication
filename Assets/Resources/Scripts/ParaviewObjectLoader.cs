@@ -61,6 +61,7 @@
                     GlobalVariables.overlayText.SetText("Importing from:" + importDir);
 
                     meshNode = Loader.ImportGameObject(importDir);
+                    GlobalVariables.overlayText.SetText("Finished importing");
                     meshNode.transform.position = new Vector3(0, 1, 0);
 
                     // Register object in globals
