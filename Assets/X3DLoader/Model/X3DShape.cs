@@ -25,7 +25,7 @@
 			if (this.Geometry != null) {
 				this.Geometry.Convert (shapeObj);
 			}
-			//this.Appearance.Convert (shapeObj);
+			this.Appearance.Convert (shapeObj);
 		}
 
 	}

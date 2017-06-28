@@ -42,7 +42,14 @@
 			for (int i = 1; i < frames.Count; i++) {
 				GameObject.Destroy (frames[i]);
 			}
-			return frames [0];
+
+            //Fix materials
+            foreach (var ren in frames[0].GetComponentsInChildren<MeshRenderer>())
+            {
+               // ren.material.shader = Shader.Find("Standard");
+            }
+
+            return frames [0];
 		}
 
 		private static List<GameObject> ImportFrames(string file)
