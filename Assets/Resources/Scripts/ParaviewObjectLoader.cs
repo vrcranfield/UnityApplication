@@ -10,19 +10,10 @@
         private GameObject meshNode;
         private TcpListener listener;
 
-#if UNITY_EDITOR
-        private const bool EDITOR_MODE = true;
-#else
-        private const bool EDITOR_MODE = false;
-#endif
-
-        public void Awake()
-        {
-            Debug.Log("Paraview Loader running in " + ((EDITOR_MODE) ? "Editor" : "Player") + " mode");
-        }
-
         public void Start()
         {
+            ModeManager modeManager = GlobalVariables.modeManager;
+
             listener = new TcpListener(IPAddress.Loopback, 0);
             listener.Start();
             int port = ((IPEndPoint)listener.LocalEndpoint).Port;
@@ -31,14 +22,14 @@
 
             string dir = Path.GetTempPath() + "/Unity3DPlugin/";
 
-            if(EDITOR_MODE)
+            if(modeManager.isEditorMode())
                 dir += "Editor/" + port;
             else
                 dir += "/Embedded/" + System.Diagnostics.Process.GetCurrentProcess().Id;
 
             Directory.CreateDirectory(dir);
 
-            if (!EDITOR_MODE) {
+            if (!modeManager.isEditorMode()) {
                 string portFile = dir + "/port" + port;
                 using (File.Create(portFile)){};
             }
@@ -87,11 +78,6 @@
             if (listener != null)
                 listener.Stop();
             listener = null;
-        }
-
-        public bool isEditorMode()
-        {
-            return EDITOR_MODE;
         }
     }
 }

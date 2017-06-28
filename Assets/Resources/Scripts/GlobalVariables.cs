@@ -11,6 +11,7 @@ public static class GlobalVariables
     public static GameObject frameContainer;
 
     public static OverlayText overlayText;
+    public static ModeManager modeManager;
 
     public delegate void CallbackEventHandler(GameObject paraviewObj);
     public static event CallbackEventHandler ParaviewObjectLoadedCallbacks;
