@@ -3,25 +3,25 @@ using UnityEngine.UI;
 
 public class StaticMenuBehaviour : MonoBehaviour {
 
-    private VRManagerBehaviour vrManager;
-    private GameObject headset;
-    private RoomBehaviour room;
+    private ControllersManager controllers;
+    private EnvironmentManager room;
+    private LogManager logger;
+    private HeadsetManager headset;
 
     void Awake()
     {
         // Register
-        GlobalVariables.staticMenu = this;
-
-        // Save references
-        headset = GameObject.FindGameObjectWithTag("Headset");
+        Globals.staticMenu = this;
 
         // Hide
         gameObject.SetActive(false);
     }
 
     void Start () {
-        vrManager = GlobalVariables.vrManager;
-        room = GlobalVariables.room;
+        controllers = Globals.controllers;
+        room = Globals.room;
+        logger = Globals.logger;
+        headset = Globals.headset;
     }
 	
     public void OnQuitButtonClicked()
@@ -37,7 +37,6 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     public void OnCloseButtonClicked()
     {
-        Debug.Log("Close");
         gameObject.SetActive(false);
 
     }
@@ -50,7 +49,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     public void OnInvertHandsToggleChanged(bool value)
     {
-        vrManager.SetControllersSwap(value);
+        controllers.SetControllersSwap(value);
     }
 
     public void OnShowEnvironmentToggleChanged(bool value)
@@ -58,19 +57,15 @@ public class StaticMenuBehaviour : MonoBehaviour {
         room.ToggleShow(value);
     }
 
+    public void OnShowDebugToggleChanged(bool value)
+    {
+        logger.ToggleShow(value);
+    }
+
     public void Show()
     {
-        // Get the XZ projection of the forward position of the headset camera
-        Vector3 lookForwardPositionXZ = new Vector3(headset.transform.forward.x, 0, headset.transform.forward.z);
-
-        // Gets the position at exactly 2.5 meters in front of the headset, along the XZ plane.
-        Vector3 headsetFrontPosition = headset.transform.position + 2.5f * lookForwardPositionXZ.normalized;
-
-        // Sets the menu position to headsetFrontPosition, but at the same height as before.
-        transform.position = new Vector3(headsetFrontPosition.x, transform.position.y, headsetFrontPosition.z);
-
-        // Set the rotation so that the menu faces the camera
-        transform.rotation = Quaternion.LookRotation(transform.position - headset.transform.position);
+        // Places itself in front of the camera
+        UpdatePosition();
 
         // Show menu
         gameObject.SetActive(true);
@@ -84,5 +79,22 @@ public class StaticMenuBehaviour : MonoBehaviour {
     public bool isShown()
     {
         return gameObject.activeSelf;
+    }
+
+    private void UpdatePosition()
+    {
+        if(headset == null)
+        {
+            // Necessary because the headset can take a while to spawn
+            headset = Globals.headset;
+        }
+        // Gets the position at exactly 2.5 meters in front of the headset, along the XZ plane.
+        Vector3 headsetFrontPosition = Globals.headset.GetFrontPositionXZ(2.5f);
+
+        // Sets the menu position to headsetFrontPosition, but at the same height as before.
+        transform.position = new Vector3(headsetFrontPosition.x, transform.position.y, headsetFrontPosition.z);
+
+        // Set the rotation so that the menu faces the camera
+        transform.rotation = Quaternion.LookRotation(transform.position - Globals.headset.transform.position);
     }
 }

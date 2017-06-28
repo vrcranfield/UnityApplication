@@ -11,18 +11,18 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     void Awake()
     {
-        GlobalVariables.ParaviewObjectLoadedCallbacks += new GlobalVariables.CallbackEventHandler(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
         vrtkRadialMenu = GetComponentInChildren<VRTK_RadialMenu>();
     }
 
     public void OnButtonClick(int buttonId)
     {
-        Debug.Log("Button " + buttonId + " Clicked!");
+        Globals.logger.Log("Button " + buttonId + " clicked");
     }
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
-        frameManager = GlobalVariables.frameContainer.GetComponent<ParaUnity.FrameManager>();
+        frameManager = Globals.frameContainer.GetComponent<ParaUnity.FrameManager>();
     }
 
     public void OnPlayPauseButtonClicked(int btnId)
@@ -47,7 +47,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
         } else
         {
             // TODO disable button if nothing is loaded?
-            Debug.Log("CLICK");
+            Globals.logger.LogError("No framemanager found!");
         }
     }
     

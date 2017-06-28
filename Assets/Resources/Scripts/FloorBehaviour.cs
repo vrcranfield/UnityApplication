@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FloorBehaviour : MonoBehaviour {
 
@@ -12,14 +10,9 @@ public class FloorBehaviour : MonoBehaviour {
         defaultMaterial = new Material(Shader.Find("Diffuse"));
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void SetMaterial(bool isParquet)
+    public void SetMaterial(bool isStartingMaterial)
     {
-        if (isParquet)
+        if (isStartingMaterial)
             GetComponent<Renderer>().material = startingMaterial;
         else
             GetComponent<Renderer>().material = defaultMaterial;

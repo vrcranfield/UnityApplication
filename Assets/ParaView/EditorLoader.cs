@@ -42,10 +42,10 @@
 
                     // Register object in globals
                     if (meshNode != null)
-                        GlobalVariables.RegisterParaviewObject(meshNode);
+                        Globals.RegisterParaviewObject(meshNode);
 
                     // Automaticall Resize object
-                    meshNode.AddComponent<AutoResize>();
+                    meshNode.AddComponent<Resizer>();
 
                     meshNode.SetActive(true);
                 } else

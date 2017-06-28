@@ -12,13 +12,13 @@
 
         public void Start()
         {
-            ModeManager modeManager = GlobalVariables.modeManager;
+            ModeManager modeManager = Globals.modeManager;
 
             listener = new TcpListener(IPAddress.Loopback, 0);
             listener.Start();
             int port = ((IPEndPoint)listener.LocalEndpoint).Port;
-            Debug.Log("Started listening on port: " + port);
-            GlobalVariables.overlayText.SetText("Started listening on port: " + port);
+
+            Globals.logger.Log("Started listening on port: " + port);
 
             string dir = Path.GetTempPath() + "/Unity3DPlugin/";
 
@@ -39,7 +39,7 @@
         {
             if (listener.Pending())
             {
-                GlobalVariables.overlayText.SetText("New Connection");
+                Globals.logger.Log("Received incoming connection");
                 Socket soc = listener.AcceptSocket();
 
                 Destroy(meshNode);
@@ -48,25 +48,24 @@
 
                 if (Directory.Exists(importDir) || File.Exists(importDir))
                 {
-                    Debug.Log("Importing from:" + importDir);
-                    GlobalVariables.overlayText.SetText("Importing from:" + importDir);
+                    Globals.logger.Log("Importing from:" + importDir);
 
                     meshNode = Loader.ImportGameObject(importDir);
-                    GlobalVariables.overlayText.SetText("Finished importing");
+                    Globals.logger.Log("Finished importing");
                     meshNode.transform.position = new Vector3(0, 1, 0);
 
                     // Register object in globals
                     if (meshNode != null)
-                        GlobalVariables.RegisterParaviewObject(meshNode);
+                        Globals.RegisterParaviewObject(meshNode);
 
                     // Automaticall Resize object
-                    meshNode.AddComponent<AutoResize>();
+                    meshNode.AddComponent<Resizer>();
 
                     meshNode.SetActive(true);
                 }
                 else
                 {
-                    Debug.Log("Message was not existing file/directory: " + importDir);
+                    Globals.logger.LogWarning("Message was not existing file/directory: " + importDir);
                 }
 
                 soc.Disconnect(false);

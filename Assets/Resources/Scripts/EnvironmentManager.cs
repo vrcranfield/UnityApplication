@@ -1,15 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomBehaviour : MonoBehaviour {
+public class EnvironmentManager : MonoBehaviour {
 
     GameObject[] walls;
     FloorBehaviour floor;
 
     void Awake ()
     {
-        GlobalVariables.room = this;
+        Globals.room = this;
         walls = GameObject.FindGameObjectsWithTag("Wall");
         floor = transform.GetComponentInChildren<FloorBehaviour>();
     }

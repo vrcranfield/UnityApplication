@@ -10,33 +10,19 @@ public class ModeManager : MonoBehaviour {
     private const bool EDITOR_MODE = false;
 #endif
 
-    private OverlayText overlayText;
+    private LogManager overlayText;
 
     void Awake() {
-        GlobalVariables.modeManager = this;
-        Debug.Log("Paraview Loader running in " + ((EDITOR_MODE) ? "Editor" : "Player") + " mode");
+        Globals.modeManager = this;
     }
 
     void Start()
     {
-        overlayText = GlobalVariables.overlayText;
+        Globals.logger.Log("Paraview Loader running in " + ((EDITOR_MODE) ? "Editor" : "Player") + " mode");
     }
 
     public bool isEditorMode()
     {
         return EDITOR_MODE;
-    }
-
-    public void Log(string message)
-    {
-        if(EDITOR_MODE)
-        {
-            Debug.Log(message);
-        } else
-        {
-            overlayText.SetText(message);
-        }
-    }
-
-    
+    }   
 }

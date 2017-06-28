@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using VRTK;
 
-public class VRManagerBehaviour : MonoBehaviour {
+public class ControllersManager : MonoBehaviour {
 
     private VRTK_SDKManager manager;
+
     private GameObject leftController;
     private GameObject rightController;
 
@@ -13,8 +13,8 @@ public class VRManagerBehaviour : MonoBehaviour {
     
     void Awake()
     {
-        // Register as Global Variable
-        GlobalVariables.vrManager = this;
+        // Register as global Variable
+        Globals.controllers = this;
 
         // Save references
         manager = gameObject.GetComponent<VRTK_SDKManager>();
@@ -33,8 +33,6 @@ public class VRManagerBehaviour : MonoBehaviour {
 
     public void SetControllersSwap(bool swapped)
     {
-        Debug.Log("Swap called with value: " + swapped);
-
         leftBehaviour.SetControllerMode(!swapped);
         rightBehaviour.SetControllerMode(swapped);
     }

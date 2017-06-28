@@ -3,7 +3,6 @@ using VRTK;
 
 public class ControllerBehaviour : MonoBehaviour
 {
-    private StaticMenuBehaviour staticMenu;
     private GameObject radialMenu;
 
     public bool isRadialMenuController;
@@ -15,22 +14,18 @@ public class ControllerBehaviour : MonoBehaviour
 
     private void Start()
     {
-        staticMenu = GlobalVariables.staticMenu;
-
         //Setup controller event listeners for Menu button
         GetComponent<VRTK_ControllerEvents>().ButtonTwoReleased += new ControllerInteractionEventHandler(DoButtonTwoReleased);
     }
 
     private void DoButtonTwoReleased(object sender, ControllerInteractionEventArgs e)
     {
-        if(staticMenu.isShown())
+        if(Globals.staticMenu.isShown())
         {
-            Debug.Log("Hiding Menu");
-            staticMenu.Hide();
+            Globals.staticMenu.Hide();
         } else
         {
-            Debug.Log("Showing Menu");
-            staticMenu.Show();
+            Globals.staticMenu.Show();
         }
     }
 

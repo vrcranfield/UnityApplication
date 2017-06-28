@@ -30,7 +30,7 @@
 
             string str = sb.ToString();
 
-            Debug.Log("Received message on socket: " + str);
+            Globals.logger.Log("Received message on socket: " + str);
 
 			return str;
 		}
@@ -38,19 +38,10 @@
 		public static GameObject ImportGameObject(string file)
         {
             List<GameObject> frames = ImportFrames(file);
-
-            GlobalVariables.overlayText.SetText("ImportFrames done");
-
             MergeFrames (frames);
-
-            GlobalVariables.overlayText.SetText("MergeFrames done");
-
             for (int i = 1; i < frames.Count; i++) {
 				GameObject.Destroy (frames[i]);
 			}
-
-            GlobalVariables.overlayText.SetText("Destroy done");
-
             return frames [0];
 		}
 
@@ -80,7 +71,7 @@
 					frames [i].SetActive (false);
 				}
 				frameContainer.AddComponent<FrameManager> ();
-                GlobalVariables.frameContainer = frameContainer;
+                Globals.frameContainer = frameContainer;
 			} else {
 				for (int i = 0; i < frames [0].transform.childCount; i++) {
 					MergeFrames (frames.Select (obj => obj.transform.GetChild (i).gameObject).ToList ());

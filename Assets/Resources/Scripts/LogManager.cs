@@ -15,26 +15,26 @@ using VRTK;
 /// <example>
 /// `VRTK/Examples/018_CameraRig_FramesPerSecondCounter` displays the frames per second in the centre of the headset view. Pressing the trigger generates a new sphere and pressing the touchpad generates ten new spheres. Eventually when lots of spheres are present the FPS will drop and demonstrate the prefab.
 /// </example>
-public class OverlayText : MonoBehaviour
+public class LogManager : MonoBehaviour
 {
-    [Tooltip("The size of the font the FPS is displayed in.")]
+    [Tooltip("The size of the font the text is displayed in.")]
     public int fontSize = 32;
-    [Tooltip("The position of the FPS text within the headset view.")]
+    [Tooltip("The position of the text within the headset view.")]
     public Vector3 position = Vector3.zero;
-    [Tooltip("The colour of the FPS text when the frames per second are within reasonable limits of the Target FPS.")]
-    public Color goodColor = Color.green;
-    [Tooltip("The colour of the FPS text when the frames per second are falling short of reasonable limits of the Target FPS.")]
+    [Tooltip("The colour of the text for warnings.")]
     public Color warnColor = Color.yellow;
-    [Tooltip("The colour of the FPS text when the frames per second are at an unreasonable level of the Target FPS.")]
+    [Tooltip("The colour of the text for errors.")]
     public Color badColor = Color.red;
+
+    private Color defaultColor;
 
     protected const float updateInterval = 0.5f;
     protected Canvas canvas;
     protected Text text;
 
-    protected virtual void OnEnable()
+    void Awake()
     {
-        GlobalVariables.overlayText = this;
+        Globals.logger = this;
 
         VRTK_SDKManager sdkManager = VRTK_SDKManager.instance;
         if (sdkManager != null)
@@ -54,36 +54,11 @@ public class OverlayText : MonoBehaviour
         {
             text.fontSize = fontSize;
             text.transform.localPosition = position;
+            defaultColor = text.color;
         }
         SetCanvasCamera();
+
     }
-
-    /*protected virtual void Update()
-    {
-        framesCount++;
-        framesTime += Time.unscaledDeltaTime;
-
-        if (framesTime > updateInterval)
-        {
-            if (text != null)
-            {
-                if (displayFPS)
-                {
-                    float fps = framesCount / framesTime;
-                    text.text = string.Format("{0:F2} FPS", fps);
-                    text.color = (fps > (targetFPS - 5) ? goodColor :
-                                    (fps > (targetFPS - 30) ? warnColor :
-                                    badColor));
-                }
-                else
-                {
-                    text.text = "";
-                }
-            }
-            framesCount = 0;
-            framesTime = 0;
-        }
-    }*/
 
     protected virtual void LoadedSetupChanged(VRTK_SDKManager sender, VRTK_SDKManager.LoadedSetupChangeEventArgs e)
     {
@@ -99,8 +74,29 @@ public class OverlayText : MonoBehaviour
         }
     }
 
-    public void SetText(string t)
+    public void Log(string message)
     {
-        text.text = t;
+        text.text = message;
+        text.color = defaultColor;
+        Debug.Log(message);
+    }
+
+    public void LogWarning(string message)
+    {
+        text.text = message;
+        text.color = warnColor;
+        Debug.LogWarning(message);
+    }
+
+    public void LogError(string message)
+    {
+        text.text = message;
+        text.color = badColor;
+        Debug.LogError(message);
+    }
+
+    public void ToggleShow(bool value)
+    {
+        text.enabled = value;
     }
 }

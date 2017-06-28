@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoResize : MonoBehaviour
+public class Resizer : MonoBehaviour
 {
     [Tooltip("Activate or deactivate autoresizing")]
     public bool isAutoResizing = true;
+
+    [Tooltip("Set resizing step")]
+    public float resizingStep = 0.1f;
 
     [Tooltip("Set target radius")]
     public float targetSize = 2;
@@ -18,16 +21,11 @@ public class AutoResize : MonoBehaviour
 
             // Resize
             float objectRadius = ren.bounds.size.magnitude;
-
-            Debug.Log("Object radius: " + objectRadius);
-            
             transform.localScale = targetSize * transform.localScale / objectRadius;
+            Globals.logger.Log("Resizing object of radius: " + objectRadius);
 
             // Recenter
             /*Vector3 objectCenter = ren.bounds.center;
-
-            Debug.Log("Center: " + objectCenter.ToString());
-
             transform.position -= new Vector3(objectCenter.x, 0, objectCenter.z);*/
         }
     }
