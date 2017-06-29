@@ -40,7 +40,7 @@
             List<GameObject> frames = ImportFrames(file);
             MergeFrames (frames);
             for (int i = 1; i < frames.Count; i++) {
-				GameObject.Destroy (frames[i]);
+				GameObject.DestroyImmediate(frames[i]);
 			}
             return frames [0];
 		}
@@ -70,10 +70,6 @@
 					frames[i].transform.parent = frameContainer.transform;
 					frames [i].SetActive (false);
 				}
-
-                // Attach this object to the singleton animation manager
-                Globals.animation.AttachObject(frameContainer);
-
 			} else {
 				for (int i = 0; i < frames [0].transform.childCount; i++) {
 					MergeFrames (frames.Select (obj => obj.transform.GetChild (i).gameObject).ToList ());

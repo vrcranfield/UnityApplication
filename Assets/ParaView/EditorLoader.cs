@@ -45,7 +45,7 @@
                         Globals.RegisterParaviewObject(meshNode);
 
                     // Automaticall Resize object
-                    meshNode.AddComponent<Resizer>();
+                    meshNode.AddComponent<SizeManager>();
 
                     meshNode.SetActive(true);
                 } else

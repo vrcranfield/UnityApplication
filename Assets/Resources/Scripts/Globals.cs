@@ -14,6 +14,7 @@ public static class Globals
     public static ControllersManager controllers;
     public static EnvironmentManager room;
     public static AnimationManager animation;
+    public static SizeManager sizer;
 
     public delegate void CallbackEventHandler(GameObject paraviewObj);
     public static event CallbackEventHandler ParaviewObjectLoadedCallbacks;

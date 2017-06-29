@@ -42,7 +42,7 @@
                 Globals.logger.Log("Received incoming connection");
                 Socket soc = listener.AcceptSocket();
 
-                Destroy(meshNode);
+                DestroyImmediate(meshNode);
 
                 string importDir = Loader.GetImportDir(soc);
 
@@ -57,9 +57,6 @@
                     // Register object in globals
                     if (meshNode != null)
                         Globals.RegisterParaviewObject(meshNode);
-
-                    // Automaticall Resize object
-                    meshNode.AddComponent<Resizer>();
 
                     meshNode.SetActive(true);
                 }

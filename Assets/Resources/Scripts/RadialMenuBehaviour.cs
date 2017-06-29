@@ -35,6 +35,18 @@ public class RadialMenuBehaviour : MonoBehaviour {
         }
     }
 
+    public void OnScaleUpButtonHold()
+    {
+        if(Globals.paraviewObj != null)
+            Globals.sizer.ScaleUp();
+    }
+
+    public void OnScaleDownButtonHold()
+    {
+        if (Globals.paraviewObj != null)
+            Globals.sizer.ScaleDown();
+    }
+
     public void OnPlayPauseButtonClicked()
     {
         if (Globals.animation.isAnimation())
