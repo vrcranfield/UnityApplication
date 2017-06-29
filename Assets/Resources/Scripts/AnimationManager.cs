@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 
-using System;
-using System.Collections;
-
 
 public class AnimationManager : MonoBehaviour
 {
-    public bool isPlaying = false;
+    private bool isPlaying = false;
 
-    int currentFrame = 0;
-	int delay = 0;
+    private GameObject obj;
+    private int currentFrame = 0;
+	private int delay = 0;
 
 	const int DELAY_COUNT = 2;
 
@@ -41,27 +39,47 @@ public class AnimationManager : MonoBehaviour
 
     public void Play()
     {
-        isPlaying = true;
+        if(isObjectLoaded())
+            isPlaying = true;
     }
 
     public void Pause()
     {
-        isPlaying = false;
+        if(isObjectLoaded())
+            isPlaying = false;
     }
 
     private void ShowNextFrame()
     {
-        foreach (Transform child in transform)
+        if(isObjectLoaded())
         {
-            child.gameObject.SetActive(false);
+            foreach (Transform child in obj.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            obj.transform.GetChild(currentFrame).gameObject.SetActive(true);
+            currentFrame = (currentFrame + 1) % obj.transform.childCount;
         }
-        transform.GetChild(currentFrame).gameObject.SetActive(true);
-        currentFrame = (currentFrame + 1) % transform.childCount;
     }
 
     public bool isAnimation()
     {
-        return transform.childCount > 1;
+        return isObjectLoaded() && obj.transform.childCount > 1;
+    }
+
+    public bool isObjectLoaded()
+    {
+        return obj != null;
+    }
+
+    public bool isAnimationPlaying()
+    {
+        return isPlaying;
+    }
+
+    public void AttachObject(GameObject obj)
+    {
+        this.obj = obj;
     }
 
 }

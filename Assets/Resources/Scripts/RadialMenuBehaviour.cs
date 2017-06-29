@@ -3,20 +3,23 @@ using VRTK;
 
 public class RadialMenuBehaviour : MonoBehaviour {
 
-    AnimationManager animationManager;
+    //AnimationManager animationManager;
     VRTK_RadialMenu vrtkRadialMenu;
 
     public enum ButtonsId
     {
         PlayPause = 3
     }
-
-    bool isAnimationPlaying = false;
-
+    
     void Awake()
     {
         Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
         vrtkRadialMenu = GetComponentInChildren<VRTK_RadialMenu>();
+    }
+
+    void Start()
+    {
+        //animationManager = Globals.animation;
     }
 
     public void OnButtonClick(int buttonId)
@@ -26,34 +29,28 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
-        animationManager = Globals.animation;
-        
-        if(animationManager.isAnimation())
+        if(Globals.animation.isAnimation())
         {
-            // TODO activate button
-            //vrtkRadialMenu.GetButton((int)ButtonsId.PlayPause).
+            UpdatePlayPauseButtonIcon();
         }
     }
 
     public void OnPlayPauseButtonClicked()
     {
-        if (animationManager != null && animationManager.isAnimation())
+        if (Globals.animation.isAnimation())
         {
-            if (isAnimationPlaying)
+            if (Globals.animation.isAnimationPlaying())
             {
-                animationManager.Pause();
+                Globals.animation.Pause();
             }
             else
             {
-                animationManager.Play();
+                Globals.animation.Play();
             }
-
-            isAnimationPlaying = animationManager.isPlaying;
-
-        } else if (animationManager == null)
+        } else if (!Globals.animation.isObjectLoaded())
         {
             Globals.logger.LogWarning("No Paraview Object loaded");
-        } else if (!animationManager.isAnimation())
+        } else if (Globals.animation.isObjectLoaded() && !Globals.animation.isAnimation())
         {
             Globals.logger.LogWarning("Object does not have an animation");
         }
@@ -65,10 +62,10 @@ public class RadialMenuBehaviour : MonoBehaviour {
     {
         string spriteName;
         
-        if(!animationManager.isAnimation())
+        if(!Globals.animation.isAnimation())
         {
             spriteName = "PlayButtonDisabled";
-        } else if(isAnimationPlaying)
+        } else if(Globals.animation.isAnimationPlaying())
         {
             spriteName = "PauseButton";
         } else

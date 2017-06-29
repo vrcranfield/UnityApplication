@@ -71,9 +71,9 @@
 					frames [i].SetActive (false);
 				}
 
-                // Add an animation manager and register it in globals
-				frameContainer.AddComponent<AnimationManager>();
-                Globals.animation = frameContainer.GetComponent<AnimationManager>();
+                // Attach this object to the singleton animation manager
+                Globals.animation.AttachObject(frameContainer);
+
 			} else {
 				for (int i = 0; i < frames [0].transform.childCount; i++) {
 					MergeFrames (frames.Select (obj => obj.transform.GetChild (i).gameObject).ToList ());

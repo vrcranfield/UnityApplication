@@ -18,7 +18,7 @@ namespace ParaUnity.X3D
 		override public void Convert (GameObject parent)
 		{
 			foreach (Transform child in parent.transform) {
-				//this.Material.Convert (child.gameObject);
+				this.Material.Convert (child.gameObject);
 			}
 		}
 	}
