@@ -11,8 +11,9 @@ public class SizeManager : MonoBehaviour
     public float targetSize = 2;
 
     [Tooltip("Scaling speed")]
-    public float scaleSpeed = 1f; // Scales by a factor of scaleSpeed every second
+    public float scaleSpeed = 1.0f; // Scales by a factor of scaleSpeed every second
 
+    private float NON_LINEARITY_FACTOR = 0.02f;
     private GameObject obj;
 
     void Awake()
@@ -32,13 +33,19 @@ public class SizeManager : MonoBehaviour
     public void ScaleUp()
     {
         if (obj != null)
-            obj.transform.localScale *= (1 + scaleSpeed * Time.deltaTime);
+        {
+            obj.transform.localScale *= ((1 + NON_LINEARITY_FACTOR) + scaleSpeed * Time.deltaTime);
+            Center();
+        }
     }
 
     public void ScaleDown()
     {
         if (obj != null)
-            obj.transform.localScale *= (1 - scaleSpeed * Time.deltaTime);
+        {
+            obj.transform.localScale *= ((1 - NON_LINEARITY_FACTOR) - scaleSpeed * Time.deltaTime);
+            Center();
+        }
     }
 
     public void AutoResize()
@@ -47,10 +54,13 @@ public class SizeManager : MonoBehaviour
         float objectRadius = obj.GetComponentInChildren<MeshRenderer>().bounds.size.magnitude;
         obj.transform.localScale = targetSize * obj.transform.localScale / objectRadius;
         Globals.logger.Log("Resizing object of radius: " + objectRadius);
+    }
 
+    public void Center()
+    {
         // Recenter
-        /*Vector3 objectCenter = obj.GetComponent<MeshRenderer>().bounds.center;
-        transform.position -= new Vector3(objectCenter.x, 0, objectCenter.z);*/
+       Vector3 objectCenter = obj.GetComponentInChildren<MeshRenderer>().bounds.center;
+        transform.position -= objectCenter; //new Vector3(objectCenter.x, objectCenter.y, objectCenter.z);
     }
 
 }

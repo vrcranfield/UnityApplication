@@ -40,7 +40,7 @@
             List<GameObject> frames = ImportFrames(file);
             MergeFrames (frames);
             for (int i = 1; i < frames.Count; i++) {
-				GameObject.DestroyImmediate(frames[i]);
+				GameObject.Destroy(frames[i]);
 			}
             return frames [0];
 		}

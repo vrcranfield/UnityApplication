@@ -42,7 +42,7 @@
                 Globals.logger.Log("Received incoming connection");
                 Socket soc = listener.AcceptSocket();
 
-                DestroyImmediate(meshNode);
+                Destroy(meshNode);
 
                 string importDir = Loader.GetImportDir(soc);
 
