@@ -40,7 +40,7 @@ public class AnimationManager : MonoBehaviour
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
-        this.obj = paraviewObj.transform.FindDeepChild("FramedObject").gameObject;
+        this.obj = Globals.paraviewObj.transform.FindDeepChild("FramedObject").gameObject;
     }
 
     public void Play()

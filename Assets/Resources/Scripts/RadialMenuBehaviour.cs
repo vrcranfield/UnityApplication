@@ -29,6 +29,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
+        // If the object has an animation, enable the button
         if(Globals.animation.isAnimation())
         {
             UpdatePlayPauseButtonIcon();
@@ -45,6 +46,12 @@ public class RadialMenuBehaviour : MonoBehaviour {
     {
         if (Globals.paraviewObj != null)
             Globals.sizer.ScaleDown();
+    }
+
+    public void OnSliceButtonClicked()
+    {
+        //TODO implement
+        Globals.logger.Log("Slice Button clicked");
     }
 
     public void OnPlayPauseButtonClicked()

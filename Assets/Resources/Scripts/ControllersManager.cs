@@ -24,11 +24,25 @@ public class ControllersManager : MonoBehaviour {
 
         leftBehaviour = leftController.GetComponent<ControllerBehaviour>();
         rightBehaviour = rightController.GetComponent<ControllerBehaviour>();
+
+        Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
     }
 
     void Start () {
-        // Initialize Controllers
+        // Initialize Controllers without radial menu
+        SetControllersDefault();
+    }
+
+    public void OnParaviewObjectLoaded(GameObject paraviewObj)
+    {
+        // Set the controllers with radial menu on left
         SetControllersSwap(false);
+    }
+
+    public void SetControllersDefault()
+    {
+        leftBehaviour.SetControllerMode(false);
+        rightBehaviour.SetControllerMode(false);
     }
 
     public void SetControllersSwap(bool swapped)
