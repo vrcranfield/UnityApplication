@@ -70,8 +70,10 @@
 					frames[i].transform.parent = frameContainer.transform;
 					frames [i].SetActive (false);
 				}
-				frameContainer.AddComponent<FrameManager> ();
-                Globals.frameContainer = frameContainer;
+
+                // Add an animation manager and register it in globals
+				frameContainer.AddComponent<AnimationManager>();
+                Globals.animation = frameContainer.GetComponent<AnimationManager>();
 			} else {
 				for (int i = 0; i < frames [0].transform.childCount; i++) {
 					MergeFrames (frames.Select (obj => obj.transform.GetChild (i).gameObject).ToList ());

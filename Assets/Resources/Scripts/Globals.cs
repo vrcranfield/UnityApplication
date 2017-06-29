@@ -5,14 +5,15 @@ public static class Globals
 {
     public static StaticMenuBehaviour staticMenu;
     public static VRTK_RadialMenu radialMenu;
-    public static ControllersManager controllers;
-    public static EnvironmentManager room;
+
     public static GameObject paraviewObj;
-    public static GameObject frameContainer;
 
     public static LogManager logger;
     public static ModeManager modeManager;
     public static HeadsetManager headset;
+    public static ControllersManager controllers;
+    public static EnvironmentManager room;
+    public static AnimationManager animation;
 
     public delegate void CallbackEventHandler(GameObject paraviewObj);
     public static event CallbackEventHandler ParaviewObjectLoadedCallbacks;

@@ -3,9 +3,13 @@ using VRTK;
 
 public class RadialMenuBehaviour : MonoBehaviour {
 
-
-    ParaUnity.FrameManager frameManager;
+    AnimationManager animationManager;
     VRTK_RadialMenu vrtkRadialMenu;
+
+    public enum ButtonsId
+    {
+        PlayPause = 3
+    }
 
     bool isAnimationPlaying = false;
 
@@ -22,43 +26,59 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
-        frameManager = Globals.frameContainer.GetComponent<ParaUnity.FrameManager>();
+        animationManager = Globals.animation;
+        
+        if(animationManager.isAnimation())
+        {
+            // TODO activate button
+            //vrtkRadialMenu.GetButton((int)ButtonsId.PlayPause).
+        }
     }
 
-    public void OnPlayPauseButtonClicked(int btnId)
+    public void OnPlayPauseButtonClicked()
     {
-
-        VRTK_RadialMenu.RadialMenuButton btn = GetComponentInChildren<VRTK.VRTK_RadialMenu>().GetButton(btnId);
-
-        if (frameManager != null)
+        if (animationManager != null && animationManager.isAnimation())
         {
             if (isAnimationPlaying)
             {
-                frameManager.Pause();
+                animationManager.Pause();
             }
             else
             {
-                frameManager.Play();
+                animationManager.Play();
             }
 
-            isAnimationPlaying = frameManager.isPlaying;
-            UpdatePlayPauseButtonIcon(btn);
+            isAnimationPlaying = animationManager.isPlaying;
 
-        } else
+        } else if (animationManager == null)
         {
-            // TODO disable button if nothing is loaded?
-            Globals.logger.LogError("No framemanager found!");
+            Globals.logger.LogWarning("No Paraview Object loaded");
+        } else if (!animationManager.isAnimation())
+        {
+            Globals.logger.LogWarning("Object does not have an animation");
         }
+
+        UpdatePlayPauseButtonIcon();
     }
     
-    private void UpdatePlayPauseButtonIcon(VRTK_RadialMenu.RadialMenuButton btn)
+    private void UpdatePlayPauseButtonIcon()
     {
-        string spriteName = (isAnimationPlaying) ? "PauseButton" : "PlayButton";
-
+        string spriteName;
+        
+        if(!animationManager.isAnimation())
+        {
+            spriteName = "PlayButtonDisabled";
+        } else if(isAnimationPlaying)
+        {
+            spriteName = "PauseButton";
+        } else
+        {
+            spriteName = "PlayButton";
+        }
 
         Sprite icon = Resources.Load<Sprite>("GUI/" + spriteName);
 
-        btn.ButtonIcon = icon;
+        vrtkRadialMenu.GetButton((int)ButtonsId.PlayPause).ButtonIcon = icon;
         vrtkRadialMenu.UpdateButtonSprites();
     }
 }

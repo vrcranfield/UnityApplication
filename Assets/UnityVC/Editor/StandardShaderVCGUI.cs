@@ -1,8 +1,8 @@
 namespace UnityEditor
 {
-	using System;
-	using UnityEngine;
-	using UnityVC;
+    using System;
+    using UnityEngine;
+    using UnityVC;
 
     public class StandardShaderVCGUI : ShaderGUI
     {
@@ -311,7 +311,7 @@ namespace UnityEditor
             // So if the emission support is disabled on the material, but the property blocks have a value that requires it, then we need to show a warning.
             // (note: (Renderer MaterialPropertyBlock applies its values to emissionColorForRendering))
             bool hasEmissionKeyword = material.IsKeywordEnabled("_EMISSION");
-			if (!hasEmissionKeyword && Util.ShouldEmissionBeEnabled(emissionColorForRendering.colorValue))
+            if (!hasEmissionKeyword && Util.ShouldEmissionBeEnabled(emissionColorForRendering.colorValue))
                 return false;
             else
                 return true;
@@ -330,7 +330,7 @@ namespace UnityEditor
             // Handle Blending modes
             SetupMaterialWithBlendMode(material, (BlendMode)material.GetFloat("_Mode"));
 
-			Util.SetMaterialKeywords(material, workflowMode);
+            Util.SetMaterialKeywords(material, workflowMode);
         }
     }
 }
