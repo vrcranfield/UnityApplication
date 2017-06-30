@@ -8,21 +8,23 @@ public class Interactable : MonoBehaviour {
     private ControllerBehaviour attachedController;
 
 	void Start () {
-        SetUpRigidBody();
-        SetUpCollider();
+        foreach (Renderer r in GetComponentsInChildren<MeshRenderer>(true))
+        {
+            SetUpRigidBody(r.gameObject);
+            SetUpCollider(r.gameObject);
+        }
 	}
 
-    private void SetUpRigidBody()
+    private void SetUpRigidBody(GameObject obj)
     {
-        gameObject.AddComponent<Rigidbody>();
-        gameObject.GetComponent<Rigidbody>().useGravity = false;
+        obj.AddComponent<Rigidbody>();
+        obj.GetComponent<Rigidbody>().useGravity = false;
     }
 
-    private void SetUpCollider()
+    private void SetUpCollider(GameObject obj)
     {
-        gameObject.AddComponent<BoxCollider>();
-        gameObject.GetComponent<BoxCollider>().isTrigger = true;
-        FitColliderToChildren();
+        obj.AddComponent<MeshCollider>();
+        obj.GetComponent<MeshCollider>().isTrigger = true;
     }
 
     private void FitColliderToChildren()
