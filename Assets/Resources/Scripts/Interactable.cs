@@ -12,6 +12,11 @@ public class Interactable : MonoBehaviour {
         SetUpRigidBody();
     }
 
+    void Start ()
+    {
+        //Globals.animation.NextFrameLoadedCallbacks += new AnimationManager.CallbackEventHandler(FitColliderToChildren);
+    }
+
     private void SetUpRigidBody()
     {
         gameObject.AddComponent<Rigidbody>();
@@ -25,7 +30,7 @@ public class Interactable : MonoBehaviour {
         FitColliderToChildren();
     }
 
-    private void FitColliderToChildren()
+    public void FitColliderToChildren()
     {
         bool hasBounds = false;
         Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);

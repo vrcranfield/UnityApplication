@@ -11,6 +11,10 @@ public class AnimationManager : MonoBehaviour
 
 	const int DELAY_COUNT = 2;
 
+    public delegate void CallbackEventHandler();
+    public event CallbackEventHandler NextFrameLoadedCallbacks;
+
+
     void Awake()
     {
         Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
@@ -65,6 +69,9 @@ public class AnimationManager : MonoBehaviour
             }
             obj.transform.GetChild(currentFrame).gameObject.SetActive(true);
             currentFrame = (currentFrame + 1) % obj.transform.childCount;
+
+            if (NextFrameLoadedCallbacks != null)
+                NextFrameLoadedCallbacks();
         }
     }
 
