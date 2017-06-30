@@ -7,15 +7,40 @@ public class ControllerBehaviour : MonoBehaviour
 
     public bool isRadialMenuController;
 
-    private void Awake()
+    private GameObject pickedObject;
+
+    void Awake()
     {
         radialMenu = transform.Find("RadialMenu").gameObject;
     }
 
-    private void Start()
+    void Start()
     {
         //Setup controller event listeners for Menu button
         GetComponent<VRTK_ControllerEvents>().ButtonTwoReleased += new ControllerInteractionEventHandler(DoButtonTwoReleased);
+        GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(DoTriggerPressed);
+        GetComponent<VRTK_ControllerEvents>().TriggerReleased += new ControllerInteractionEventHandler(DoTriggerReleased);
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        pickedObject = collider.gameObject;
+    }
+    private void OnTriggerExit(Collider collider)
+    {
+        pickedObject = null;
+    }
+
+    private void DoTriggerPressed(object sender, ControllerInteractionEventArgs e)
+    {
+        if (pickedObject != null)
+            pickedObject.transform.parent = this.transform;
+    }
+
+    private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
+    {
+        if(pickedObject != null)
+            pickedObject.transform.parent = null;
     }
 
     private void DoButtonTwoReleased(object sender, ControllerInteractionEventArgs e)

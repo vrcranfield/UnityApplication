@@ -58,6 +58,7 @@
                     if (meshNode != null)
                         Globals.RegisterParaviewObject(meshNode);
 
+                    meshNode.AddComponent<Interactable>();
                     meshNode.SetActive(true);
                 }
                 else
