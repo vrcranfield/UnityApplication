@@ -54,11 +54,12 @@
                     Globals.logger.Log("Finished importing");
                     meshNode.transform.position = new Vector3(0, 1, 0);
 
+                    meshNode.AddComponent<Interactable>();
+
                     // Register object in globals
                     if (meshNode != null)
                         Globals.RegisterParaviewObject(meshNode);
 
-                    meshNode.AddComponent<Interactable>();
 
                     meshNode.SetActive(true);
                 }

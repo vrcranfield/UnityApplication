@@ -28,7 +28,6 @@ public class LogManager : MonoBehaviour
 
     private Color defaultColor;
 
-    protected const float updateInterval = 0.5f;
     protected Canvas canvas;
     protected Text text;
 

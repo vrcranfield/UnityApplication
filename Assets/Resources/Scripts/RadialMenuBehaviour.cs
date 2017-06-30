@@ -51,7 +51,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
     public void OnSliceButtonClicked()
     {
         //TODO implement
-        Globals.logger.Log("Slice Button clicked");
+        Globals.logger.Log("Slice button clicked!");
     }
 
     public void OnPlayPauseButtonClicked()

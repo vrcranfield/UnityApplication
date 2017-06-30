@@ -7,24 +7,22 @@ public class Interactable : MonoBehaviour {
     private bool interacting = false;
     private ControllerBehaviour attachedController;
 
-	void Start () {
-        foreach (Renderer r in GetComponentsInChildren<MeshRenderer>(true))
-        {
-            SetUpRigidBody(r.gameObject);
-            SetUpCollider(r.gameObject);
-        }
-	}
-
-    private void SetUpRigidBody(GameObject obj)
-    {
-        obj.AddComponent<Rigidbody>();
-        obj.GetComponent<Rigidbody>().useGravity = false;
+	void Awake () {
+        SetUpCollider();
+        SetUpRigidBody();
     }
 
-    private void SetUpCollider(GameObject obj)
+    private void SetUpRigidBody()
     {
-        obj.AddComponent<BoxCollider>();
-        obj.GetComponent<BoxCollider>().isTrigger = true;
+        gameObject.AddComponent<Rigidbody>();
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
+    }
+
+    private void SetUpCollider()
+    {
+        gameObject.AddComponent<BoxCollider>();
+        gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        FitColliderToChildren();
     }
 
     private void FitColliderToChildren()
@@ -33,23 +31,20 @@ public class Interactable : MonoBehaviour {
         Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
 
         foreach(Renderer childRenderer in GetComponentsInChildren<MeshRenderer>(true)) {
-            if (childRenderer != null)
+            if (hasBounds)
             {
-                if (hasBounds)
-                {
-                    bounds.Encapsulate(childRenderer.bounds);
-                }
-                else
-                {
-                    bounds = childRenderer.bounds;
-                    hasBounds = true;
-                }
+                bounds.Encapsulate(childRenderer.bounds);
+            }
+            else
+            {
+                bounds = childRenderer.bounds;
+                hasBounds = true;
             }
         }
 
         BoxCollider collider = GetComponent<BoxCollider>();
-        collider.center = bounds.center - transform.position;
-        collider.size = bounds.size;
+        collider.center = Vector3.Scale(bounds.center - transform.position, transform.localScale.Reciprocal());
+        collider.size = Vector3.Scale(bounds.size, transform.localScale.Reciprocal());
     }
 
     public void OnBeginInteraction(ControllerBehaviour controller)
