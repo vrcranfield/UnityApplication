@@ -27,9 +27,7 @@ public class Interactable : MonoBehaviour {
         bool hasBounds = false;
         Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
 
-        for (int i = 0; i < transform.childCount; ++i)
-        {
-            Renderer childRenderer = transform.GetChild(i).GetComponent<MeshRenderer>() ;
+        foreach(Renderer childRenderer in GetComponentsInChildren<MeshRenderer>()) {
             if (childRenderer != null)
             {
                 if (hasBounds)
