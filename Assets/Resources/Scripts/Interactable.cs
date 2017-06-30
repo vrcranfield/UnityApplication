@@ -64,6 +64,7 @@ public class Interactable : MonoBehaviour {
         if (controller == attachedController)
         {
             attachedController = null;
+            this.transform.parent = null;
             interacting = false;
         }
     }
