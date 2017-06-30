@@ -23,8 +23,8 @@ public class Interactable : MonoBehaviour {
 
     private void SetUpCollider(GameObject obj)
     {
-        obj.AddComponent<MeshCollider>();
-        obj.GetComponent<MeshCollider>().isTrigger = true;
+        obj.AddComponent<BoxCollider>();
+        obj.GetComponent<BoxCollider>().isTrigger = true;
     }
 
     private void FitColliderToChildren()
