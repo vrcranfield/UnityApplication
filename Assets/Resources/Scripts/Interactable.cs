@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour {
 
+    private bool interacting = false;
+    private ControllerBehaviour attachedController;
+
 	void Start () {
         SetUpRigidBody();
         SetUpCollider();
@@ -27,7 +30,7 @@ public class Interactable : MonoBehaviour {
         bool hasBounds = false;
         Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
 
-        foreach(Renderer childRenderer in GetComponentsInChildren<MeshRenderer>()) {
+        foreach(Renderer childRenderer in GetComponentsInChildren<MeshRenderer>(true)) {
             if (childRenderer != null)
             {
                 if (hasBounds)
@@ -46,4 +49,26 @@ public class Interactable : MonoBehaviour {
         collider.center = bounds.center - transform.position;
         collider.size = bounds.size;
     }
+
+    public void OnBeginInteraction(ControllerBehaviour controller)
+    {
+        attachedController = controller;
+        this.transform.parent = controller.transform;
+        interacting = true;
+    }
+
+    public void OnEndInteraction(ControllerBehaviour controller)
+    {
+        if (controller == attachedController)
+        {
+            attachedController = null;
+            interacting = false;
+        }
+    }
+
+    public bool IsInteracting()
+    {
+        return this.interacting;
+    }
+
 }

@@ -7,7 +7,7 @@ public class ControllerBehaviour : MonoBehaviour
 
     public bool isRadialMenuController;
 
-    private GameObject pickedObject;
+    private Interactable collidedObject;
 
     void Awake()
     {
@@ -24,28 +24,23 @@ public class ControllerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        pickedObject = collider.gameObject;
+        collidedObject = collider.GetComponent<Interactable>();
     }
     private void OnTriggerExit(Collider collider)
     {
-        //pickedObject = null;
+        collidedObject = null;
     }
 
     private void DoTriggerPressed(object sender, ControllerInteractionEventArgs e)
     {
-        if (pickedObject != null)
-            pickedObject.transform.parent = this.transform;
+        if (collidedObject != null)
+            collidedObject.OnBeginInteraction(this);
     }
 
     private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
     {
-        if(pickedObject != null)
-        {
-            if (pickedObject.transform.parent == this.transform)
-                pickedObject.transform.parent = null;
-
-            pickedObject = null;
-        }
+        if(collidedObject != null)
+            collidedObject.OnEndInteraction(this);
     }
 
     private void DoButtonTwoReleased(object sender, ControllerInteractionEventArgs e)
