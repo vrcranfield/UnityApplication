@@ -59,9 +59,13 @@
                         Globals.RegisterParaviewObject(meshNode);
 
                     meshNode.AddComponent<Interactable>();
+
                     meshNode.SetActive(true);
                 }
-                else
+                else if(importDir.Equals("TEST"))
+                {
+                    Globals.logger.Log("Receiving object from Paraview...");
+                } else
                 {
                     Globals.logger.LogWarning("Message was not existing file/directory: " + importDir);
                 }
