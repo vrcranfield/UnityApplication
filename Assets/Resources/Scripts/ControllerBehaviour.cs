@@ -28,7 +28,7 @@ public class ControllerBehaviour : MonoBehaviour
     }
     private void OnTriggerExit(Collider collider)
     {
-        pickedObject = null;
+        //pickedObject = null;
     }
 
     private void DoTriggerPressed(object sender, ControllerInteractionEventArgs e)
@@ -40,7 +40,12 @@ public class ControllerBehaviour : MonoBehaviour
     private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
     {
         if(pickedObject != null)
-            pickedObject.transform.parent = null;
+        {
+            if (pickedObject.transform.parent == this.transform)
+                pickedObject.transform.parent = null;
+
+            pickedObject = null;
+        }
     }
 
     private void DoButtonTwoReleased(object sender, ControllerInteractionEventArgs e)
