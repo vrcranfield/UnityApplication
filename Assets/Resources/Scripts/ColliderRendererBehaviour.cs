@@ -11,11 +11,11 @@ public class ColliderRendererBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (gameObject.activeSelf)
+        if (Globals.paraviewObj == null)
+            Hide();
+        else if (IsShowing())
         {
-            transform.position = Vector3.Scale(Globals.paraviewObj.GetComponent<BoxCollider>().center, Globals.paraviewObj.transform.localScale) + Globals.paraviewObj.transform.position;
-            transform.localScale = Vector3.Scale(Globals.paraviewObj.GetComponent<BoxCollider>().size, Globals.paraviewObj.transform.localScale);
-            transform.rotation = Globals.paraviewObj.transform.rotation;
+            UpdatePosition();
         }
     }
 
@@ -23,6 +23,7 @@ public class ColliderRendererBehaviour : MonoBehaviour
     {
         if (Globals.paraviewObj != null)
         {
+            UpdatePosition();
             gameObject.SetActive(true);
         }
         else
@@ -39,5 +40,16 @@ public class ColliderRendererBehaviour : MonoBehaviour
     public bool IsShowing()
     {
         return gameObject.activeSelf;
+    }
+
+    private void UpdatePosition()
+    {
+        Vector3 scaledCenter = Vector3.Scale(Globals.paraviewObj.GetComponent<BoxCollider>().center, Globals.paraviewObj.transform.localScale);
+        Vector3 scaledSize = Vector3.Scale(Globals.paraviewObj.GetComponent<BoxCollider>().size, Globals.paraviewObj.transform.localScale);
+
+        transform.SetPositionAndRotation(Globals.paraviewObj.transform.position, Globals.paraviewObj.transform.rotation);
+
+        transform.Translate(scaledCenter);
+        transform.localScale = scaledSize;
     }
 }
