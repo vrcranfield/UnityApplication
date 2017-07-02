@@ -42,6 +42,10 @@
                 Globals.logger.Log("Received incoming connection");
                 Socket soc = listener.AcceptSocket();
 
+                if(Globals.paraviewObj != null)
+                {
+                    Globals.UnregisterParaviewObject();
+                }
                 Destroy(meshNode);
 
                 string importDir = Loader.GetImportDir(soc);

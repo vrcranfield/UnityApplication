@@ -25,7 +25,7 @@ public class ControllersManager : MonoBehaviour {
         leftBehaviour = leftController.GetComponent<ControllerBehaviour>();
         rightBehaviour = rightController.GetComponent<ControllerBehaviour>();
 
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
     }
 
     void Start () {

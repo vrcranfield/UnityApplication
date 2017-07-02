@@ -19,7 +19,7 @@ public class SizeManager : MonoBehaviour
     void Awake()
     {
         Globals.sizer = this;
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
     }
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)

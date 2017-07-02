@@ -17,8 +17,10 @@ public static class Globals
     public static AnimationManager animation;
     public static SizeManager sizer;
 
-    public delegate void CallbackEventHandler(GameObject paraviewObj);
-    public static event CallbackEventHandler ParaviewObjectLoadedCallbacks;
+    public delegate void ParaviewObjectLoaded(GameObject paraviewObj);
+    public static event ParaviewObjectLoaded ParaviewObjectLoadedCallbacks;
+    public delegate void ParaviewObjectUnloaded();
+    public static event ParaviewObjectUnloaded ParaviewObjectUnloadedCallbacks;
 
     public static void RegisterParaviewObject(GameObject paraviewObj)
     {
@@ -26,6 +28,14 @@ public static class Globals
 
         if (ParaviewObjectLoadedCallbacks != null)
             ParaviewObjectLoadedCallbacks(paraviewObj);
+    }
+
+    public static void UnregisterParaviewObject()
+    {
+        if (ParaviewObjectUnloadedCallbacks != null)
+            ParaviewObjectUnloadedCallbacks();
+
+        Globals.paraviewObj = null;
     }
 
 }
