@@ -7,7 +7,7 @@ public static class Globals
     public static VRTK_RadialMenu radialMenu;
 
     public static GameObject paraviewObj;
-    public static ColliderRendererBehaviour colliderBox;
+    public static BoundingBoxBehaviour boundingBox;
 
     public static LogManager logger;
     public static ModeManager modeManager;

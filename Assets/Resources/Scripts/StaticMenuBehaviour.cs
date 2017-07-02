@@ -7,6 +7,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
     private EnvironmentManager room;
     private LogManager logger;
     private HeadsetManager headset;
+    private BoundingBoxBehaviour boundingBox;
 
     void Awake()
     {
@@ -24,6 +25,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
         room = Globals.room;
         logger = Globals.logger;
         headset = Globals.headset;
+        boundingBox = Globals.boundingBox;
     }
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
@@ -66,9 +68,14 @@ public class StaticMenuBehaviour : MonoBehaviour {
         room.ToggleShow(value);
     }
 
-    public void OnShowDebugToggleChanged(bool value)
+    public void OnShowLogToggleChanged(bool value)
     {
         logger.ToggleShow(value);
+    }
+
+    public void OnEnableBoundingBoxChanged(bool value)
+    {
+        boundingBox.SetEnabled(value);
     }
 
     public void Show()

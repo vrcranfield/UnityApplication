@@ -28,6 +28,7 @@ public class ControllerBehaviour : MonoBehaviour
         if (collider.GetComponent<Interactable>() != null)
         {
             Globals.logger.Log("[" + gameObject.name + "] Entered collision with: " + collider.gameObject.name);
+            Globals.boundingBox.Show();
             collidedObject = collider.GetComponent<Interactable>();
         }
     }
@@ -37,6 +38,7 @@ public class ControllerBehaviour : MonoBehaviour
         if (collider.GetComponent<Interactable>() != null)
         {
             Globals.logger.Log("[" + gameObject.name + "] Exited collision with: " + collider.gameObject.name);
+            Globals.boundingBox.Hide();
             collidedObject = null;
         }
     }

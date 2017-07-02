@@ -53,10 +53,10 @@ public class RadialMenuBehaviour : MonoBehaviour {
         //TODO implement
         //Globals.logger.Log("Slice button clicked!");
 
-        if (Globals.colliderBox.IsShowing())
-            Globals.colliderBox.Hide();
+        if (Globals.boundingBox.IsShowing())
+            Globals.boundingBox.Hide();
         else
-            Globals.colliderBox.Show();
+            Globals.boundingBox.Show();
     }
 
     public void OnPlayPauseButtonClicked()
