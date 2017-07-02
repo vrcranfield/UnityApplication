@@ -11,11 +11,16 @@ public class BoundingBoxBehaviour : MonoBehaviour
     private IEnumerator coroutine;
     private const float ANIMATION_DURATION = 0.125f; //in seconds
 
+    private GameObject paraviewObj;
+
     void Awake()
     {
         Globals.boundingBox = this;
         material = GetComponent<Renderer>().material;
         defaultAlpha = material.color.a;
+
+        Globals.ParaviewObjectLoadedCallbacks += OnParaviewObjectLoaded;
+        Globals.ParaviewObjectUnloadedCallbacks += OnParaviewObjectUnloaded;
 
         // Hide and disable object
         SetAlpha(0.0f);
@@ -24,17 +29,28 @@ public class BoundingBoxBehaviour : MonoBehaviour
 
     void Update()
     {
-        if ((Globals.paraviewObj == null || !isEnabled))
-            Hide();
-        else if (IsShowing())
+        if (IsShowing())
         {
             UpdatePosition();
         }
     }
 
+    private void OnParaviewObjectLoaded(GameObject paraviewObj)
+    {
+        this.paraviewObj = paraviewObj;
+    }
+
+    private void OnParaviewObjectUnloaded()
+    {
+        this.paraviewObj = null;
+
+        if (IsShowing())
+            Hide();
+    }
+
     public void Show()
     {
-        if (isEnabled && Globals.paraviewObj != null)
+        if (isEnabled && paraviewObj != null)
         {
             UpdatePosition();
             gameObject.SetActive(true);
@@ -59,6 +75,10 @@ public class BoundingBoxBehaviour : MonoBehaviour
     public void SetEnabled(bool value)
     {
         isEnabled = value;
+        if(!isEnabled)
+        {
+            Hide();
+        }
     }
 
     public bool IsShowing()
