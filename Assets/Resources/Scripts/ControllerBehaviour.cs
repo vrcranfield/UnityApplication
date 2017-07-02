@@ -24,11 +24,21 @@ public class ControllerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        collidedObject = collider.GetComponent<Interactable>();
+        // We don't want the controllers to see each other
+        if (collider.GetComponent<Interactable>() != null)
+        {
+            Globals.logger.Log("[" + gameObject.name + "] Entered collision with: " + collider.gameObject.name);
+            collidedObject = collider.GetComponent<Interactable>();
+        }
     }
     private void OnTriggerExit(Collider collider)
     {
-        collidedObject = null;
+        // We don't want the controllers to see each other
+        if (collider.GetComponent<Interactable>() != null)
+        {
+            Globals.logger.Log("[" + gameObject.name + "] Exited collision with: " + collider.gameObject.name);
+            collidedObject = null;
+        }
     }
 
     private void DoTriggerPressed(object sender, ControllerInteractionEventArgs e)
