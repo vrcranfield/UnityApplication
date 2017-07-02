@@ -13,7 +13,8 @@ public class RadialMenuBehaviour : MonoBehaviour {
     
     void Awake()
     {
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += OnParaviewObjectLoaded;
+        Globals.ParaviewObjectUnloadedCallbacks += OnParaviewObjectUnloaded;
         vrtkRadialMenu = GetComponentInChildren<VRTK_RadialMenu>();
     }
 
@@ -29,11 +30,12 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
-        // If the object has an animation, enable the button
-        if(Globals.animation.isAnimation())
-        {
-            UpdatePlayPauseButtonIcon();
-        }
+        UpdatePlayPauseButtonIcon();
+    }
+
+    public void OnParaviewObjectUnloaded()
+    {
+        UpdatePlayPauseButtonIcon();
     }
 
     public void OnScaleUpButtonHold()
@@ -51,12 +53,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
     public void OnSliceButtonClicked()
     {
         //TODO implement
-        //Globals.logger.Log("Slice button clicked!");
-
-        if (Globals.boundingBox.IsShowing())
-            Globals.boundingBox.Hide();
-        else
-            Globals.boundingBox.Show();
+        Globals.logger.Log("Slice button clicked!");
     }
 
     public void OnPlayPauseButtonClicked()

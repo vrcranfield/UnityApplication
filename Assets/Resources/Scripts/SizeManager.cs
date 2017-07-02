@@ -19,7 +19,8 @@ public class SizeManager : MonoBehaviour
     void Awake()
     {
         Globals.sizer = this;
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += OnParaviewObjectLoaded;
+        Globals.ParaviewObjectUnloadedCallbacks += OnParaviewObjectUnloaded;
     }
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
@@ -28,6 +29,11 @@ public class SizeManager : MonoBehaviour
 
         if (isAutoResizing)
             AutoResize();
+    }
+
+    public void OnParaviewObjectUnloaded()
+    {
+        this.obj = null;
     }
 
     public void ScaleUp()

@@ -43,8 +43,7 @@ public class BoundingBoxBehaviour : MonoBehaviour
     {
         this.paraviewObj = null;
 
-        if (IsShowing())
-            Hide();
+        HideImmediate();
     }
 
     public void Show()
@@ -68,6 +67,14 @@ public class BoundingBoxBehaviour : MonoBehaviour
                 StopCoroutine(coroutine);
             coroutine = FadeOut();
             StartCoroutine(coroutine);
+        }
+    }
+
+    public void HideImmediate()
+    {
+        if (gameObject.activeSelf)
+        {
+            SetAlpha(0.0f);
         }
     }
 

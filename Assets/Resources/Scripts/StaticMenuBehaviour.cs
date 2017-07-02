@@ -17,7 +17,8 @@ public class StaticMenuBehaviour : MonoBehaviour {
         // Hide
         gameObject.SetActive(false);
 
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += OnParaviewObjectLoaded;
+        Globals.ParaviewObjectUnloadedCallbacks += OnParaviewObjectUnloaded;
     }
 
     void Start () {
@@ -32,6 +33,12 @@ public class StaticMenuBehaviour : MonoBehaviour {
     {
         // Enable the invert hands button
         transform.FindDeepChild("InvertHandsToggle").GetComponent<Toggle>().interactable = true;
+    }
+
+    public void OnParaviewObjectUnloaded()
+    {
+        // Disable the invert hands button
+        transform.FindDeepChild("InvertHandsToggle").GetComponent<Toggle>().interactable = false;
     }
 
 

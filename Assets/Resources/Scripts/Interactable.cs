@@ -14,7 +14,7 @@ public class Interactable : MonoBehaviour {
 
     void Start ()
     {
-        Globals.animation.NextFrameLoadedCallbacks += new AnimationManager.CallbackEventHandler(FitColliderToChildren);
+        Globals.animation.NextFrameLoadedCallbacks += FitColliderToChildren;
     }
 
     private void SetUpRigidBody()
@@ -83,6 +83,11 @@ public class Interactable : MonoBehaviour {
     public bool IsInteracting()
     {
         return this.interacting;
+    }
+
+    void OnDestroy()
+    {
+        Globals.animation.NextFrameLoadedCallbacks -= FitColliderToChildren;
     }
 
 }

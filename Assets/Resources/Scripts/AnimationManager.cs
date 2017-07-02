@@ -17,7 +17,8 @@ public class AnimationManager : MonoBehaviour
 
     void Awake()
     {
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += OnParaviewObjectLoaded;
+        Globals.ParaviewObjectUnloadedCallbacks += OnParaviewObjectUnloaded;
         Globals.animation = this;
     }
 
@@ -45,6 +46,11 @@ public class AnimationManager : MonoBehaviour
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
     {
         this.obj = Globals.paraviewObj.transform.FindDeepChild("FramedObject").gameObject;
+    }
+
+    public void OnParaviewObjectUnloaded()
+    {
+        this.obj = null;
     }
 
     public void Play()
