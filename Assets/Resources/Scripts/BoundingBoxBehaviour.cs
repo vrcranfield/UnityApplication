@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BoundingBoxBehaviour : MonoBehaviour
 {
-    private bool isEnabled = false;
     private float defaultAlpha;
     private Material material;
 
@@ -50,35 +49,31 @@ public class BoundingBoxBehaviour : MonoBehaviour
 
     public void Show()
     {
-        if (isEnabled && paraviewObj != null)
+        if (gameObject.activeSelf && paraviewObj != null)
         {
             UpdatePosition();
-            gameObject.SetActive(true);
 
-            StopCoroutine(coroutine);
+            if (coroutine != null)
+                StopCoroutine(coroutine);
             coroutine = FadeIn();
             StartCoroutine(coroutine);
-        }
-        else if(Globals.paraviewObj == null)
-        {
-            Globals.logger.LogWarning("Cannot show ColliderBox without a ParaView Object");
         }
     }
 
     public void Hide()
     {
-        StopCoroutine(coroutine);
-        coroutine = FadeOut();
-        StartCoroutine(coroutine);
+        if (gameObject.activeSelf && paraviewObj != null)
+        {
+            if (coroutine != null)
+                StopCoroutine(coroutine);
+            coroutine = FadeOut();
+            StartCoroutine(coroutine);
+        }
     }
 
-    public void SetEnabled(bool value)
+    public void ToggleActive(bool value)
     {
-        isEnabled = value;
-        if(!isEnabled)
-        {
-            Hide();
-        }
+        gameObject.SetActive(value);
     }
 
     public bool IsShowing()
@@ -113,8 +108,6 @@ public class BoundingBoxBehaviour : MonoBehaviour
             SetAlpha(Mathf.Lerp(defaultAlpha, 0.0f, t));
             yield return null;
         }
-
-        gameObject.SetActive(false);
     }
 
     private void SetAlpha(float alpha)

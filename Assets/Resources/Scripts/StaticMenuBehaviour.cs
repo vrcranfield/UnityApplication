@@ -75,7 +75,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     public void OnEnableBoundingBoxChanged(bool value)
     {
-        boundingBox.SetEnabled(value);
+        boundingBox.ToggleActive(value);
     }
 
     public void Show()
