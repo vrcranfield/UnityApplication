@@ -17,7 +17,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
         // Hide
         gameObject.SetActive(false);
 
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
     }
 
     void Start () {

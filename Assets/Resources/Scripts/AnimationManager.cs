@@ -17,7 +17,7 @@ public class AnimationManager : MonoBehaviour
 
     void Awake()
     {
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
         Globals.animation = this;
     }
 

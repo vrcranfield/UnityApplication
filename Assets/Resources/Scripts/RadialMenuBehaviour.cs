@@ -13,7 +13,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
     
     void Awake()
     {
-        Globals.ParaviewObjectLoadedCallbacks += new Globals.CallbackEventHandler(OnParaviewObjectLoaded);
+        Globals.ParaviewObjectLoadedCallbacks += new Globals.ParaviewObjectLoaded(OnParaviewObjectLoaded);
         vrtkRadialMenu = GetComponentInChildren<VRTK_RadialMenu>();
     }
 
