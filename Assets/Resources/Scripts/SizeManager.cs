@@ -58,9 +58,9 @@ public class SizeManager : MonoBehaviour
 
     public void Center()
     {
-        // Recenter
-       Vector3 objectCenter = obj.GetComponentInChildren<MeshRenderer>().bounds.center;
-        transform.position -= objectCenter; //new Vector3(objectCenter.x, objectCenter.y, objectCenter.z);
+       // // Recenter
+       //Vector3 objectCenter = obj.GetComponentInChildren<MeshRenderer>().bounds.center;
+       // transform.position -= objectCenter; //new Vector3(objectCenter.x, objectCenter.y, objectCenter.z);
     }
 
 }

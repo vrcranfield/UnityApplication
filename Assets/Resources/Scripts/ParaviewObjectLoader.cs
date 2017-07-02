@@ -48,18 +48,16 @@
 
                 if (Directory.Exists(importDir) || File.Exists(importDir))
                 {
-                    Globals.logger.Log("Importing from:" + importDir);
+                    Globals.logger.Log("Importing from: " + importDir);
 
                     meshNode = Loader.ImportGameObject(importDir);
                     Globals.logger.Log("Finished importing");
-                    meshNode.transform.position = new Vector3(0, 1, 0);
 
+                    meshNode.name = "ParaviewObject";
+                    meshNode.transform.position = new Vector3(0, 1, 0);
                     meshNode.AddComponent<Interactable>();
 
-                    // Register object in globals
-                    if (meshNode != null)
-                        Globals.RegisterParaviewObject(meshNode);
-
+                    Globals.RegisterParaviewObject(meshNode);
 
                     meshNode.SetActive(true);
                 }

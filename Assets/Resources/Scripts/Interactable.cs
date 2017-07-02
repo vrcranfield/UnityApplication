@@ -14,7 +14,7 @@ public class Interactable : MonoBehaviour {
 
     void Start ()
     {
-        //Globals.animation.NextFrameLoadedCallbacks += new AnimationManager.CallbackEventHandler(FitColliderToChildren);
+        Globals.animation.NextFrameLoadedCallbacks += new AnimationManager.CallbackEventHandler(FitColliderToChildren);
     }
 
     private void SetUpRigidBody()
@@ -32,10 +32,17 @@ public class Interactable : MonoBehaviour {
 
     public void FitColliderToChildren()
     {
+        // Temporarily reset the parent's orientation, since the bounds will 
+        // be given in world coordinates but the collider is in local coordinates.
+        Quaternion oldRotation = transform.rotation;
+        transform.rotation = Quaternion.identity;
+
         bool hasBounds = false;
         Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
 
-        foreach(Renderer childRenderer in GetComponentsInChildren<MeshRenderer>(true)) {
+        // Iterate over all active children. Normally, it should be 2 MeshRenderer's (front and back) active
+        // for every frame. Since there is only one frame active in any given moment, it should be only two.
+        foreach(Renderer childRenderer in GetComponentsInChildren<MeshRenderer>()) {
             if (hasBounds)
             {
                 bounds.Encapsulate(childRenderer.bounds);
@@ -47,9 +54,13 @@ public class Interactable : MonoBehaviour {
             }
         }
 
+        // Set collider center and size (with conversion from global to local
         BoxCollider collider = GetComponent<BoxCollider>();
         collider.center = Vector3.Scale(bounds.center - transform.position, transform.localScale.Reciprocal());
         collider.size = Vector3.Scale(bounds.size, transform.localScale.Reciprocal());
+
+        // Reset the objects orientation
+        transform.rotation = oldRotation;
     }
 
     public void OnBeginInteraction(ControllerBehaviour controller)
