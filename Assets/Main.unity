@@ -1934,6 +1934,7 @@ GameObject:
   - component: {fileID: 300634047}
   - component: {fileID: 300634046}
   - component: {fileID: 300634045}
+  - component: {fileID: 300634048}
   m_Layer: 0
   m_Name: SlicingPlane
   m_TagString: Untagged
@@ -2007,6 +2008,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 300634043}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &300634048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 300634043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd13345fcb7986b45869fe9208b5075f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &301720361
 GameObject:
   m_ObjectHideFlags: 0
