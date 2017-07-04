@@ -33,11 +33,11 @@
             Globals.logger.Log("Received message on socket: " + str);
 
 			return str;
-		}
+        }
 
-		public static GameObject ImportGameObject(string file)
+        public static GameObject ImportGameObject(string name, uint size)
         {
-            List<GameObject> frames = ImportFrames(file);
+            List<GameObject> frames = ImportFrames(name, size);
             MergeFrames (frames);
             for (int i = 1; i < frames.Count; i++) {
 				GameObject.Destroy(frames[i]);
@@ -45,22 +45,26 @@
             return frames [0];
 		}
 
-		private static List<GameObject> ImportFrames(string file)
+		private static List<GameObject> ImportFrames(string name, uint size)
 		{
-			FileAttributes attr = File.GetAttributes(file);
+            //FileAttributes attr = File.GetAttributes(file);
 
-			if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
-                DirectoryInfo d = new DirectoryInfo(file);
-				return d.GetFiles("*.x3d").OrderBy(x => Int32.Parse(Regex.Match(x.Name, @"\d+").Value)).
-					Select(frameFile => (GameObject)LOADER.Load (file +"/" +frameFile.Name)).ToList();
-			} else
-            {
-                GameObject ob = (GameObject)LOADER.Load (file);
-				return new List<GameObject> () {ob};
-			}
-		}
+            //if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
+            //             DirectoryInfo d = new DirectoryInfo(file);
+            //	return d.GetFiles("*.x3d").OrderBy(x => Int32.Parse(Regex.Match(x.Name, @"\d+").Value)).
+            //		Select(frameFile => (GameObject)LOADER.Load (file +"/" +frameFile.Name)).ToList();
+            //} else
+            //         {
+            //             GameObject ob = (GameObject)LOADER.Load (file);
+            //	return new List<GameObject> () {ob};
+            //}
 
-		private static GameObject MergeFrames(List<GameObject> frames) {
+            //TODO handle multiframe case
+            GameObject ob = (GameObject)LOADER.Load(name, size);
+            return new List<GameObject> () {ob};
+        }
+
+        private static GameObject MergeFrames(List<GameObject> frames) {
 			if (frames [0].transform.childCount > 0 &&
 				frames [0].transform.GetChild(0).GetComponent<Renderer> () != null) {
 				GameObject frameContainer = new GameObject ("FramedObject");
@@ -77,5 +81,5 @@
 			}
 			return frames [0];
 		}
-	}
+    }
 }

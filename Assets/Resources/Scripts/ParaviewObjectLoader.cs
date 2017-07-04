@@ -4,6 +4,8 @@
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
+    using ParaUnity.X3D;
+    using System.Text;
 
     public class ParaviewObjectLoader : MonoBehaviour
     {
@@ -47,14 +49,21 @@
 
                 Destroy(meshNode);
 
-                string importDir = Loader.GetImportDir(soc);
+                string message = Loader.GetImportDir(soc);
 
-                if (Directory.Exists(importDir) || File.Exists(importDir))
+                string[] args = message.Split(new[] { ";;" }, System.StringSplitOptions.None);
+                if (args.Length > 1)
                 {
-                    Globals.logger.Log("Importing from: " + importDir);
+                    string objectName = args[0];
+                    uint objectSize = System.Convert.ToUInt32(args[1], 10);
 
-                    meshNode = Loader.ImportGameObject(importDir);
+                    Globals.logger.Log("Importing object: " + objectName);
+                    Globals.logger.Log("Object size: " + objectSize);
+
+                    meshNode = Loader.ImportGameObject(objectName, objectSize);
                     Globals.logger.Log("Finished importing");
+
+                    soc.Send(Encoding.ASCII.GetBytes("OK"));
 
                     meshNode.name = "ParaviewObject";
                     meshNode.transform.position = new Vector3(0, 1, 0);
@@ -64,12 +73,12 @@
 
                     meshNode.SetActive(true);
                 }
-                else if(importDir.Equals("TEST"))
+                else if(message.Equals("TEST"))
                 {
                     Globals.logger.Log("Receiving object from Paraview...");
                 } else
                 {
-                    Globals.logger.LogWarning("Message was not existing file/directory: " + importDir);
+                    Globals.logger.LogWarning("Message was not existing file/directory: " + message);
                 }
 
                 soc.Disconnect(false);
