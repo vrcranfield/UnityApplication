@@ -18,11 +18,6 @@ public class RadialMenuBehaviour : MonoBehaviour {
         vrtkRadialMenu = GetComponentInChildren<VRTK_RadialMenu>();
     }
 
-    void Start()
-    {
-        //animationManager = Globals.animation;
-    }
-
     public void OnButtonClick(int buttonId)
     {
         Globals.logger.Log("Button " + buttonId + " clicked");
@@ -52,8 +47,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnSliceButtonClicked()
     {
-        //TODO implement
-        Globals.logger.Log("Slice button clicked!");
+        Globals.slicing.TogglePlane();
     }
 
     public void OnPlayPauseButtonClicked()
