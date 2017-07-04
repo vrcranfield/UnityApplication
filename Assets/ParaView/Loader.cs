@@ -35,31 +35,36 @@
 			return str;
         }
 
-        public static GameObject ImportGameObject(string name, uint size)
+        public static GameObject ImportGameObject(string name, uint size, bool isMultipleFrames = false)
         {
-            List<GameObject> frames = ImportFrames(name, size);
+            List<GameObject> frames;
+            if (!isMultipleFrames)
+            {
+                frames = ImportSimpleGameObject(name, size);
+            } else
+            {
+                frames = ImportFrames(name, size);
+            }
+             
             MergeFrames (frames);
             for (int i = 1; i < frames.Count; i++) {
 				GameObject.Destroy(frames[i]);
 			}
             return frames [0];
-		}
+        }
 
-		private static List<GameObject> ImportFrames(string name, uint size)
-		{
-            //FileAttributes attr = File.GetAttributes(file);
-
+        private static List<GameObject> ImportFrames(string name, uint size)
+        {
             //if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
             //             DirectoryInfo d = new DirectoryInfo(file);
             //	return d.GetFiles("*.x3d").OrderBy(x => Int32.Parse(Regex.Match(x.Name, @"\d+").Value)).
             //		Select(frameFile => (GameObject)LOADER.Load (file +"/" +frameFile.Name)).ToList();
-            //} else
-            //         {
-            //             GameObject ob = (GameObject)LOADER.Load (file);
-            //	return new List<GameObject> () {ob};
             //}
+            return null; //TODO remove
+        }
 
-            //TODO handle multiframe case
+        private static List<GameObject> ImportSimpleGameObject(string name, uint size)
+		{
             GameObject ob = (GameObject)LOADER.Load(name, size);
             return new List<GameObject> () {ob};
         }

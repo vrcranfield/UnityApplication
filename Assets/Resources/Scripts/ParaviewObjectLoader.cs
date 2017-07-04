@@ -57,21 +57,28 @@
                     string objectName = args[0];
                     uint objectSize = System.Convert.ToUInt32(args[1], 10);
 
-                    Globals.logger.Log("Importing object: " + objectName);
-                    Globals.logger.Log("Object size: " + objectSize);
+                    Globals.logger.Log("Importing object");
 
                     meshNode = Loader.ImportGameObject(objectName, objectSize);
                     Globals.logger.Log("Finished importing");
 
+                    // Send reply to Paraview for memory cleanup
                     soc.Send(Encoding.ASCII.GetBytes("OK"));
 
                     meshNode.name = "ParaviewObject";
                     meshNode.transform.position = new Vector3(0, 1, 0);
-                    meshNode.AddComponent<Interactable>();
 
-                    Globals.RegisterParaviewObject(meshNode);
+                    if(meshNode.GetComponentInChildren<MeshRenderer>() != null)
+                    {
 
-                    meshNode.SetActive(true);
+                        meshNode.AddComponent<Interactable>();
+                        Globals.RegisterParaviewObject(meshNode);
+                        meshNode.SetActive(true);
+                    } else
+                    {
+                        Globals.logger.Log("The object sent from Paraview was empty");
+                    }
+
                 }
                 else if(message.Equals("TEST"))
                 {
