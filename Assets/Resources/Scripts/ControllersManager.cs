@@ -57,4 +57,9 @@ public class ControllersManager : MonoBehaviour {
         leftBehaviour.SetControllerMode(!swapped);
         rightBehaviour.SetControllerMode(swapped);
     }
+
+    public ControllerBehaviour getNonRadialController()
+    {
+        return (leftBehaviour.isRadialMenuController ? rightBehaviour : leftBehaviour);
+    }
 }

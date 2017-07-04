@@ -8,6 +8,7 @@ public static class Globals
 
     public static GameObject paraviewObj;
     public static BoundingBoxBehaviour boundingBox;
+    public static SlicingPlaneBehaviour slicingPlane;
 
     public static LogManager logger;
     public static ModeManager modeManager;
@@ -16,6 +17,7 @@ public static class Globals
     public static EnvironmentManager room;
     public static AnimationManager animation;
     public static SizeManager sizer;
+    public static SlicingManager slicing;
 
     public delegate void ParaviewObjectLoaded(GameObject paraviewObj);
     public static event ParaviewObjectLoaded ParaviewObjectLoadedCallbacks;
