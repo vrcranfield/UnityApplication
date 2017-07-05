@@ -10,6 +10,7 @@
     {
         private GameObject meshNode;
         private TcpListener listener;
+
         private bool isImporting = false;
 
         void Start()
@@ -33,7 +34,7 @@
                 // Received incoming connection from Paraview
                 Socket socket = listener.AcceptSocket();
 
-                // Destroy previous object if I'm not still receiving frames
+                // Destroy previous object if I'm not still waiting for frames
                 if (!isImporting)
                 {
                     if (Globals.paraviewObj != null)
@@ -51,32 +52,29 @@
                 {
                     string objectName = args[0];
                     uint objectSize = System.Convert.ToUInt32(args[1], 10); //in bytes
-                     
+                    int currentFrame = 0;
+                    int totalFrames = 1;
+
                     // If there are multiple frames
-                    if(args.Length == 4)
+                    if (args.Length == 4)
                     {
                         isImporting = true;
 
-                        int currentFrame = System.Convert.ToInt32(args[2]);
-                        int totalFrames = System.Convert.ToInt32(args[3]);
+                        currentFrame = System.Convert.ToInt32(args[2]);
+                        totalFrames = System.Convert.ToInt32(args[3]);
+                    }
 
-                        Loader.ImportFrame(objectName, objectSize);
+                    Loader.ImportFrame(objectName, objectSize);
 
-                        Globals.logger.Log("Importing object: " + (float)(currentFrame + 1) / totalFrames + "%");
+                    Globals.logger.Log("Importing object: " + (float)(currentFrame + 1) / totalFrames + "%");
 
+                    if(totalFrames > 1)
                         SendAckForFrame(socket, currentFrame);
 
-                        // If I just loaded the last frame
-                        if (currentFrame == totalFrames - 1)
-                        {
-                            meshNode = Loader.MergeFramesIntoGameObject();
-                            isImporting = false;
-                        }
-                    }
-                    // If the object has no animations
-                    else
+                    // If I just loaded the last frame
+                    if (currentFrame == totalFrames - 1)
                     {
-                        meshNode = Loader.ImportSimpleGameObject(objectName, objectSize);
+                        meshNode = Loader.MergeFramesIntoGameObject();
                         isImporting = false;
                     }
 
@@ -93,6 +91,7 @@
                         // If the object is not an empty object
                         if (meshNode.GetComponentInChildren<MeshRenderer>() != null)
                         {
+                            // Set it up and notify the listeners
                             meshNode.AddComponent<Interactable>();
                             Globals.RegisterParaviewObject(meshNode);
                             meshNode.SetActive(true);
@@ -103,7 +102,7 @@
                         }
                     }
                 }
-                // If the message had a bad format
+                // If the message had a bad format and is not empty
                 else if(!message.Equals(""))
                 {
                     Globals.logger.LogWarning("Unrecognized message format: " + message);

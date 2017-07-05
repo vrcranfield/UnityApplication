@@ -14,24 +14,9 @@
 
     public class Loader
 	{
-
 		private static X3DLoader LOADER = new X3DLoader ();
         private static List<GameObject> frames = new List<GameObject>();
         
-
-        public static GameObject ImportSimpleGameObject(string name, uint size)
-        {
-            GameObject ob = (GameObject)LOADER.Load(name, size);
-            List<GameObject> frames = new List<GameObject>() { ob };
-
-            MergeFrames(frames);
-            for (int i = 1; i < frames.Count; i++)
-            {
-                GameObject.Destroy(frames[i]);
-            }
-            return frames[0];
-        }
-
         public static void ImportFrame(string name, uint size)
         {
             frames.Add((GameObject)LOADER.Load(name, size));
@@ -47,16 +32,6 @@
             GameObject obj = frames[0];
             frames.Clear();
             return obj;
-        }
-
-        private static List<GameObject> ImportFrames(string name, uint size)
-        {
-            //if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
-            //             DirectoryInfo d = new DirectoryInfo(file);
-            //	return d.GetFiles("*.x3d").OrderBy(x => Int32.Parse(Regex.Match(x.Name, @"\d+").Value)).
-            //		Select(frameFile => (GameObject)LOADER.Load (file +"/" +frameFile.Name)).ToList();
-            //}
-            return null; //TODO remove
         }
 
         private static GameObject MergeFrames(List<GameObject> frames) {
