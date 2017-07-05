@@ -42,17 +42,17 @@
         {
             if (listener.Pending())
             {
-                Globals.logger.Log("Received incoming connection");
+                // Globals.logger.Log("Received incoming connection");
                 Socket socket = listener.AcceptSocket();
 
-                // TODO handle object destruction for new objects
-                /*if (!isLoadingAnimatedObject)
+                // Destroy previous object if I'm not still receiving frames
+                if (!isLoadingAnimatedObject)
                 {
                     if (Globals.paraviewObj != null)
                         Globals.UnregisterParaviewObject();
 
                     Destroy(meshNode);
-                }*/
+                }
 
                 string message = Loader.GetMessage(socket);
 
@@ -63,8 +63,8 @@
                 {
                     string objectName = args[0];
                     uint objectSize = System.Convert.ToUInt32(args[1], 10);
-
-                    Globals.logger.Log("Importing object");
+                     
+                    // Globals.logger.Log("Importing object");
 
                     // Multiple frames
                     if(args.Length == 4)
@@ -92,7 +92,7 @@
 
                     if(!isLoadingAnimatedObject)
                     {
-                        Globals.logger.Log("Finished importing");
+                        // Globals.logger.Log("Finished importing");
 
                         // Send reply to Paraview for memory cleanup
                         socket.Send(Encoding.ASCII.GetBytes("OK"));
@@ -108,11 +108,11 @@
                         }
                         else
                         {
-                            Globals.logger.Log("The object sent from Paraview was empty");
+                            Globals.logger.LogWarning("The object sent from Paraview was empty");
                         }
                     }
                 }
-                else
+                else if(!message.Equals(""))
                 {
                     Globals.logger.LogWarning("Unrecognized message format: " + message);
                 }

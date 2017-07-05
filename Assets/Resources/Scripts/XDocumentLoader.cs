@@ -46,11 +46,9 @@
 
             if (attachSuccessful)
             {
-                Debug.Log("Parsing document from shared memory");
-                string asd = Marshal.PtrToStringAnsi(pBuffer, Convert.ToInt32(objectSize));
-                Debug.Log(asd);
-                XDocument doc = XDocument.Parse(asd);//Marshal.PtrToStringAnsi(pBuffer, Convert.ToInt32(objectSize)));
-                Debug.Log("Finished parsing document from shared memory");
+                //Debug.Log("Parsing document from shared memory");
+                XDocument doc = XDocument.Parse(Marshal.PtrToStringAnsi(pBuffer, Convert.ToInt32(objectSize)));
+                //Debug.Log("Finished parsing document from shared memory");
 
                 Detach();
                 return doc;
