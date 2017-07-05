@@ -17,24 +17,7 @@
 
 		private static X3DLoader LOADER = new X3DLoader ();
         private static List<GameObject> frames = new List<GameObject>();
-
-		public static string GetMessage (Socket soc)
-		{
-			byte[] b = new byte[2048];
-            StringBuilder sb = new StringBuilder();
-
-            int k = soc.Receive(b);
-            for (int i = 0; i < k; i++)
-            {
-                sb.Append(Convert.ToChar(b[i]));
-            }
-
-            string str = sb.ToString();
-
-            Globals.logger.Log("Received message on socket: " + str);
-
-			return str;
-        }
+        
 
         public static GameObject ImportSimpleGameObject(string name, uint size)
         {
