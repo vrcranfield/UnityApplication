@@ -44,7 +44,9 @@
             {
                 GameObject.Destroy(frames[i]);
             }
-            return frames[0];
+            GameObject obj = frames[0];
+            frames.Clear();
+            return obj;
         }
 
         private static List<GameObject> ImportFrames(string name, uint size)
