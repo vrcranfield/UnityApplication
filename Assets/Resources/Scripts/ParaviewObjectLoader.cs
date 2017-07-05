@@ -66,7 +66,8 @@
 
                     Loader.ImportFrame(objectName, objectSize);
 
-                    Globals.logger.Log("Importing object: " + (float)(currentFrame + 1) / totalFrames + "%");
+                    int percentage = System.Convert.ToInt32(100 * (float)(currentFrame + 1) / totalFrames);
+                    Globals.logger.Log("Importing object: " + percentage + "%");
 
                     if(totalFrames > 1)
                         SendAckForFrame(socket, currentFrame);
@@ -167,12 +168,12 @@
 
         private void SendAckForFrame(Socket soc, int frame)
         {
-            SendMessage("OK " + frame);
+            SendMessage(soc, "OK " + frame);
         }
 
         private void SendAck(Socket soc)
         {
-            SendMessage("OK");
+            SendMessage(soc, "OK");
         }
 
         void OnApplicationQuit()
