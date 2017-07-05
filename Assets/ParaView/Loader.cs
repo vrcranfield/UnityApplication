@@ -16,8 +16,9 @@
 	{
 
 		private static X3DLoader LOADER = new X3DLoader ();
+        private static List<GameObject> frames = new List<GameObject>();
 
-		public static string GetImportDir (Socket soc)
+		public static string GetMessage (Socket soc)
 		{
 			byte[] b = new byte[2048];
             StringBuilder sb = new StringBuilder();
@@ -35,22 +36,32 @@
 			return str;
         }
 
-        public static GameObject ImportGameObject(string name, uint size, bool isMultipleFrames = false)
+        public static GameObject ImportSimpleGameObject(string name, uint size)
         {
-            List<GameObject> frames;
-            if (!isMultipleFrames)
+            GameObject ob = (GameObject)LOADER.Load(name, size);
+            List<GameObject> frames = new List<GameObject>() { ob };
+
+            MergeFrames(frames);
+            for (int i = 1; i < frames.Count; i++)
             {
-                frames = ImportSimpleGameObject(name, size);
-            } else
-            {
-                frames = ImportFrames(name, size);
+                GameObject.Destroy(frames[i]);
             }
-             
-            MergeFrames (frames);
-            for (int i = 1; i < frames.Count; i++) {
-				GameObject.Destroy(frames[i]);
-			}
-            return frames [0];
+            return frames[0];
+        }
+
+        public static void ImportFrame(string name, uint size)
+        {
+            frames.Add((GameObject)LOADER.Load(name, size));
+        }
+
+        public static GameObject MergeFramesIntoGameObject()
+        {
+            MergeFrames(frames);
+            for (int i = 1; i < frames.Count; i++)
+            {
+                GameObject.Destroy(frames[i]);
+            }
+            return frames[0];
         }
 
         private static List<GameObject> ImportFrames(string name, uint size)
@@ -61,12 +72,6 @@
             //		Select(frameFile => (GameObject)LOADER.Load (file +"/" +frameFile.Name)).ToList();
             //}
             return null; //TODO remove
-        }
-
-        private static List<GameObject> ImportSimpleGameObject(string name, uint size)
-		{
-            GameObject ob = (GameObject)LOADER.Load(name, size);
-            return new List<GameObject> () {ob};
         }
 
         private static GameObject MergeFrames(List<GameObject> frames) {

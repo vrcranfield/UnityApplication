@@ -61,7 +61,7 @@
         {
             if (!sHandle.IsInvalid)
             {
-                Debug.LogWarning("Attache called on preexisting shared memory handle");
+                Debug.LogWarning("Attach called on preexisting shared memory handle");
                 return false;
             }
 

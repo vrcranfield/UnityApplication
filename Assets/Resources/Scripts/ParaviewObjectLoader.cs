@@ -11,6 +11,7 @@
     {
         private GameObject meshNode;
         private TcpListener listener;
+        private bool isLoadingAnimatedObject = false;
 
         public void Start()
         {
@@ -42,16 +43,22 @@
             if (listener.Pending())
             {
                 Globals.logger.Log("Received incoming connection");
-                Socket soc = listener.AcceptSocket();
+                Socket socket = listener.AcceptSocket();
 
-                if(Globals.paraviewObj != null)
-                    Globals.UnregisterParaviewObject();
+                // TODO handle object destruction for new objects
+                /*if (!isLoadingAnimatedObject)
+                {
+                    if (Globals.paraviewObj != null)
+                        Globals.UnregisterParaviewObject();
 
-                Destroy(meshNode);
+                    Destroy(meshNode);
+                }*/
 
-                string message = Loader.GetImportDir(soc);
+                string message = Loader.GetMessage(socket);
 
                 string[] args = message.Split(new[] { ";;" }, System.StringSplitOptions.None);
+
+                // If is a well-formatted message
                 if (args.Length > 1)
                 {
                     string objectName = args[0];
@@ -59,36 +66,57 @@
 
                     Globals.logger.Log("Importing object");
 
-                    meshNode = Loader.ImportGameObject(objectName, objectSize);
-                    Globals.logger.Log("Finished importing");
-
-                    // Send reply to Paraview for memory cleanup
-                    soc.Send(Encoding.ASCII.GetBytes("OK"));
-
-                    meshNode.name = "ParaviewObject";
-                    meshNode.transform.position = new Vector3(0, 1, 0);
-
-                    if(meshNode.GetComponentInChildren<MeshRenderer>() != null)
+                    // Multiple frames
+                    if(args.Length == 4)
                     {
+                        isLoadingAnimatedObject = true;
 
-                        meshNode.AddComponent<Interactable>();
-                        Globals.RegisterParaviewObject(meshNode);
-                        meshNode.SetActive(true);
-                    } else
-                    {
-                        Globals.logger.Log("The object sent from Paraview was empty");
+                        int currentFrame = System.Convert.ToInt32(args[2]);
+                        int totalFrames = System.Convert.ToInt32(args[3]);
+
+                        Loader.ImportFrame(objectName, objectSize);
+                        socket.Send(Encoding.ASCII.GetBytes("OK " + currentFrame.ToString()));
+
+                        if (currentFrame == totalFrames - 1)
+                        {
+                            meshNode = Loader.MergeFramesIntoGameObject();
+                            isLoadingAnimatedObject = false;
+                        }
                     }
 
+                    else
+                    {
+                        meshNode = Loader.ImportSimpleGameObject(objectName, objectSize);
+                        isLoadingAnimatedObject = false;
+                    }
+
+                    if(!isLoadingAnimatedObject)
+                    {
+                        Globals.logger.Log("Finished importing");
+
+                        // Send reply to Paraview for memory cleanup
+                        socket.Send(Encoding.ASCII.GetBytes("OK"));
+
+                        meshNode.name = "ParaviewObject";
+                        meshNode.transform.position = new Vector3(0, 1, 0);
+
+                        if (meshNode.GetComponentInChildren<MeshRenderer>() != null)
+                        {
+                            meshNode.AddComponent<Interactable>();
+                            Globals.RegisterParaviewObject(meshNode);
+                            meshNode.SetActive(true);
+                        }
+                        else
+                        {
+                            Globals.logger.Log("The object sent from Paraview was empty");
+                        }
+                    }
                 }
-                else if(message.Equals("TEST"))
+                else
                 {
-                    Globals.logger.Log("Receiving object from Paraview...");
-                } else
-                {
-                    Globals.logger.LogWarning("Message was not existing file/directory: " + message);
+                    Globals.logger.LogWarning("Unrecognized message format: " + message);
                 }
 
-                soc.Disconnect(false);
             }
         }
 
