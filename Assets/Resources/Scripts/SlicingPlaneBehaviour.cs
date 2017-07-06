@@ -12,6 +12,8 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
 
     public void Show (ControllerBehaviour controller)
     {
+        transform.position = controller.transform.position;
+        transform.rotation = controller.transform.rotation;
         transform.parent = controller.transform;
         gameObject.SetActive(true);
     }
