@@ -19,11 +19,10 @@ public class PointerRadialMenuBehaviour : VRTK_Pointer {
     {
     }
 
+    // We want to disable the pointer if this controller is the one with the radial menu
     protected override void DoActivationButtonPressed(object sender, ControllerInteractionEventArgs e)
     {
-        Debug.Log("Is Radial Controller: " + behaviour.isRadialMenuController);
-
-        if (!behaviour.isRadialMenuController || !radialMenu.isShown)
+        if (!behaviour.isRadialMenuController)
         {
             base.DoActivationButtonPressed(sender, e);
         }

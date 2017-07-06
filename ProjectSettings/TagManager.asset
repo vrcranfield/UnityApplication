@@ -19,6 +19,7 @@ TagManager:
   - Headset
   - RadialMenu
   - Room
+  - Wall
   layers:
   - Default
   - TransparentFX
