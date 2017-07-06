@@ -118,15 +118,23 @@
 
             string dir = Path.GetTempPath() + "/Unity3DPlugin/";
 
+            // Create directory if it doesn't exist
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
             if (modeManager.isEditorMode())
                 dir += "Editor/";
             else
                 dir += "Embedded/";
 
+            // Create directory if it doesn't exist
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
             // Cleanup leftovers from previous runs
             foreach(string d in Directory.GetDirectories(dir))
             {
-                Directory.Delete(dir, true);
+                Directory.Delete(d, true);
             }
 
             if (modeManager.isEditorMode())
