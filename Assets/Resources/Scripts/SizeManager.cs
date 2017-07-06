@@ -57,9 +57,9 @@ public class SizeManager : MonoBehaviour
     public void AutoResize()
     {
         // Resize
-        float objectRadius = obj.GetComponentInChildren<MeshRenderer>().bounds.size.magnitude;
-        obj.transform.localScale = targetSize * obj.transform.localScale / objectRadius;
-        Globals.logger.Log("Resizing object of radius: " + objectRadius);
+            float objectRadius = obj.GetComponentInChildren<MeshRenderer>().bounds.size.magnitude;
+            obj.transform.localScale = targetSize * obj.transform.localScale / objectRadius;
+            Globals.logger.Log("Resizing object of radius: " + objectRadius);
     }
 
     public void Center()
