@@ -126,7 +126,7 @@
             // Cleanup leftovers from previous runs
             foreach(string d in Directory.GetDirectories(dir))
             {
-                Directory.Delete(d);
+                Directory.Delete(dir, true);
             }
 
             if (modeManager.isEditorMode())
