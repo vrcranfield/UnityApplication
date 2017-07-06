@@ -23,6 +23,10 @@ namespace VRTK
         protected VRTK_RadialMenu menu;
         protected float currentAngle; //Keep track of angle for when we click
         protected bool touchpadTouched;
+        protected bool menuShown;
+
+        private const float INTERNAL_TOUCHPAD_RADIUS = 0.5f;
+        private const float THRESHOLD_DELTA = 0.1f;
 
         protected virtual void Awake()
         {
@@ -81,12 +85,14 @@ namespace VRTK
 
         protected virtual void DoShowMenu(float initialAngle, object sender = null)
         {
+            menuShown = true;
             menu.ShowMenu();
             DoChangeAngle(initialAngle); // Needed to register initial touch position before the touchpad axis actually changes
         }
 
         protected virtual void DoHideMenu(bool force, object sender = null)
         {
+            menuShown = false;
             menu.StopTouching();
             menu.HideMenu(force);
         }
@@ -108,7 +114,12 @@ namespace VRTK
 
         protected virtual void DoTouchpadClicked(object sender, ControllerInteractionEventArgs e)
         {
-            DoClickButton();
+            // Only handle event if outside of the central button region
+            if (e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS)
+            {
+                DoClickButton();
+            }
+
         }
 
         protected virtual void DoTouchpadUnclicked(object sender, ControllerInteractionEventArgs e)
@@ -119,7 +130,12 @@ namespace VRTK
         protected virtual void DoTouchpadTouched(object sender, ControllerInteractionEventArgs e)
         {
             touchpadTouched = true;
-            DoShowMenu(CalculateAngle(e));
+
+            // Only handle event if outside of the central button region
+            if (e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS)
+            {
+                DoShowMenu(CalculateAngle(e));
+            }
         }
 
         protected virtual void DoTouchpadUntouched(object sender, ControllerInteractionEventArgs e)
@@ -133,7 +149,20 @@ namespace VRTK
         {
             if (touchpadTouched)
             {
-                DoChangeAngle(CalculateAngle(e));
+                // Todo refactor these conditionals
+                if(menuShown)
+                {
+                    if(e.touchpadAxis.magnitude <= INTERNAL_TOUCHPAD_RADIUS - THRESHOLD_DELTA)
+                    {
+                        DoHideMenu(true);
+                    } else
+                    {
+                        DoChangeAngle(CalculateAngle(e));
+                    }
+                } else if(e.touchpadAxis.magnitude >= INTERNAL_TOUCHPAD_RADIUS + THRESHOLD_DELTA)
+                {
+                    DoShowMenu(CalculateAngle(e));
+                }
             }
         }
 
