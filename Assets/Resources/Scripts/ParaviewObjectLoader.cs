@@ -127,7 +127,6 @@
             else
                 dir += "Embedded/";
 
-            // Create directory if it doesn't exist
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
