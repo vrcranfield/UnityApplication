@@ -19,10 +19,9 @@ public class UIPointerRadialMenuBehaviour : VRTK_UIPointer {
     {
     }
 
-    // We want to disable the pointer if this controller is the one with the radial menu
     public override bool PointerActive()
     {
-        if (behaviour.isRadialMenuController)
+        if (behaviour.isRadialMenuController && radialMenu.isShown)
         {
             return false;
         }
