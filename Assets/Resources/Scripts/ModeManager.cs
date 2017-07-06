@@ -16,11 +16,6 @@ public class ModeManager : MonoBehaviour {
         Globals.modeManager = this;
     }
 
-    void Start()
-    {
-        Globals.logger.Log("Paraview Loader running in " + ((EDITOR_MODE) ? "Editor" : "Player") + " mode");
-    }
-
     public bool isEditorMode()
     {
         return EDITOR_MODE;
