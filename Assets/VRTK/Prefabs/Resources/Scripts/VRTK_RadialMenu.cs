@@ -264,7 +264,7 @@ namespace VRTK
 
         protected virtual void Awake()
         {
-            GlobalVariables.radialMenu = this;
+            Globals.radialMenu = this;
 
             if (Application.isPlaying)
             {
@@ -395,6 +395,14 @@ namespace VRTK
                 DestroyImmediate(menuButtons[i]);
             }
             menuButtons = new List<GameObject>();
+        }
+
+        public void UpdateButtonSprites()
+        {
+            for (int i = 0; i < menuButtons.Count; i++)
+            {
+                menuButtons[i].GetComponentInChildren<Image>().sprite = buttons[i].ButtonIcon;
+            }
         }
     }
 }
