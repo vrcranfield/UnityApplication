@@ -47,7 +47,7 @@ public class RadialMenuBehaviour : MonoBehaviour {
 
     public void OnSliceButtonClicked()
     {
-        Globals.slicing.TogglePlane();
+        Globals.slicingManager.TogglePlane();
     }
 
     public void OnPlayPauseButtonClicked()

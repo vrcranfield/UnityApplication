@@ -8,7 +8,7 @@ public class SlicingManager : MonoBehaviour {
 
     void Awake()
     {
-        Globals.slicing = this;
+        Globals.slicingManager = this;
     }
 
 	void Start () {
@@ -33,5 +33,20 @@ public class SlicingManager : MonoBehaviour {
         else
             ShowPlane();
     }
-	
+
+    public bool IsShowing()
+    {
+        return plane.IsShowing();
+    }
+
+    public void Clip()
+    {
+        plane.Clip();
+    }
+
+    public void HighlightIntersection()
+    {
+        plane.HighlightIntersection();
+    }
+
 }

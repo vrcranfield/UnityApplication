@@ -19,26 +19,23 @@
 
 		public float? Transparency { get; private set; }
 
-		public X3DMaterial (float? ambientIntensity,  
-		                    Color? emissiveColor,  
-		                    Color? diffuseColor,
-							Color? specularColor,
-		                    float? shininess,
-		                    float? transparency)
-		{
-			this.AmbientIntensity = ambientIntensity;
-			this.EmissiveColor = emissiveColor;
-			this.DiffuseColor = diffuseColor;
-			this.SpecularColor = specularColor;
-			this.Shininess = shininess;
-			this.Transparency = transparency;
-
-            Debug.Log("Created Material with values: " + ambientIntensity + ", " + emissiveColor + ", " + diffuseColor + ", " + specularColor + ", " + shininess + ", " + transparency);
-		}
+        public X3DMaterial(float? ambientIntensity,
+                            Color? emissiveColor,
+                            Color? diffuseColor,
+                            Color? specularColor,
+                            float? shininess,
+                            float? transparency)
+        {
+            this.AmbientIntensity = ambientIntensity;
+            this.EmissiveColor = emissiveColor;
+            this.DiffuseColor = diffuseColor;
+            this.SpecularColor = specularColor;
+            this.Shininess = shininess;
+            this.Transparency = transparency;
+        }
 
 		override public void Convert (GameObject obj)
 		{
-            //TODO check if there's a way to create a material with these parameters
             if(obj.GetComponent<MeshRenderer>() == null)
                 obj.AddComponent<MeshRenderer>();
 

@@ -20,6 +20,7 @@ public class ControllerBehaviour : MonoBehaviour
         GetComponent<VRTK_ControllerEvents>().ButtonTwoReleased += new ControllerInteractionEventHandler(DoButtonTwoReleased);
         GetComponent<VRTK_ControllerEvents>().TriggerClicked += new ControllerInteractionEventHandler(DoTriggerPressed);
         GetComponent<VRTK_ControllerEvents>().TriggerReleased += new ControllerInteractionEventHandler(DoTriggerReleased);
+        GetComponent<VRTK_ControllerEvents>().GripReleased += new ControllerInteractionEventHandler(DoGripReleased);
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -63,6 +64,15 @@ public class ControllerBehaviour : MonoBehaviour
         } else
         {
             Globals.staticMenu.Show();
+        }
+    }
+
+    private void DoGripReleased(object sender, ControllerInteractionEventArgs e)
+    {
+        if(Globals.slicingManager.IsShowing())
+        {
+            //Globals.slicingManager.HighlightIntersection();
+            Globals.slicingManager.Clip();
         }
     }
 

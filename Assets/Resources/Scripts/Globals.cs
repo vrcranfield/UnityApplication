@@ -17,7 +17,7 @@ public static class Globals
     public static EnvironmentManager room;
     public static AnimationManager animation;
     public static SizeManager sizer;
-    public static SlicingManager slicing;
+    public static SlicingManager slicingManager;
 
     public delegate void ParaviewObjectLoaded(GameObject paraviewObj);
     public static event ParaviewObjectLoaded ParaviewObjectLoadedCallbacks;
