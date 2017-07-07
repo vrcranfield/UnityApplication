@@ -5,7 +5,7 @@
 	using System.Xml.Linq;
 	using System.Collections.Generic;
 	using UnityEngine;
-	using UnityVC;
+	//using UnityVC;
 
 	public class X3DIndexedLineSet : X3DGeometry
 	{
@@ -39,7 +39,7 @@
 
 					LineRenderer lineRenderer = obj.AddComponent<LineRenderer> ();
 					Material material = new Material(Shader.Find("Standard (Vertex Color)"));
-					Util.SetMaterialKeywords(material, WorkflowMode.Specular);
+					//Util.SetMaterialKeywords(material, WorkflowMode.Specular);
 					lineRenderer.material = material;
 
 					if (this.Colors != null) {

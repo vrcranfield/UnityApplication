@@ -5,7 +5,7 @@
 	using System.Xml.Linq;
 	using System.Collections.Generic;
 	using UnityEngine;
-	using UnityVC;
+	//using UnityVC;
 
 	public class X3DPointSet : X3DGeometry
 	{
@@ -35,7 +35,7 @@
 
 				}
 				Material material = new Material(Shader.Find("Standard (Vertex Color)"));
-				Util.SetMaterialKeywords(material, WorkflowMode.Specular);
+				//Util.SetMaterialKeywords(material, WorkflowMode.Specular);
 				sphere.GetComponent<MeshRenderer> ().material = material;
 
 				Vector3 scale = sphere.transform.localScale;

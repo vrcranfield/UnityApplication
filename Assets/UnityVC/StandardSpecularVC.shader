@@ -1,9 +1,9 @@
 ﻿/*
-Unity Standard Vertex Color Shader v0.91
+Unity Standard Vertex Color Shader (Specular) v0.91
 by defaxer
 */
 
-Shader "Standard (Vertex Color)" {
+Shader "Standard Specular (Vertex Color)" {
 	
     	Properties
 	{
@@ -13,8 +13,8 @@ Shader "Standard (Vertex Color)" {
 		_Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
 
 		_Glossiness("Smoothness", Range(0.0, 1.0)) = 0.5
-		[Gamma] _Metallic("Metallic", Range(0.0, 1.0)) = 0.0
-		_MetallicGlossMap("Metallic", 2D) = "white" {}
+		_SpecColor("Specular", Color) = (0.2,0.2,0.2)
+		_SpecGlossMap("Specular", 2D) = "white" {}
 
 		_BumpScale("Scale", Float) = 1.0
 		_BumpMap("Normal Map", 2D) = "bump" {}
@@ -45,12 +45,12 @@ Shader "Standard (Vertex Color)" {
 		[HideInInspector] _SrcBlend ("__src", Float) = 1.0
 		[HideInInspector] _DstBlend ("__dst", Float) = 0.0
 		[HideInInspector] _ZWrite ("__zw", Float) = 1.0
-
-        _IntensityVC("Vertex Color Intencity", Float) = 1.0
+		
+		_IntensityVC("Vertex Color Intensity", Float) = 1.0
 	}
 
 	CGINCLUDE
-		#define UNITY_SETUP_BRDF_INPUT MetallicSetup
+		#define UNITY_SETUP_BRDF_INPUT SpecularSetup
 	ENDCG
 
 	SubShader
@@ -79,11 +79,12 @@ Shader "Standard (Vertex Color)" {
 			#pragma shader_feature _NORMALMAP
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
 			#pragma shader_feature _EMISSION
-			#pragma shader_feature _METALLICGLOSSMAP 
+			#pragma shader_feature _SPECGLOSSMAP
 			#pragma shader_feature ___ _DETAIL_MULX2
 			#pragma shader_feature _PARALLAXMAP
-            #pragma shader_feature _VERTEXCOLOR_OFF _VERTEXCOLOR _VERTEXCOLOR_LERP
-			
+			#pragma shader_feature _VERTEXCOLOR
+			#pragma shader_feature _VERTEXCOLOR_LERP
+
 			#pragma multi_compile_fwdbase
 			#pragma multi_compile_fog
 				
@@ -91,7 +92,7 @@ Shader "Standard (Vertex Color)" {
 			#pragma fragment fragForwardBase_VC
 
 			#include "UnityStandardCore.cginc"
-            #include "UnityVC.cginc"
+			#include "UnityVC.cginc"
 
 			ENDCG
 		}
@@ -116,11 +117,11 @@ Shader "Standard (Vertex Color)" {
 			
 			#pragma shader_feature _NORMALMAP
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
-			#pragma shader_feature _METALLICGLOSSMAP
+			#pragma shader_feature _SPECGLOSSMAP
 			#pragma shader_feature ___ _DETAIL_MULX2
 			#pragma shader_feature _PARALLAXMAP
-                        #pragma shader_feature _VERTEXCOLOR
-
+			#pragma shader_feature _VERTEXCOLOR
+			
 			#pragma multi_compile_fwdadd_fullshadows
 			#pragma multi_compile_fog
 			
@@ -129,6 +130,7 @@ Shader "Standard (Vertex Color)" {
 
 			#include "UnityStandardCore.cginc"
                         #include "UnityVC.cginc"
+
 			ENDCG
 		}
 		// ------------------------------------------------------------------
@@ -175,10 +177,11 @@ Shader "Standard (Vertex Color)" {
 			#pragma shader_feature _NORMALMAP
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
 			#pragma shader_feature _EMISSION
-			#pragma shader_feature _METALLICGLOSSMAP
+			#pragma shader_feature _SPECGLOSSMAP
 			#pragma shader_feature ___ _DETAIL_MULX2
 			#pragma shader_feature _PARALLAXMAP
-            #pragma shader_feature _VERTEXCOLOR_OFF _VERTEXCOLOR _VERTEXCOLOR_LERP
+			#pragma shader_feature _VERTEXCOLOR
+			#pragma shader_feature _VERTEXCOLOR_LERP
 
 			#pragma multi_compile ___ UNITY_HDR_ON
 			#pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
@@ -189,7 +192,7 @@ Shader "Standard (Vertex Color)" {
 			#pragma fragment fragDeferred_VC
 
 			#include "UnityStandardCore.cginc"
-            #include "UnityVC.cginc"
+			#include "UnityVC.cginc"
 
 			ENDCG
 		}
@@ -209,7 +212,7 @@ Shader "Standard (Vertex Color)" {
 			#pragma fragment frag_meta
 
 			#pragma shader_feature _EMISSION
-			#pragma shader_feature _METALLICGLOSSMAP
+			#pragma shader_feature _SPECGLOSSMAP
 			#pragma shader_feature ___ _DETAIL_MULX2
 
 			#include "UnityStandardMeta.cginc"
@@ -238,12 +241,13 @@ Shader "Standard (Vertex Color)" {
 			#pragma shader_feature _NORMALMAP
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
 			#pragma shader_feature _EMISSION 
-			#pragma shader_feature _METALLICGLOSSMAP 
+			#pragma shader_feature _SPECGLOSSMAP
 			#pragma shader_feature ___ _DETAIL_MULX2
-            #pragma shader_feature _VERTEXCOLOR_OFF _VERTEXCOLOR _VERTEXCOLOR_LERP
+            #pragma shader_feature _VERTEXCOLOR
+			#pragma shader_feature _VERTEXCOLOR_LERP
 			// SM2.0: NOT SUPPORTED shader_feature _PARALLAXMAP
 
-			#pragma skip_variants SHADOWS_SOFT DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
+			#pragma skip_variants SHADOWS_SOFT DYNAMICLIGHTMAP_ON DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
 
 			#pragma multi_compile_fwdbase
 			#pragma multi_compile_fog
@@ -252,7 +256,7 @@ Shader "Standard (Vertex Color)" {
 			#pragma fragment fragForwardBase_VC
 
 			#include "UnityStandardCore.cginc"
-            #include "UnityVC.cginc"
+			#include "UnityVC.cginc"
 
 			ENDCG
 		}
@@ -272,11 +276,11 @@ Shader "Standard (Vertex Color)" {
 
 			#pragma shader_feature _NORMALMAP
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
-			#pragma shader_feature _METALLICGLOSSMAP
+			#pragma shader_feature _SPECGLOSSMAP
 			#pragma shader_feature ___ _DETAIL_MULX2
 			// SM2.0: NOT SUPPORTED shader_feature _PARALLAXMAP
 			#pragma skip_variants SHADOWS_SOFT
-			#pragma shader_feature _VERTEXCOLOR
+                        #pragma shader_feature _VERTEXCOLOR
 
 			#pragma multi_compile_fwdadd_fullshadows
 			#pragma multi_compile_fog
@@ -286,6 +290,7 @@ Shader "Standard (Vertex Color)" {
 
 			#include "UnityStandardCore.cginc"
                         #include "UnityVC.cginc"
+
 			ENDCG
 		}
 		// ------------------------------------------------------------------
@@ -316,7 +321,7 @@ Shader "Standard (Vertex Color)" {
 		// This pass it not used during regular rendering.
 		Pass
 		{
-			Name "META" 
+			Name "META"
 			Tags { "LightMode"="Meta" }
 
 			Cull Off
@@ -326,7 +331,7 @@ Shader "Standard (Vertex Color)" {
 			#pragma fragment frag_meta
 
 			#pragma shader_feature _EMISSION
-			#pragma shader_feature _METALLICGLOSSMAP
+			#pragma shader_feature _SPECGLOSSMAP
 			#pragma shader_feature ___ _DETAIL_MULX2
 
 			#include "UnityStandardMeta.cginc"

@@ -3,7 +3,7 @@
 	using System;
 	using System.Xml.Linq;
 	using UnityEngine;
-	using UnityVC;
+	//using UnityVC;
 
 	public class X3DMaterial : X3DNode
 	{
@@ -32,6 +32,8 @@
 			this.SpecularColor = specularColor;
 			this.Shininess = shininess;
 			this.Transparency = transparency;
+
+            Debug.Log("Created Material with values: " + ambientIntensity + ", " + emissiveColor + ", " + diffuseColor + ", " + specularColor + ", " + shininess + ", " + transparency);
 		}
 
 		override public void Convert (GameObject obj)
