@@ -7,6 +7,7 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
     private Mesh slicingPlaneMesh;
     private GameObject gameObjectToSlice;
     private List<GameObject> trianglesRenderers = new List<GameObject>();
+    private List<Vector3> 
 
     void Awake () {
         Globals.slicingPlane = this;
@@ -155,10 +156,6 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
                 int[] posVertexIndex = new int[verticesToSlice.Length];
                 List<int> posTrianglesL = new List<int>();
 
-                List<Vector3> negVerticesL = new List<Vector3>();
-                int[] negVertexIndex = new int[verticesToSlice.Length];
-                List<int> negTrianglesL = new List<int>();
-
                 Mesh slicingPlaneMesh = gameObject.GetComponent<MeshFilter>().sharedMesh;
                 Vector3[] slicingPlaneVertices = slicingPlaneMesh.vertices;
 
@@ -181,14 +178,9 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
                     {
                         posVertexIndex[i] = posVerticesL.Count;
                         posVerticesL.Add(verticesToSlice[i]);
-
-                        negVertexIndex[i] = -1;
                     }
                     else if (!myPlane.GetSide(tmpVertices))
                     {
-                        negVertexIndex[i] = negVerticesL.Count;
-                        negVerticesL.Add(verticesToSlice[i]);
-
                         posVertexIndex[i] = -1;
                     }
                     i++;
@@ -206,28 +198,17 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
                         posTrianglesL.Add(posVertexIndex[trianglesToSlice[j + 1]]);
                         posTrianglesL.Add(posVertexIndex[trianglesToSlice[j + 2]]);
                     }
-                    else if (!myPlane.GetSide(tmpTriangle) && !myPlane.GetSide(tmpTriangle1) && !myPlane.GetSide(tmpTriangle2))
-                    {
-                        negTrianglesL.Add(negVertexIndex[trianglesToSlice[j]]);
-                        negTrianglesL.Add(negVertexIndex[trianglesToSlice[j + 1]]);
-                        negTrianglesL.Add(negVertexIndex[trianglesToSlice[j + 2]]);
-                    }
                 }
 
-                Debug.Log("PosTrianglesCount: " + posTrianglesL.Count);
-                Debug.Log("PosVerticesCount: " + posVerticesL.Count);
-
-                Debug.Log("NegTrianglesCount: " + negTrianglesL.Count);
-                Debug.Log("NegVerticesCount: " + negVerticesL.Count);
-
-                meshToSlice.triangles = posTrianglesL.ToArray();
-                meshToSlice.vertices = posVerticesL.ToArray();
-                meshToSlice.RecalculateBounds();
-
-                slicedMesh.triangles = negTrianglesL.ToArray();
-                slicedMesh.vertices = negVerticesL.ToArray();
+                slicedMesh.triangles = posTrianglesL.ToArray();
+                slicedMesh.vertices = posVerticesL.ToArray();
                 slicedMesh.RecalculateBounds();
             }
         }
+    }
+
+    public void Undo()
+    {
+        Debug.Log("Undo function called");
     }
 }

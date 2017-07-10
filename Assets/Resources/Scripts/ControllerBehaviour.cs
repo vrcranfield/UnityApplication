@@ -48,6 +48,10 @@ public class ControllerBehaviour : MonoBehaviour
     {
         if (collidedObject != null)
             collidedObject.OnBeginInteraction(this);
+        else if (collidedObject == null && Globals.slicingManager.IsShowing())
+        {
+            Globals.slicingManager.Undo();
+        }
     }
 
     private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)

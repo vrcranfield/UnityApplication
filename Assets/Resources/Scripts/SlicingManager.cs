@@ -44,6 +44,11 @@ public class SlicingManager : MonoBehaviour {
         plane.Clip();
     }
 
+    public void Undo()
+    {
+        plane.Undo();
+    }
+
     public void HighlightIntersection()
     {
         plane.HighlightIntersection();

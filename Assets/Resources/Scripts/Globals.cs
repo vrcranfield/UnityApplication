@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using VRTK;
 
 public static class Globals
@@ -30,6 +32,9 @@ public static class Globals
 
         if (ParaviewObjectLoadedCallbacks != null)
             ParaviewObjectLoadedCallbacks(paraviewObj);
+
+
+
     }
 
     public static void UnregisterParaviewObject()
