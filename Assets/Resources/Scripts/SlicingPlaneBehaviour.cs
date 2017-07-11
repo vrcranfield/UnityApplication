@@ -153,7 +153,7 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
                 {
                     for (int vertexIndex = 0; vertexIndex < verticesToSlice.Length; vertexIndex++)
                         verticesList[0].Add(verticesToSlice[vertexIndex]);
-                    for (int triangleIndex = 0; triangleIndex < verticesToSlice.Length; triangleIndex++)
+                    for (int triangleIndex = 0; triangleIndex < trianglesToSlice.Length; triangleIndex++)
                         trianglesList[0].Add(trianglesToSlice[triangleIndex]);
                 }
 
