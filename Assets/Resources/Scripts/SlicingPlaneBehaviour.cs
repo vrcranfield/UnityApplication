@@ -6,8 +6,10 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
 
     private Mesh slicingPlaneMesh;
     private GameObject gameObjectToSlice;
+    private GameObject gOToSRef;
     private List<List<Vector3>> verticesList = new List<List<Vector3>>();
     private List<List<int>> trianglesList = new List<List<int>>();
+    private int meshCount;
     private List<GameObject> trianglesRenderers = new List<GameObject>();
 
     void Awake () {
@@ -141,25 +143,23 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
         {
             Debug.Log("Clipping Object");
 
-            Transform clone = clone = ((Transform)Instantiate(gameObjectToSlice.transform, transform.position + new Vector3(0, 0.25f, 0), gameObjectToSlice.transform.rotation));
-
             for (int meshIndex = 0; meshIndex < gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length; meshIndex++)
             {
+                gOToSRef = gameObjectToSlice;
                 Mesh meshToSlice = gameObjectToSlice.GetComponentsInChildren<MeshFilter>()[meshIndex].mesh;
                 Vector3[] verticesToSlice = meshToSlice.vertices;
                 int[] trianglesToSlice = meshToSlice.triangles;
 
                 if(verticesList.Count == 0 && trianglesList.Count == 0)
                 {
+                    verticesList.Add(new List<Vector3>());
+                    trianglesList.Add(new List<int>());
                     for (int vertexIndex = 0; vertexIndex < verticesToSlice.Length; vertexIndex++)
                         verticesList[0].Add(verticesToSlice[vertexIndex]);
                     for (int triangleIndex = 0; triangleIndex < trianglesToSlice.Length; triangleIndex++)
                         trianglesList[0].Add(trianglesToSlice[triangleIndex]);
+                    meshCount = 1;
                 }
-
-                Mesh slicedMesh = clone.GetComponentsInChildren<MeshFilter>()[meshIndex].mesh;
-                Vector3[] slicedVertices = slicedMesh.vertices;
-                int[] slicedTriangles = slicedMesh.triangles;
 
                 List<Vector3> posVerticesL = new List<Vector3>();
                 int[] posVertexIndex = new int[verticesToSlice.Length];
@@ -208,26 +208,33 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
                         posTrianglesL.Add(posVertexIndex[trianglesToSlice[j + 2]]);
                     }
                 }
+                verticesList.Add(new List<Vector3>());
+                trianglesList.Add(new List<int>());
+                for (int vertexIndex = 0; vertexIndex < posVerticesL.Count; vertexIndex++)
+                    verticesList[meshCount].Add(posVerticesL[vertexIndex]);
+                for (int triangleIndex = 0; triangleIndex < posTrianglesL.Count; triangleIndex++)
+                    trianglesList[meshCount].Add(posTrianglesL[triangleIndex]);
+                meshCount += 1;
 
-                for (int vertexIndex = 0; vertexIndex < slicedVertices.Length; vertexIndex++)
-                    verticesList[gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length].Add(slicedVertices[vertexIndex]);
-                for (int triangleIndex = 0; triangleIndex < slicedTriangles.Length; triangleIndex++)
-                    trianglesList[gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length].Add(slicedTriangles[triangleIndex]);
-
-                slicedMesh.triangles = posTrianglesL.ToArray();
-                slicedMesh.vertices = posVerticesL.ToArray();
-                slicedMesh.RecalculateBounds();
+                meshToSlice.triangles = posTrianglesL.ToArray();
+                meshToSlice.vertices = posVerticesL.ToArray();
+                meshToSlice.RecalculateBounds();
             }
         }
-        else if(gameObjectToSlice == null && gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length > 1)
+        else if(gameObjectToSlice == null && meshCount > 1)
         {
-            Mesh meshToShow = gameObjectToSlice.GetComponentsInChildren<MeshFilter>()[gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length-1].mesh;
-            meshToShow.triangles = trianglesList[gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length - 1].ToArray();
-            meshToShow.vertices = verticesList[gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length - 1].ToArray();
-            meshToShow.RecalculateBounds();
+            for (int meshIndex = 0; meshIndex < gOToSRef.GetComponentsInChildren<MeshFilter>().Length; meshIndex++)
+            {
+                Debug.Log("Undo");
+                Mesh meshToShow = gOToSRef.GetComponentsInChildren<MeshFilter>()[meshIndex].mesh;
+                meshToShow.triangles = trianglesList[meshCount - 1].ToArray();
+                meshToShow.vertices = verticesList[meshCount - 1].ToArray();
+                meshToShow.RecalculateBounds();
 
-            verticesList[gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length] = new List<Vector3>();
-            trianglesList[gameObjectToSlice.GetComponentsInChildren<MeshFilter>().Length] = new List<int>();
+                verticesList[meshCount - 1] = new List<Vector3>();
+                trianglesList[meshCount - 1] = new List<int>();
+                meshCount -= 1;
+            }
         }
     }
 
