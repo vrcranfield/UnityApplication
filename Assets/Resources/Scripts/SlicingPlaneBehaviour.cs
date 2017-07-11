@@ -227,8 +227,8 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
             {
                 Debug.Log("Undo");
                 Mesh meshToShow = gOToSRef.GetComponentsInChildren<MeshFilter>()[meshIndex].mesh;
-                meshToShow.triangles = trianglesList[meshCount - 1].ToArray();
-                meshToShow.vertices = verticesList[meshCount - 1].ToArray();
+                meshToShow.triangles = trianglesList[meshCount - 2].ToArray();
+                meshToShow.vertices = verticesList[meshCount - 2].ToArray();
                 meshToShow.RecalculateBounds();
 
                 verticesList[meshCount - 1] = new List<Vector3>();
