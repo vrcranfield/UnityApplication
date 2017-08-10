@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589185, b: 0.29782563, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 86278511}
   - component: {fileID: 86278516}
   m_Layer: 5
-  m_Name: StaticMenu
+  m_Name: '[StaticMenuManager]'
   m_TagString: Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 86278510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0cfab397520b44bae6a8c14fe27353, type: 3}
+  m_Script: {fileID: 11500000, guid: 45a1e43cfc4ca1445978a202a3382bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &96199102
@@ -697,7 +697,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86278516}
+      - m_Target: {fileID: 0}
         m_MethodName: OnInvertHandsToggleChanged
         m_Mode: 0
         m_Arguments:
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86278516}
+      - m_Target: {fileID: 0}
         m_MethodName: OnCloseButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86278516}
+      - m_Target: {fileID: 0}
         m_MethodName: OnShowLogToggleChanged
         m_Mode: 0
         m_Arguments:
@@ -3159,7 +3159,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86278516}
+      - m_Target: {fileID: 0}
         m_MethodName: OnLightIntensitySliderChanged
         m_Mode: 2
         m_Arguments:
@@ -3362,7 +3362,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86278516}
+      - m_Target: {fileID: 0}
         m_MethodName: OnShowEnvironmentToggleChanged
         m_Mode: 0
         m_Arguments:
@@ -4379,7 +4379,7 @@ Transform:
   - {fileID: 1722514141}
   - {fileID: 1853717969}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &687694669
 MonoBehaviour:
@@ -5154,6 +5154,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 878869244}
   m_Mesh: {fileID: 4300020, guid: e99803b507045754b820e9d17ba7f3aa, type: 3}
+--- !u!1 &885758264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 885758266}
+  - component: {fileID: 885758265}
+  m_Layer: 0
+  m_Name: '[LightManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &885758265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 885758264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e047890701f5248b7853e19bfa2f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &885758266
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 885758264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1129951135}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &894794988
 GameObject:
   m_ObjectHideFlags: 0
@@ -6346,7 +6387,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86278516}
+      - m_Target: {fileID: 0}
         m_MethodName: OnQuitButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -6983,7 +7024,7 @@ GameObject:
   - component: {fileID: 1129951135}
   - component: {fileID: 1129951134}
   m_Layer: 0
-  m_Name: '[Light]'
+  m_Name: DirectionalLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7031,11 +7072,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1129951133}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5, y: 10, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 885758266}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1132986306
@@ -7783,7 +7824,7 @@ Prefab:
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 938
+      value: 881
       objectReference: {fileID: 0}
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
@@ -12617,7 +12658,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86278516}
+      - m_Target: {fileID: 0}
         m_MethodName: OnEnableBoundingBoxChanged
         m_Mode: 0
         m_Arguments:

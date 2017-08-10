@@ -3,7 +3,6 @@ using VRTK;
 
 public static class Globals
 {
-    public static StaticMenuBehaviour staticMenu;
     public static VRTK_RadialMenu radialMenu;
 
     public static GameObject paraviewObj;
@@ -18,6 +17,8 @@ public static class Globals
     public static AnimationManager animation;
     public static SizeManager sizer;
     public static SlicingManager slicing;
+    public static LightManager lighting;
+    public static StaticMenuManager staticMenu;
 
     public delegate void ParaviewObjectLoaded(GameObject paraviewObj);
     public static event ParaviewObjectLoaded ParaviewObjectLoadedCallbacks;

@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class StaticMenuBehaviour : MonoBehaviour {
+public class StaticMenuManager : MonoBehaviour
+{
 
     private ControllersManager controllers;
     private EnvironmentManager room;
     private LogManager logger;
     private HeadsetManager headset;
     private BoundingBoxBehaviour boundingBox;
+    private LightManager lighting;
 
     void Awake()
     {
         // Register
-        Globals.staticMenu = this;
+        //Globals.staticMenu = this;
 
         // Hide
         gameObject.SetActive(false);
@@ -21,12 +23,14 @@ public class StaticMenuBehaviour : MonoBehaviour {
         Globals.ParaviewObjectUnloadedCallbacks += OnParaviewObjectUnloaded;
     }
 
-    void Start () {
+    void Start()
+    {
         controllers = Globals.controllers;
         room = Globals.room;
         logger = Globals.logger;
         headset = Globals.headset;
         boundingBox = Globals.boundingBox;
+        lighting = Globals.lighting;
     }
 
     public void OnParaviewObjectLoaded(GameObject paraviewObj)
@@ -44,13 +48,13 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     public void OnQuitButtonClicked()
     {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         // Application.Quit() does not work in the editor so
         // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
         UnityEditor.EditorApplication.isPlaying = false;
-    #else
+#else
         Application.Quit();
-    #endif
+#endif
     }
 
     public void OnCloseButtonClicked()
@@ -61,8 +65,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     public void OnLightIntensitySliderChanged(Slider slider)
     {
-        float value = slider.value;
-        RenderSettings.ambientLight = new Color(value, value, value, 1);
+        lighting.SetIntensity(slider.value);
     }
 
     public void OnInvertHandsToggleChanged(bool value)
@@ -106,7 +109,7 @@ public class StaticMenuBehaviour : MonoBehaviour {
 
     private void UpdatePosition()
     {
-        if(headset == null)
+        if (headset == null)
         {
             // Necessary because the headset can take a while to spawn
             headset = Globals.headset;
