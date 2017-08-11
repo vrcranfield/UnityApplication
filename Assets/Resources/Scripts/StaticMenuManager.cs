@@ -14,7 +14,7 @@ public class StaticMenuManager : MonoBehaviour
     void Awake()
     {
         // Register
-        //Globals.staticMenu = this;
+        Globals.staticMenu = this;
 
         // Hide
         gameObject.SetActive(false);
@@ -37,12 +37,14 @@ public class StaticMenuManager : MonoBehaviour
     {
         // Enable the invert hands button
         transform.FindDeepChild("InvertHandsToggle").GetComponent<Toggle>().interactable = true;
+        transform.FindDeepChild("EnableBoundingBoxToggle").GetComponent<Toggle>().interactable = true;
     }
 
     public void OnParaviewObjectUnloaded()
     {
         // Disable the invert hands button
         transform.FindDeepChild("InvertHandsToggle").GetComponent<Toggle>().interactable = false;
+        transform.FindDeepChild("EnableBoundingBoxToggle").GetComponent<Toggle>().interactable = false;
     }
 
 
