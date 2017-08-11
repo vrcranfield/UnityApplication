@@ -10,11 +10,13 @@
 
     public class XDocumentLoader
     {
+        // Import OpenFileMapping from Windows SDK
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern SafeFileHandle OpenFileMapping(   uint dwDesiredAccess,
                                                         bool bInheritHandle,
                                                         string lpName);
 
+        // Import MapViewOfFile from Windows SDK
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern IntPtr MapViewOfFile( SafeFileHandle hFileMappingObject,
                                             UInt32 dwDesiredAccess,

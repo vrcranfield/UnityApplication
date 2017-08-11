@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public class AnimationManager : MonoBehaviour
 {
     private bool isPlaying = false;
@@ -96,4 +95,3 @@ public class AnimationManager : MonoBehaviour
         return isPlaying;
     }
 }
-

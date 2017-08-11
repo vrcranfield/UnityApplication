@@ -2,19 +2,6 @@
 using UnityEngine.UI;
 using VRTK;
 
-/// <summary>
-/// This canvas adds a frames per second text element to the headset. To use the prefab it must be placed into the scene then the headset camera needs attaching to the canvas:
-/// </summary>
-/// <remarks>
-///   * Select `FramesPerSecondCanvas` object from the scene objects
-///   * Find the `Canvas` component
-///   * Set the `Render Camera` parameter to the camera used by the VR Headset (e.g. SteamVR: [CameraRig]-> Camera(Head) -> Camera(eye)])
-///
-/// This script is pretty much a copy and paste from the script at: http://talesfromtherift.com/vr-fps-counter/ So all credit to Peter Koch for his work. Twitter: @peterept
-/// </remarks>
-/// <example>
-/// `VRTK/Examples/018_CameraRig_FramesPerSecondCounter` displays the frames per second in the centre of the headset view. Pressing the trigger generates a new sphere and pressing the touchpad generates ten new spheres. Eventually when lots of spheres are present the FPS will drop and demonstrate the prefab.
-/// </example>
 public class LogManager : MonoBehaviour
 {
     [Tooltip("The size of the font the text is displayed in.")]

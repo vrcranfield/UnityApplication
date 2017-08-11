@@ -3,7 +3,6 @@ using VRTK;
 
 public class RadialMenuBehaviour : MonoBehaviour {
 
-    //AnimationManager animationManager;
     VRTK_RadialMenu vrtkRadialMenu;
 
     public enum ButtonsId

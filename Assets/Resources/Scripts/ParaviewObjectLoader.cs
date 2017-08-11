@@ -15,7 +15,6 @@
 
         void Start()
         {
-
             // Set up welcoming socket
             listener = new TcpListener(IPAddress.Loopback, 0);
             listener.Start();

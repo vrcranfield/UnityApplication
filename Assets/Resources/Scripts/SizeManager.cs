@@ -41,7 +41,6 @@ public class SizeManager : MonoBehaviour
         if (obj != null)
         {
             obj.transform.localScale *= ((1 + NON_LINEARITY_FACTOR) + scaleSpeed * Time.deltaTime);
-            Center();
         }
     }
 
@@ -50,7 +49,6 @@ public class SizeManager : MonoBehaviour
         if (obj != null)
         {
             obj.transform.localScale *= ((1 - NON_LINEARITY_FACTOR) - scaleSpeed * Time.deltaTime);
-            Center();
         }
     }
 
@@ -60,13 +58,6 @@ public class SizeManager : MonoBehaviour
             float objectRadius = obj.GetComponentInChildren<MeshRenderer>().bounds.size.magnitude;
             obj.transform.localScale = targetSize * obj.transform.localScale / objectRadius;
             Globals.logger.Log("Resizing object of radius: " + objectRadius);
-    }
-
-    public void Center()
-    {
-       // // Recenter
-       //Vector3 objectCenter = obj.GetComponentInChildren<MeshRenderer>().bounds.center;
-       // transform.position -= objectCenter; //new Vector3(objectCenter.x, objectCenter.y, objectCenter.z);
     }
 
 }
