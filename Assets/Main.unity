@@ -4328,7 +4328,7 @@ GameObject:
   - component: {fileID: 687694667}
   - component: {fileID: 687694669}
   m_Layer: 0
-  m_Name: '[VRTK]'
+  m_Name: '[VRManager]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
