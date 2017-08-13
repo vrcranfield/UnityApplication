@@ -1,13 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using VRTK;
+﻿using VRTK;
 
+/**
+ * Behavior for controller's pointer-UI interactions.
+ */
 public class UIPointerRadialMenuBehaviour : VRTK_UIPointer {
 
+    // Fields
     protected VRTK_RadialMenu radialMenu;
     protected ControllerBehaviour behaviour;
 
+    /**
+     * Called at object's initialization
+     */
     protected override void Awake()
     {
         base.Awake();
@@ -15,17 +19,14 @@ public class UIPointerRadialMenuBehaviour : VRTK_UIPointer {
         radialMenu = transform.FindDeepChild("RadialMenuUI/Panel").GetComponent<VRTK_RadialMenu>();
     }
 
-    void Start()
-    {
-    }
-
-    // We want to disable the pointer if this controller is the one with the radial menu
+    /**
+     * Handles interaction between the pointer and the UI elements
+     */
     public override bool PointerActive()
     {
+        // Disable pointer interactions for radial menu controller
         if (behaviour.isRadialMenuController)
-        {
             return false;
-        }
 
         return base.PointerActive();
     }

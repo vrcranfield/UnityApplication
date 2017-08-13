@@ -1,15 +1,25 @@
 ﻿using UnityEngine;
 
+/**
+ * Behavior for the floor of the room
+ */
 public class FloorBehaviour : MonoBehaviour {
 
-    Material startingMaterial;
-    Material defaultMaterial;
+    // Fields
+    private Material startingMaterial;
+    private Material defaultMaterial;
 
-	void Awake () {
+    /**
+     * Called at object's initialization
+     */
+    void Awake () {
         startingMaterial = GetComponent<Renderer>().material;
         defaultMaterial = new Material(Shader.Find("Diffuse"));
     }
 	
+    /**
+     * Enables or disables the custom material
+     */
     public void SetMaterial(bool isStartingMaterial)
     {
         if (isStartingMaterial)

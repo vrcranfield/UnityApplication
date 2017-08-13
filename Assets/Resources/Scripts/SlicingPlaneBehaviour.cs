@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/**
+ * Behavior script for the mock implementation of the slicing plane
+ */
 public class SlicingPlaneBehaviour : MonoBehaviour {
 
-	// Use this for initialization
-	void Awake () {
-        Globals.slicingPlane = this;
-        gameObject.SetActive(false);
-	}
-
+    /**
+     * Attaches the plane to the controller's position and shows it
+     */
     public void Show (ControllerBehaviour controller)
     {
         transform.position = controller.transform.position;
@@ -19,12 +17,18 @@ public class SlicingPlaneBehaviour : MonoBehaviour {
         gameObject.SetActive(true);
     }
 
+    /**
+     * Hides the plane
+     */
     public void Hide ()
     {
         gameObject.SetActive(false);
         transform.parent = null;
     }
 
+    /**
+     * Returns current plane visibility
+     */
     public bool IsShowing()
     {
         return gameObject.activeSelf;

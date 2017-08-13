@@ -1,31 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/**
+ * Manager for the slicing feature of the ParaView object
+ */
 public class SlicingManager : MonoBehaviour {
 
-    SlicingPlaneBehaviour plane;
+    // Fields
+    private SlicingPlaneBehaviour plane;
 
+    /**
+     * Called at object's initialization
+     */
     void Awake()
     {
+        // Register self to globals
         Globals.slicing = this;
+
+        // Save references
+        plane = GetComponentInChildren<SlicingPlaneBehaviour>();
+
+        // Plane is hidden by default
+        HidePlane();
     }
 
-	void Start () {
-        plane = Globals.slicingPlane;	
-	}
-
+    /**
+     * Attaches the slicing plan to a controller and shows it
+     */
     public void ShowPlane()
     {
         ControllerBehaviour controller = Globals.controllers.getNonRadialController();
         plane.Show(controller);
     }
 
+    /**
+     * Hides the slicing plane
+     */
     public void HidePlane()
     {
         plane.Hide();
     }
 
+    /**
+     * Toggles slicing plane visibility
+     */
     public void TogglePlane()
     {
         if (plane.IsShowing())
@@ -33,5 +50,4 @@ public class SlicingManager : MonoBehaviour {
         else
             ShowPlane();
     }
-	
 }
