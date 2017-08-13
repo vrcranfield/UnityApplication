@@ -72,10 +72,7 @@ public class StaticMenuManager : MonoBehaviour
     public void OnQuitButtonClicked()
     {
         // Quit the application
-        if(mode.isEditorMode())
-            UnityEditor.EditorApplication.isPlaying = false;
-        else
-            Application.Quit();
+        mode.QuitApplication();
     }
 
     /**

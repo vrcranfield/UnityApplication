@@ -26,5 +26,17 @@ public class ModeManager : MonoBehaviour {
     public bool isEditorMode()
     {
         return EDITOR_MODE;
-    }   
+    }
+
+    /**
+     * Quits the application according to mode
+     */
+     public void QuitApplication()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }
