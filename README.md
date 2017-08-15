@@ -1,4 +1,3 @@
-# VR for CFD
-## Virtual Reality menu in Unity.
+# Virtual Reality Application for Computational Fluid Dynamics data
 
-This repo is for the development of a Virtual Reality environment in Unity. Its aim is to show the capabilties of VR (specifically in the designing of menus and other forms of interaction) for CFD data visualization and manipulation.
+This repository hosts the code for the Unity Application designed by Lorenzo D'Eri for his MSc Thesis. It allows visualization, interaction and manipulation of ParaView objects. 
