@@ -1,0 +1,7 @@
+The exe can be reached at Thesis_Source_Code/unity-menu/unity_player.exe but do not expect to see wonderfull things.
+The application is suited to work along with Paraview that provides the CFD data.
+
+You can find a fully detailed guide on how to successfully build and install ParaUnity here: https://github.com/vrcranfield/ParaviewUnity
+Be carefull with the PREREQUISITES part of RUNNING WITH A SCENE chapter: Here there is no need to click on the link
+	because the scene is already in the Thesis Source Code folder.
+The Unity 5.6.1f1 installer is also in the Thesis Source Code folder.
